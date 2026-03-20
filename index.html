@@ -675,12 +675,54 @@ function chkLv(op,np){
     fx.appendChild(ring);
   }
   ov.classList.remove("hd");
-  // Tap anywhere to close
+  // Tap anywhere to close (delayed so the triggering tap doesn't close it)
   var hint=document.createElement("p");
   hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
   hint.textContent=L==="en"?"tap to close":"탭하여 닫기";
   ov.appendChild(hint);
-  ov.onclick=function(){ov.classList.add("hd");fx.innerHTML="";ct.style.animation="";if(hint.parentNode)hint.remove();ov.onclick=null;};
+  setTimeout(function(){
+    ov.onclick=function(){ov.classList.add("hd");fx.innerHTML="";ct.style.animation="";if(hint.parentNode)hint.remove();ov.onclick=null;};
+  },500);
+}
+
+// Replay a level-up effect from the gallery
+function replayLvl(idx){
+  var nl=LV[idx];if(!nl)return;
+  // Use the same logic as chkLv but force trigger
+  var ov=$("lvl-overlay"),bg=$("lvl-bg"),fx=$("lvl-fx"),ct=$("lvl-center");
+  $("lvl-icon").textContent=nl.icon;
+  $("lvl-txt").textContent=(nl[L]||nl.en);
+  $("lvl-desc").textContent=nl["desc_"+L]||nl.desc_en;
+  fx.innerHTML="";
+  ct.style.animation="lu .5s ease both";
+  bg.style.cssText="background:rgba(15,10,30,0.95);";
+  // Remove old hints
+  var oldHints=ov.querySelectorAll("p");oldHints.forEach(function(p){if(p.id!=="lvl-desc"&&p.id!=="lvl-txt")p.remove();});
+
+  var eff=nl.eff;
+  if(eff==="dim"){bg.style.cssText="background:rgba(0,0,0,0.98);animation:lvDim 3s ease both;";}
+  if(eff==="zoom"){ct.style.animation="lvZoom .8s ease both";for(var i=0;i<12;i++){var p=document.createElement("div");p.className="lv-particle";p.style.cssText="width:3px;height:3px;background:#a855f7;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(1+Math.random()*2)+"s ease "+(Math.random()*0.5)+"s infinite";fx.appendChild(p);}}
+  if(eff==="launch"){bg.style.cssText="background:linear-gradient(180deg,#0a0a2e,#1a0530);";ct.style.animation="lvShake .5s ease, lu .5s ease both";var rk=document.createElement("div");rk.textContent="🚀";rk.style.cssText="position:absolute;bottom:10%;left:50%;font-size:60px;transform:translateX(-50%);animation:rocketLaunch 2s ease-in forwards";fx.appendChild(rk);for(var i=0;i<20;i++){var p=document.createElement("div");p.className="lv-particle";p.style.cssText="width:"+(2+Math.random()*4)+"px;height:"+(2+Math.random()*4)+"px;background:"+["#f59e0b","#ef4444","#ec4899"][Math.floor(Math.random()*3)]+";left:"+(40+Math.random()*20)+"%;bottom:5%;animation:lvBubble "+(0.5+Math.random()*1.5)+"s ease "+(Math.random()*0.8)+"s forwards";fx.appendChild(p);}}
+  if(eff==="wake"){ct.style.animation="lvBlur 1.5s ease both";bg.style.cssText="background:rgba(15,10,30,0.98);";}
+  if(eff==="arrive"){bg.style.cssText="background:radial-gradient(ellipse at center,#1a1040,#0a0515);";for(var i=0;i<30;i++){var p=document.createElement("div");p.className="lv-particle";var sz=1+Math.random()*3;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:#fff;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(0.5+Math.random()*2)+"s ease "+(Math.random()*1)+"s infinite";fx.appendChild(p);}var ship=document.createElement("div");ship.textContent="✨";ship.style.cssText="position:absolute;right:10%;top:30%;font-size:24px;animation:lvFloat 2s ease infinite";fx.appendChild(ship);}
+  if(eff==="music"){bg.style.cssText="background:linear-gradient(180deg,#1a0a30,#0a1530);";var notes=["♩","♪","♫","♬","♩","♪"];for(var i=0;i<notes.length;i++){var p=document.createElement("div");p.textContent=notes[i];p.style.cssText="position:absolute;font-size:"+(20+Math.random()*20)+"px;color:"+["#a855f7","#ec4899","#f59e0b","#22c55e"][Math.floor(Math.random()*4)]+";left:"+(10+Math.random()*80)+"%;bottom:20%;animation:lvNote "+(2+Math.random()*2)+"s ease "+(i*0.3)+"s forwards";fx.appendChild(p);}}
+  if(eff==="glow"){ct.style.animation="lu .5s ease both, lvGlow 2s ease infinite";for(var i=0;i<8;i++){var p=document.createElement("div");p.className="lv-particle";var sz=2+Math.random()*2;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:#c084fc;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(2+Math.random()*3)+"s ease "+(Math.random())+"s infinite;opacity:0.5";fx.appendChild(p);}}
+  if(eff==="bubble"){bg.style.cssText="background:linear-gradient(180deg,#0a1a20,#0a0a1e);";for(var i=0;i<25;i++){var p=document.createElement("div");p.className="lv-particle";var sz=4+Math.random()*8;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:"+["rgba(168,85,247,0.6)","rgba(34,197,94,0.6)","rgba(99,102,241,0.5)"][Math.floor(Math.random()*3)]+";left:"+(10+Math.random()*80)+"%;bottom:-5%;border-radius:50%;animation:lvBubble "+(1+Math.random()*2)+"s ease "+(Math.random()*1.5)+"s forwards";fx.appendChild(p);}}
+  if(eff==="apart"){bg.style.cssText="background:rgba(15,10,30,0.97);";var l1=document.createElement("div");l1.textContent="🌍";l1.style.cssText="position:absolute;left:50%;top:40%;font-size:30px;transform:translateX(-50%);--dir:-120px;animation:lvApart 2.5s ease forwards";var l2=document.createElement("div");l2.textContent="⭐";l2.style.cssText="position:absolute;left:50%;top:40%;font-size:30px;transform:translateX(-50%);--dir:120px;animation:lvApart 2.5s ease forwards";fx.appendChild(l1);fx.appendChild(l2);}
+  if(eff==="alarm"){bg.style.cssText="background:rgba(20,5,5,0.95);";var al=document.createElement("div");al.style.cssText="position:absolute;inset:0;animation:lvAlarm 0.5s ease infinite;border:3px solid rgba(239,68,68,0.5)";fx.appendChild(al);var warn=document.createElement("div");warn.textContent="⚠️";warn.style.cssText="position:absolute;top:15%;left:50%;transform:translateX(-50%);font-size:40px;animation:lvFloat 1s ease infinite";fx.appendChild(warn);}
+  if(eff==="turn"){ct.style.animation="lvTurn 1s ease both";for(var i=0;i<15;i++){var p=document.createElement("div");p.className="lv-particle";p.style.cssText="width:2px;height:"+(20+Math.random()*40)+"px;background:rgba(168,85,247,"+(0.2+Math.random()*0.4)+");left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;transform:rotate(-30deg);animation:lvTwinkle "+(0.3+Math.random()*0.7)+"s ease "+(Math.random()*0.5)+"s infinite";fx.appendChild(p);}}
+  if(eff==="firework"){var colors=["#a855f7","#ec4899","#f59e0b","#22c55e","#6366f1","#fff"];for(var b2=0;b2<3;b2++){var cx=(20+b2*30),cy=(30+Math.random()*20);setTimeout(function(cx2,cy2){for(var i=0;i<15;i++){var p=document.createElement("div");p.className="lv-particle";var sz=3+Math.random()*4,angle=Math.random()*Math.PI*2,dist=50+Math.random()*60;var tx2=Math.cos(angle)*dist,ty2=Math.sin(angle)*dist;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:"+colors[Math.floor(Math.random()*colors.length)]+";left:"+cx2+"%;top:"+cy2+"%;transition:all 0.8s cubic-bezier(0,.5,.5,1);opacity:1";fx.appendChild(p);setTimeout(function(el,x,y){el.style.transform="translate("+x+"px,"+y+"px)";el.style.opacity="0";},50,p,tx2,ty2);}},b2*400,cx,cy);}}
+  if(eff==="warp"){bg.style.cssText="background:linear-gradient(180deg,#0a0520,#0f0a1e);";ct.style.animation="lvWarp 1s ease both, lu .5s ease both";for(var i=0;i<30;i++){var p=document.createElement("div");p.className="lv-particle";var w=1+Math.random()*2,h2=40+Math.random()*100;p.style.cssText="width:"+w+"px;height:"+h2+"px;background:linear-gradient(transparent,"+["#a855f7","#6366f1","#fff"][Math.floor(Math.random()*3)]+",transparent);left:"+Math.random()*100+"%;top:"+(Math.random()*100-50)+"%;transform:rotate(90deg);animation:lvTwinkle "+(0.2+Math.random()*0.5)+"s ease "+(Math.random()*0.8)+"s infinite";fx.appendChild(p);}}
+  if(eff==="finale"){bg.style.cssText="background:radial-gradient(ellipse at center,#2a1a00,#0f0a1e);";for(var i=0;i<20;i++){var p=document.createElement("div");p.className="lv-particle";var sz=3+Math.random()*5;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:"+["#fbbf24","#f59e0b","#fff","#fde68a"][Math.floor(Math.random()*4)]+";left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(0.5+Math.random()*2)+"s ease "+(Math.random())+"s infinite";fx.appendChild(p);}var colors2=["#fbbf24","#a855f7","#ec4899","#fff"];setTimeout(function(){for(var b2=0;b2<2;b2++){var cx2=(30+b2*40),cy2=(25+Math.random()*15);for(var i=0;i<12;i++){var p=document.createElement("div");p.className="lv-particle";var sz=3+Math.random()*3,angle=Math.random()*Math.PI*2,dist=40+Math.random()*50;var tx2=Math.cos(angle)*dist,ty2=Math.sin(angle)*dist;p.style.cssText="width:"+sz+"px;height:"+sz+"px;background:"+colors2[Math.floor(Math.random()*colors2.length)]+";left:"+cx2+"%;top:"+cy2+"%;transition:all 1s cubic-bezier(0,.5,.5,1);opacity:1";fx.appendChild(p);setTimeout(function(el,x,y){el.style.transform="translate("+x+"px,"+y+"px)";el.style.opacity="0";},50,p,tx2,ty2);}}},500);var ring=document.createElement("div");ring.style.cssText="position:absolute;left:50%;top:45%;width:100px;height:100px;transform:translate(-50%,-50%);border:2px solid rgba(251,191,36,0.5);border-radius:50%;animation:lvExplode 2s ease 0.3s forwards";fx.appendChild(ring);}
+
+  ov.classList.remove("hd");
+  var hint=document.createElement("p");
+  hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
+  hint.textContent=L==="en"?"tap to close":"탭하여 닫기";
+  ov.appendChild(hint);
+  setTimeout(function(){
+    ov.onclick=function(){ov.classList.add("hd");fx.innerHTML="";ct.style.animation="";if(hint.parentNode)hint.remove();ov.onclick=null;};
+  },500);
 }
 
 function navD(n){sel.setDate(sel.getDate()+n);render();}
@@ -955,6 +997,27 @@ function render(){
     h+='<div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.1))"><div style="font-size:48px">'+lv2.icon+'</div><h3 style="font-size:16px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(lv2[L]||lv2.en)+'</h3><p style="font-size:11px;color:var(--t3);margin-top:6px">'+t("tPts").replace("{n}",D.pts||0)+'</p>';
     if(nl2)h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">'+t("nLvl").replace("{n}",nl2.m-(D.pts||0))+'</p>';
     h+='</div>';
+
+    // Level Gallery
+    h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">🚀 '+(L==="en"?"Mission Log":"미션 로그")+'</p>';
+    h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px">';
+    var curPts=D.pts||0;
+    LV.forEach(function(lv,idx){
+      var achieved=curPts>=lv.m;
+      if(achieved){
+        h+='<button onclick="replayLvl('+idx+')" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);border-radius:10px;cursor:pointer;transition:all .2s">';
+        h+='<span style="font-size:24px">'+lv.icon+'</span>';
+        h+='<span style="font-size:8px;color:var(--acc);font-weight:700;text-align:center;line-height:1.2">'+(lv[L]||lv.en)+'</span>';
+        h+='</button>';
+      } else {
+        h+='<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;opacity:0.35">';
+        h+='<span style="font-size:24px">🔒</span>';
+        h+='<span style="font-size:8px;color:var(--t3);font-weight:700;text-align:center;line-height:1.2">'+lv.m+' pt</span>';
+        h+='</div>';
+      }
+    });
+    h+='</div></div>';
+
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
     h+='<div class="card" style="text-align:center"><span style="font-size:28px">🔥</span><p style="font-size:24px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+gSk()+'</p><p style="font-size:10px;color:var(--t3)">'+t("streak")+'</p></div>';
     h+='<div class="card" style="text-align:center"><span style="font-size:28px">📅</span><p style="font-size:24px;font-weight:900;color:var(--pink);font-family:var(--font-d)">'+Object.keys(D.days).filter(function(k){return comp(k).p>=50;}).length+'</p><p style="font-size:10px;color:var(--t3)">'+t("tDays")+'</p></div></div>';
