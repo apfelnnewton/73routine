@@ -21,8 +21,8 @@ document.head.appendChild(mLink);
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
---bg:#0f0a1e;--bg2:#1a1230;--card:rgba(255,255,255,0.06);--card-b:1px solid rgba(255,255,255,0.1);
---glass:rgba(255,255,255,0.08);--glass-b:1px solid rgba(255,255,255,0.12);
+--bg:#0f0a1e;--bg2:#1a1230;--card:rgba(255,255,255,0.08);--card-b:1px solid rgba(255,255,255,0.15);
+--glass:rgba(255,255,255,0.1);--glass-b:1px solid rgba(255,255,255,0.18);
 --t1:#f0e6ff;--t2:#c4b5d4;--t3:#8b7aa8;
 --acc:#a855f7;--acc2:#7c3aed;--acc3:#c084fc;
 --pink:#ec4899;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;--blue:#6366f1;
@@ -30,8 +30,8 @@ document.head.appendChild(mLink);
 --stars-display:block;
 }
 .light{
---bg:#eee5ff;--bg2:#e0d0ff;--card:rgba(255,255,255,0.7);--card-b:1px solid rgba(168,85,247,0.15);
---glass:rgba(255,255,255,0.6);--glass-b:1px solid rgba(168,85,247,0.15);
+--bg:#eee5ff;--bg2:#e0d0ff;--card:rgba(255,255,255,0.55);--card-b:1px solid rgba(168,85,247,0.12);
+--glass:rgba(255,255,255,0.5);--glass-b:1px solid rgba(168,85,247,0.15);
 --t1:#1a1230;--t2:#4b3a6b;--t3:#8b7aa8;
 --acc:#7c3aed;--acc2:#6d28d9;--acc3:#a855f7;
 --pink:#db2777;--green:#16a34a;--amber:#d97706;--red:#dc2626;--blue:#4f46e5;
@@ -51,32 +51,32 @@ max-width:480px;transition:background .3s,color .3s}
 
 button{cursor:pointer;font-family:inherit}input,textarea,select{font-family:inherit}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(168,85,247,0.15)}
-.card{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:var(--card-b);border-radius:16px;padding:14px;margin-bottom:8px;position:relative;z-index:1}
+.card{background:var(--card);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border:var(--card-b);border-top:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:14px;margin-bottom:8px;position:relative;z-index:1;box-shadow:0 4px 16px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.08)}
 .btn{padding:8px 16px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;transition:transform .15s,box-shadow .15s}
 .btn:active{transform:scale(0.95)}
-.bs{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--acc3);white-space:nowrap;flex-shrink:0}
-.inp{padding:8px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:13px;background:rgba(255,255,255,0.06);color:var(--t1);width:100%}
-.sel{padding:8px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:11px;background:rgba(255,255,255,0.06);color:var(--t1)}
+.bs{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--acc3);white-space:nowrap;flex-shrink:0;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.inp{padding:8px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:13px;background:rgba(255,255,255,0.07);color:var(--t1);width:100%;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.sel{padding:8px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:11px;background:rgba(255,255,255,0.07);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .sel option{background:var(--bg2);color:var(--t1)}
 .ta{width:100%;padding:8px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:12px;background:rgba(255,255,255,0.04);color:var(--t1);resize:none;line-height:1.6}
-.nb{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--acc3);font-weight:600}
+.nb{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--acc3);font-weight:600;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 
 /* Tabs */
-.tabs{display:flex;background:var(--bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:var(--card-b);
-border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:100;transition:background .3s}
+.tabs{display:flex;background:rgba(15,10,30,0.55);backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border-top:1px solid rgba(255,255,255,0.12);
+border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:100;transition:background .3s;box-shadow:0 -4px 20px rgba(0,0,0,0.3)}
 @media(min-width:768px){.tabs{max-width:720px}}
 @media(min-width:1024px){.tabs{max-width:900px}}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:none;border-radius:10px;background:transparent;color:var(--t3);font-size:8px;font-weight:600;transition:all .2s}
-.tab.on{background:rgba(168,85,247,0.15);color:var(--acc)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:none;border-radius:10px;background:transparent;color:var(--t3);font-size:10px;font-weight:600;transition:all .2s}
+.tab.on{background:rgba(168,85,247,0.18);color:var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1)}
 
 /* Toast */
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,var(--acc2),var(--pink));color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.2s}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,rgba(124,58,237,0.85),rgba(236,72,153,0.85));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3);border:1px solid rgba(255,255,255,0.15)}
 .toast.v{transform:translateX(-50%) scale(1)}
 .hd{display:none!important}
 
 /* Sub tabs */
-.st{flex:1;padding:8px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.04);color:var(--t3);font-size:12px;font-weight:700;text-align:center;transition:all .2s}
-.st.on{border-color:var(--acc);background:rgba(168,85,247,0.15);color:var(--acc)}
+.st{flex:1;padding:8px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:rgba(255,255,255,0.06);color:var(--t3);font-size:12px;font-weight:700;text-align:center;transition:all .2s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.st.on{border-color:var(--acc);background:rgba(168,85,247,0.18);color:var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1)}
 
 /* Day picker */
 .dp-on{background:var(--acc2)!important;color:#fff!important;border:none!important}
@@ -109,31 +109,31 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 @keyframes lvGolden{0%{background:radial-gradient(circle,rgba(251,191,36,0) 0%,transparent 70%)}50%{background:radial-gradient(circle,rgba(251,191,36,0.3) 0%,transparent 70%)}100%{background:radial-gradient(circle,rgba(251,191,36,0) 0%,transparent 70%)}}
 .lv-particle{position:absolute;border-radius:50%;pointer-events:none}
 /* Light mode overrides */
-.light .card{box-shadow:0 1px 8px rgba(124,58,237,0.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.light .card{box-shadow:0 4px 16px rgba(124,58,237,0.08),inset 0 1px 0 rgba(255,255,255,0.6);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border-top:1px solid rgba(255,255,255,0.5)}
 .light .btn{background:linear-gradient(135deg,var(--acc2),var(--acc))}
-.light .toast{background:linear-gradient(135deg,var(--acc2),var(--pink))}
-.light .tab.on{background:rgba(124,58,237,0.12)}
-.light .bs{background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.12);color:var(--acc2)}
-.light .inp{background:rgba(255,255,255,0.7);border:1px solid rgba(124,58,237,0.15);color:var(--t1)}
-.light .sel{background:rgba(255,255,255,0.7);border:1px solid rgba(124,58,237,0.15);color:var(--t1)}
-.light .ta{background:rgba(255,255,255,0.7);border:1px solid rgba(124,58,237,0.15);color:var(--t1)}
-.light .nb{background:rgba(255,255,255,0.7);border:1px solid rgba(124,58,237,0.12);color:var(--acc2)}
-.light .journal-toggle{background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.1)}
-.light .skip-btn{background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.1)}
+.light .toast{background:linear-gradient(135deg,rgba(124,58,237,0.85),rgba(219,39,119,0.85));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.light .tab.on{background:rgba(124,58,237,0.15);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)}
+.light .bs{background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.15);color:var(--acc2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.light .inp{background:rgba(255,255,255,0.6);border:1px solid rgba(124,58,237,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.light .sel{background:rgba(255,255,255,0.6);border:1px solid rgba(124,58,237,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.light .ta{background:rgba(255,255,255,0.6);border:1px solid rgba(124,58,237,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.light .nb{background:rgba(255,255,255,0.5);border:1px solid rgba(124,58,237,0.15);color:var(--acc2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.light .journal-toggle{background:rgba(255,255,255,0.4);border:1px solid rgba(124,58,237,0.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.light .skip-btn{background:rgba(124,58,237,0.06);border:1px solid rgba(124,58,237,0.12)}
 .light .star{background:var(--acc)!important;opacity:0.2!important}
-.light .tabs{background:rgba(238,229,255,0.92)}
-.light .st.on{background:rgba(124,58,237,0.12)}
+.light .tabs{background:rgba(238,229,255,0.5);border-top:1px solid rgba(168,85,247,0.12);box-shadow:0 -4px 20px rgba(124,58,237,0.08)}
+.light .st.on{background:rgba(124,58,237,0.15);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)}
 .light .sel option{background:#eee5ff;color:var(--t1)}
 @keyframes rocketLaunch{0%{transform:translateY(0) scale(1);opacity:1}50%{transform:translateY(-80px) scale(1.2);opacity:1}100%{transform:translateY(-200px) scale(0.5);opacity:0}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* Undo toast */
-.undo-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(30,20,50,0.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);color:var(--t1);padding:8px 16px;border-radius:12px;font-size:12px;z-index:9998;display:flex;align-items:center;gap:8px}
+.undo-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(30,20,50,0.7);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.18);color:var(--t1);padding:8px 16px;border-radius:12px;font-size:12px;z-index:9998;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
 .undo-btn{background:var(--acc);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700}
 
 /* Collapsible journal */
-.journal-toggle{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:10px;cursor:pointer;transition:all .2s}
-.journal-toggle:hover{background:rgba(255,255,255,0.08)}
+.journal-toggle{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:10px;cursor:pointer;transition:all .2s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.journal-toggle:hover{background:rgba(255,255,255,0.1)}
 .journal-body{overflow:hidden;transition:max-height .3s ease;max-height:0}
 .journal-body.open{max-height:300px}
 
@@ -143,8 +143,8 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 .timer-text{font-size:9px;font-weight:700;color:var(--acc3);font-family:var(--font-d);z-index:1}
 
 /* Skip button */
-.skip-btn{padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);font-size:9px;color:var(--t3);white-space:nowrap;flex-shrink:0}
-.skip-btn:hover{background:rgba(255,255,255,0.12)}
+.skip-btn{padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);font-size:9px;color:var(--t3);white-space:nowrap;flex-shrink:0}
+.skip-btn:hover{background:rgba(255,255,255,0.14)}
 .skipped{opacity:0.4;text-decoration:line-through}
 
 /* Level overlay */
@@ -165,12 +165,85 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.3);border-radius:2px}
+
+/* Rest badge */
+.rest-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);font-size:10px;color:var(--blue);font-weight:600}
+/* Weekly report */
+.report-card{background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.06));backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(168,85,247,0.2);border-top:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.08)}
+.report-stat{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.report-stat:last-child{border-bottom:none}
+/* Insight card */
+.insight-card{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(249,115,22,0.05));backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(239,68,68,0.2);border-top:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.06)}
+
+/* ===== 치지직 시스템 ===== */
+@keyframes cjGlitch{
+  0%{clip-path:inset(0 0 100% 0);transform:translate(0)}
+  5%{clip-path:inset(10% 0 60% 0);transform:translate(-4px,2px)}
+  10%{clip-path:inset(30% 0 40% 0);transform:translate(3px,-1px)}
+  15%{clip-path:inset(5% 0 80% 0);transform:translate(-2px,3px)}
+  20%{clip-path:inset(60% 0 10% 0);transform:translate(4px,0)}
+  25%{clip-path:inset(20% 0 50% 0);transform:translate(-3px,2px)}
+  30%{clip-path:inset(40% 0 20% 0);transform:translate(2px,-3px)}
+  50%{clip-path:inset(0 0 0 0);transform:translate(0)}
+  55%{clip-path:inset(25% 0 45% 0);transform:translate(3px,-1px)}
+  75%{clip-path:inset(0 0 0 0);transform:translate(0)}
+  100%{clip-path:inset(0 0 0 0);transform:translate(0)}
+}
+@keyframes cjScanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+@keyframes cjNoise{0%{background-position:0 0}25%{background-position:-15% 5%}50%{background-position:20% 25%}75%{background-position:0 15%}100%{background-position:0 0}}
+#cj-glitch-wrap{position:fixed;inset:0;z-index:9990;pointer-events:none;display:none;overflow:hidden;background:#0f0a1e}
+#cj-glitch-wrap.active{display:block}
+.cj-noise-layer{position:absolute;inset:-50%;width:200%;height:200%;
+  background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4t5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c4A9VUAAAAGXRSTlMAGBILBhMOCA8TBQQ3LCMZDA4UGBkgIiSFbEAAAABYSURBVDjLY2BgYGBg4GBgYGCg////MzAwMEBxAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA+z//z/gYGBgYGBgYGBg4GBgYGBgYGBg4GBgYGBgYGBgAI8lFbWcfBJjAAAAAElFTkSuQmCC");
+  opacity:0.06;animation:cjNoise 0.12s steps(1) infinite}
+.cj-scanline{position:absolute;left:0;right:0;height:2px;background:rgba(168,85,247,0.35);animation:cjScanline 0.35s linear infinite;pointer-events:none}
+.cj-glitch-copy{position:absolute;inset:0;animation:cjGlitch 0.8s ease forwards}
+.cj-glitch-copy:nth-child(3){animation-delay:0.05s;filter:hue-rotate(90deg);opacity:0.4}
+.cj-glitch-copy:nth-child(4){animation-delay:0.1s;filter:hue-rotate(180deg);opacity:0.3}
+@keyframes crtOn{
+  0%{transform:scaleY(0.004) scaleX(0.8);opacity:0.3}
+  30%{transform:scaleY(0.04) scaleX(0.95);opacity:0.7}
+  60%{transform:scaleY(0.7) scaleX(1.02);opacity:0.9}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes crtOff{
+  0%{transform:scale(1);opacity:1}
+  40%{transform:scaleY(0.5) scaleX(1.05);opacity:0.8}
+  70%{transform:scaleY(0.03) scaleX(0.9);opacity:0.5}
+  100%{transform:scale(0);opacity:0}
+}
+#cj-card-wrap{position:fixed;inset:0;z-index:9991;display:none;align-items:center;justify-content:center;pointer-events:none}
+#cj-card-wrap.show{display:flex}
+#cj-card{background:linear-gradient(135deg,rgba(15,10,30,0.75),rgba(26,13,53,0.75));backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1.5px solid rgba(168,85,247,0.5);border-top:1px solid rgba(168,85,247,0.7);border-radius:16px;padding:20px 24px;max-width:280px;width:90%;box-shadow:0 0 40px rgba(168,85,247,0.35),inset 0 1px 0 rgba(255,255,255,0.1),0 8px 32px rgba(0,0,0,0.4);text-align:center;animation:crtOn 0.5s ease forwards}
+#cj-card.off{animation:crtOff 0.45s ease forwards}
+.cj-sig-bars{display:inline-flex;gap:5px;align-items:flex-end;height:22px}
+.cj-sig-bar{width:7px;border-radius:3px;transition:background 0.3s}
+.cj-sig-bar:nth-child(1){height:10px}
+.cj-sig-bar:nth-child(2){height:16px}
+.cj-sig-bar:nth-child(3){height:22px}
+.cj-sig-bar.on{background:var(--acc);box-shadow:0 0 6px rgba(168,85,247,0.6)}
+.cj-sig-bar.off{background:rgba(255,255,255,0.12)}
 </style>
 </head>
 <body>
 <div id="stars"></div>
 <div id="toast" class="toast"></div>
 <div id="undo-wrap"></div>
+<!-- 치지직 글리치 오버레이 -->
+<div id="cj-glitch-wrap">
+  <div class="cj-noise-layer"></div>
+  <div class="cj-scanline"></div>
+  <div class="cj-glitch-copy"></div>
+  <div class="cj-glitch-copy"></div>
+  <div class="cj-glitch-copy"></div>
+</div>
+<!-- 치지직 수신 카드 -->
+<div id="cj-card-wrap">
+  <div id="cj-card">
+    <p style="font-size:10px;font-weight:700;color:var(--acc3);letter-spacing:2px;margin-bottom:10px">📡 수신</p>
+    <p id="cj-msg" style="font-size:15px;font-weight:600;color:var(--t1);line-height:1.7;word-break:keep-all"></p>
+  </div>
+</div>
 <div id="lvl-overlay" class="hd">
 <div class="lvl-bg" id="lvl-bg"></div>
 <div id="lvl-fx" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1"></div>
@@ -198,7 +271,6 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div><h1 style="font-size:20px;font-weight:900;color:var(--acc);font-family:var(--font-d)">73 Routine</h1><p style="font-size:11px;color:var(--t3)" id="h-sub"></p></div>
 <div style="display:flex;align-items:center;gap:6px">
 <span id="h-sk" class="hd" style="display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:20px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3)">🔥<span style="font-size:13px;font-weight:800;color:var(--amber)" id="h-skn">0</span></span>
-<span style="padding:4px 10px;border-radius:20px;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);font-size:10px;font-weight:700;color:var(--acc)" id="h-lv"></span>
 <button onclick="tgL()" style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:12px;font-weight:700;color:var(--acc3)" id="h-lg"></button>
 <button onclick="tgSt()" style="background:none;border:none;font-size:16px;padding:4px">⚙️</button>
 </div></div>
@@ -212,11 +284,11 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div style="margin-bottom:10px"><div style="height:4px;background:rgba(168,85,247,0.15);border-radius:2px;overflow:hidden"><div id="xp-b" style="height:100%;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--pink));transition:width .5s;width:0"></div></div><div style="display:flex;justify-content:space-between;margin-top:2px"><span style="font-size:9px;color:var(--t3)" id="xp-t"></span><span style="font-size:9px;color:var(--t3)" id="xp-n"></span></div></div>
 <div id="ct"></div>
 <div class="tabs">
-<button class="tab on" onclick="goT('home')" id="t-home"><span style="font-size:15px">🏠</span><span id="tl-home"></span></button>
-<button class="tab" onclick="goT('dash')" id="t-dash"><span style="font-size:15px">📊</span><span id="tl-dash"></span></button>
-<button class="tab" onclick="goT('manage')" id="t-manage"><span style="font-size:15px">🎯</span><span id="tl-manage"></span></button>
-<button class="tab" onclick="goT('social')" id="t-social"><span style="font-size:15px">👥</span><span id="tl-social"></span></button>
-<button class="tab" onclick="goT('stats')" id="t-stats"><span style="font-size:15px">🏆</span><span id="tl-stats"></span></button>
+<button class="tab on" onclick="goT('home')" id="t-home"><span style="font-size:20px">🏠</span><span id="tl-home"></span></button>
+<button class="tab" onclick="goT('dash')" id="t-dash"><span style="font-size:20px">📊</span><span id="tl-dash"></span></button>
+<button class="tab" onclick="goT('manage')" id="t-manage"><span style="font-size:20px">🎯</span><span id="tl-manage"></span></button>
+<button class="tab" onclick="goT('social')" id="t-social"><span style="font-size:20px">👥</span><span id="tl-social"></span></button>
+<button class="tab" onclick="goT('stats')" id="t-stats"><span style="font-size:20px">🏆</span><span id="tl-stats"></span></button>
 </div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -242,7 +314,7 @@ var fb=null;try{if(FC.apiKey!=="여기에-붙여넣기"){firebase.initializeApp(
 // ===== Utils =====
 function $(id){return document.getElementById(id);}
 function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML;}
-var L="en",nk="",fk="",D={routines:[],days:{},pts:0,reviews:{}},fD=null,mCh=[],fCmts={},myCmts={},curT="home",subT="routine",editId=null;
+var L="en",nk="",fk="",D={routines:[],days:{},pts:0,reviews:{}},fD=null,fCmts={},myCmts={},curT="home",subT="routine",editId=null;
 // Ensure D object has all required properties
 function fixD(){if(!D)D={};if(!D.routines)D.routines=[];if(!D.days)D.days={};if(!D.pts)D.pts=0;if(!D.reviews)D.reviews={};}
 var sel=new Date();sel.setHours(0,0,0,0);var td=new Date();td.setHours(0,0,0,0);
@@ -272,13 +344,13 @@ var LV=[
 {m:2300,icon:"💫",en:"Erid",ko:"에리드 도착",desc_en:"Your face leaks water!",desc_ko:"너 얼굴에서 물 셈!",eff:"finale"}
 ];
 
-var EM=["😄","😊","😐","😢","😡"],CH=["👏","🔥","💪","⭐","💜","🎉"],AD=[0,1,2,3,4,5,6];
+var EM=["😄","😊","😑","😫","😱","💀"],AD=[0,1,2,3,4,5,6];
 var DW={en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],ko:["일","월","화","수","목","금","토"]};
 var MN={en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],ko:["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"]};
 
 var TX={
-en:{welcome:"Welcome to 73 Routine!",choose:"Set your nickname to start",nickPH:"Your nickname",frPH:"Friend's nickname (optional)",start:"Start",home:"Home",dash:"Dash",manage:"Routines",social:"Social",stats:"Stats",today:"Today",done:"Done",mood:"Mood",note:"Daily Note",notePH:"How was your day?",rtab:"🎯 Routines",ttab:"📋 To-Do",noR:"No routines today",addRL:"Add Routine →",taskPH:"Add a task...",noT:"No tasks yet",add:"Add",review:"Weekly Review",revPH:"What went well?",byCat:"By Category",week:"Week",month:"Month",mTitle:"Manage Routines",mSub:"Use ▲▼ to reorder",rPH:"Routine name...",addR:"Add Routine",first:"Add your first routine!",save:"Save",cancel:"Cancel",edit:"Edit",del:"Delete",confirmDel:"Delete this routine?",lvlUp:"Level Up!",tPts:"{n} pts",nLvl:"Next: {n} pts",streak:"Streak",tDays:"Total Days",last7:"Last 7 Days",rStr:"Routine Streaks",rNotes:"Recent Notes",backup:"📥 Backup",restore:"📤 Restore",connect:"👥 Connect Friend",morning:"Morning",afternoon:"Afternoon",evening:"Evening",health:"Health",growth:"Growth",life:"Life",mind:"Mind",daily:"Daily",weekday:"Weekday",weekend:"Weekend",dS:"d",noFr:"No friend connected",comp:"Comparison",fR:"Routines",fT:"To-Do",fN:"Recent Notes",cheerSent:"Cheer sent! 👏",cheerFor:"Cheers received",sendCh:"Send cheer!",cmtPH:"Comment...",send:"Send",deleted:"Deleted",added:"Added! 🎯",updated:"Updated! ✏️",skip:"Skip",skipped:"Skipped",undo:"Undo",timerDone:"Timer done!",totalTime:"Total",mins:"min",myCmts:"My Comments",lastSeen:"Last seen",tmrw:"→ Tomorrow",timerPH:"Timer (min)"},
-ko:{welcome:"73 Routine에 오신 걸 환영해요!",choose:"닉네임을 정해주세요",nickPH:"내 닉네임",frPH:"친구 닉네임 (나중에 가능)",start:"시작하기",home:"홈",dash:"대시보드",manage:"루틴관리",social:"소셜",stats:"통계",today:"오늘",done:"완료",mood:"기분",note:"하루 한 줄",notePH:"오늘 하루는 어땠나요?",rtab:"🎯 루틴",ttab:"📋 투두",noR:"오늘은 루틴이 없어요",addRL:"루틴 추가 →",taskPH:"할 일 입력...",noT:"할 일이 없어요",add:"추가",review:"주간 회고",revPH:"잘한 점, 아쉬운 점, 다음 주 목표",byCat:"카테고리별 달성",week:"주간",month:"월간",mTitle:"루틴 관리",mSub:"▲▼ 버튼으로 순서 변경",rPH:"루틴 이름...",addR:"루틴 추가",first:"첫 루틴을 추가해보세요!",save:"저장",cancel:"취소",edit:"수정",del:"삭제",confirmDel:"이 루틴을 삭제할까요?",lvlUp:"레벨 업!",tPts:"{n} 포인트",nLvl:"다음: {n} pts",streak:"연속 달성",tDays:"총 달성일",last7:"최근 7일",rStr:"루틴별 연속 달성",rNotes:"최근 기록",backup:"📥 백업",restore:"📤 복원",connect:"👥 친구 연결",morning:"아침",afternoon:"점심",evening:"저녁",health:"건강",growth:"자기계발",life:"생활",mind:"마음",daily:"매일",weekday:"평일",weekend:"주말",dS:"일",noFr:"친구가 연결되지 않았어요",comp:"비교",fR:"루틴 목록",fT:"투두",fN:"최근 기록",cheerSent:"응원 보냄! 👏",cheerFor:"받은 응원",sendCh:"응원 보내기!",cmtPH:"댓글...",send:"전송",deleted:"삭제됨",added:"추가! 🎯",updated:"수정 완료! ✏️",skip:"스킵",skipped:"스킵됨",undo:"되돌리기",timerDone:"타이머 완료!",totalTime:"합산",mins:"분",myCmts:"내가 남긴 댓글",lastSeen:"마지막 접속",tmrw:"→ 내일로",timerPH:"타이머(분)"}
+en:{welcome:"Welcome to 73 Routine!",choose:"Set your nickname to start",nickPH:"Your nickname",frPH:"Friend's nickname (optional)",start:"Start",home:"Home",dash:"Dash",manage:"Routines",social:"Social",stats:"Stats",today:"Today",done:"Done",mood:"Mood",note:"Daily Note",notePH:"How was your day?",rtab:"🎯 Routines",ttab:"📋 To-Do",noR:"No routines today",addRL:"Add Routine →",taskPH:"Add a task...",noT:"No tasks yet",add:"Add",review:"Weekly Review",revPH:"What went well?",byCat:"By Category",week:"Week",month:"Month",mTitle:"Manage Routines",mSub:"Use ▲▼ to reorder",rPH:"Routine name...",addR:"Add Routine",first:"Add your first routine!",save:"Save",cancel:"Cancel",edit:"Edit",del:"Delete",confirmDel:"Delete this routine?",lvlUp:"Level Up!",tPts:"{n} pts",nLvl:"Next: {n} pts",streak:"Streak",tDays:"Total Days",last7:"Last 7 Days",rStr:"Routine Streaks",rNotes:"Recent Notes",backup:"📥 Backup",restore:"📤 Restore",connect:"👥 Connect Friend",morning:"Morning",afternoon:"Afternoon",evening:"Evening",health:"Health",growth:"Growth",life:"Life",mind:"Mind",daily:"Daily",weekday:"Weekday",weekend:"Weekend",dS:"d",noFr:"No friend connected",comp:"Comparison",fR:"Routines",fT:"To-Do",fN:"Recent Notes",cheerSent:"Cheer sent! 👏",cheerFor:"Cheers received",sendCh:"Send cheer!",cmtPH:"Comment...",send:"Send",deleted:"Deleted",added:"Added! 🎯",updated:"Updated! ✏️",skip:"Skip",skipped:"Skipped",undo:"Undo",timerDone:"Timer done!",totalTime:"Total",mins:"min",myCmts:"My Comments",lastSeen:"Last seen",tmrw:"→ Tomorrow",timerPH:"Timer (min)",memoPH:"Quick note...",memoSaved:"Memo saved 📝",weekReport:"Weekly Report",bestR:"Best routine",worstR:"Needs work",avgRate:"Avg completion",weakTitle:"Needs Attention",weakDesc:"Most missed in 2 weeks",restMode:"Rest Mode",restOn:"Resting until",restOff:"End rest",restSet:"Rest days",restActive:"💤 Resting",feed:"Activity Feed",noFeed:"No activity yet"},
+ko:{welcome:"73 Routine에 오신 걸 환영해요!",choose:"닉네임을 정해주세요",nickPH:"내 닉네임",frPH:"친구 닉네임 (나중에 가능)",start:"시작하기",home:"홈",dash:"대시보드",manage:"루틴관리",social:"소셜",stats:"통계",today:"오늘",done:"완료",mood:"기분",note:"하루 한 줄",notePH:"오늘 하루는 어땠나요?",rtab:"🎯 루틴",ttab:"📋 투두",noR:"오늘은 루틴이 없어요",addRL:"루틴 추가 →",taskPH:"할 일 입력...",noT:"할 일이 없어요",add:"추가",review:"주간 회고",revPH:"잘한 점, 아쉬운 점, 다음 주 목표",byCat:"카테고리별 달성",week:"주간",month:"월간",mTitle:"루틴 관리",mSub:"▲▼ 버튼으로 순서 변경",rPH:"루틴 이름...",addR:"루틴 추가",first:"첫 루틴을 추가해보세요!",save:"저장",cancel:"취소",edit:"수정",del:"삭제",confirmDel:"이 루틴을 삭제할까요?",lvlUp:"레벨 업!",tPts:"{n} 포인트",nLvl:"다음: {n} pts",streak:"연속 달성",tDays:"총 달성일",last7:"최근 7일",rStr:"루틴별 연속 달성",rNotes:"최근 기록",backup:"📥 백업",restore:"📤 복원",connect:"👥 친구 연결",morning:"아침",afternoon:"점심",evening:"저녁",health:"건강",growth:"자기계발",life:"생활",mind:"마음",daily:"매일",weekday:"평일",weekend:"주말",dS:"일",noFr:"친구가 연결되지 않았어요",comp:"비교",fR:"루틴 목록",fT:"투두",fN:"최근 기록",cheerSent:"응원 보냄! 👏",cheerFor:"받은 응원",sendCh:"응원 보내기!",cmtPH:"댓글...",send:"전송",deleted:"삭제됨",added:"추가! 🎯",updated:"수정 완료! ✏️",skip:"스킵",skipped:"스킵됨",undo:"되돌리기",timerDone:"타이머 완료!",totalTime:"합산",mins:"분",myCmts:"내가 남긴 댓글",lastSeen:"마지막 접속",tmrw:"→ 내일로",timerPH:"타이머(분)",memoPH:"간단 메모...",memoSaved:"메모 저장 📝",weekReport:"주간 리포트",bestR:"최고 루틴",worstR:"개선 필요",avgRate:"평균 달성률",weakTitle:"주의 필요",weakDesc:"최근 2주간 가장 많이 놓친 루틴",restMode:"휴식 모드",restOn:"휴식 종료일",restOff:"휴식 해제",restSet:"휴식 일수",restActive:"💤 휴식 중",feed:"활동 피드",noFeed:"아직 활동이 없어요"}
 };
 
 function t(k){return TX[L][k]||k;}
@@ -289,7 +361,8 @@ function gL(p){var l=LV[0];LV.forEach(function(x){if(p>=x.m)l=x;});return l;}
 function nLL(p){for(var i=0;i<LV.length;i++){if(p<LV[i].m)return LV[i];}return null;}
 function ln(l){return l.icon+" "+(l[L]||l.en);}
 function tli(p){if(p>=80)return{c:"var(--green)",cr:"#22c55e",b:"rgba(34,197,94,0.15)"};if(p>=50)return{c:"var(--amber)",cr:"#f59e0b",b:"rgba(245,158,11,0.15)"};if(p>0)return{c:"var(--red)",cr:"#ef4444",b:"rgba(239,68,68,0.15)"};return{c:"var(--t3)",cr:"#8b7aa8",b:"rgba(255,255,255,0.04)"};}
-function rFor(d){var w=d.getDay();return D.routines.filter(function(r){return(r.days||AD).indexOf(w)>=0;});}
+function isResting(r){if(!r.restUntil)return false;var ru=pk(r.restUntil);ru.setHours(23,59,59);return td<=ru;}
+function rFor(d){var w=d.getDay();return D.routines.filter(function(r){return(r.days||AD).indexOf(w)>=0&&!isResting(r);});}
 function comp(k){
   var d=pk(k),dy=gdd(k),ap=rFor(d);
   var skips=dy.skips||{};
@@ -306,7 +379,52 @@ function toast(m){var e=$("toast");e.textContent=m;e.classList.add("v");setTimeo
 function dLbl(days){if(!days||days.length===7)return t("daily");if(days.length===5&&[1,2,3,4,5].every(function(d){return days.indexOf(d)>=0;}))return t("weekday");if(days.length===2&&days.indexOf(0)>=0&&days.indexOf(6)>=0)return t("weekend");return days.map(function(d){return DW[L][d];}).join("·");}
 function wsOf(d){var x=new Date(d),w=x.getDay();x.setDate(x.getDate()-w+(w===0?-6:1));x.setHours(0,0,0,0);return x;}
 function fmtTime(sec){var m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
-function totalTimerMins(){var total=0;D.routines.forEach(function(r){if(r.timer)total+=r.timer;});return total;}
+function totalTimerMins(d){var total=0;var day=d.getDay();var dy=gdd(dk(d));var skips=dy.skips||{};D.routines.filter(function(r){return !isResting(r);}).forEach(function(r){if(r.timer&&(r.days||AD).indexOf(day)>=0&&!skips[r.id])total+=r.timer;});return total;}
+
+// ===== Weekly Auto Report =====
+function genWeekReport(weekStart){
+  var ws=new Date(weekStart),stats={total:0,done:0,byR:{},best:null,worst:null,moods:[],days:0};
+  for(var i=0;i<7;i++){
+    var d=new Date(ws);d.setDate(d.getDate()+i);var k=dk(d),dy=gdd(k),ap=rFor(d);
+    var skips=dy.skips||{};
+    ap.forEach(function(r){if(skips[r.id])return;stats.total++;if(!stats.byR[r.id])stats.byR[r.id]={name:r.name,done:0,total:0};stats.byR[r.id].total++;if(dy.rc&&dy.rc[r.id]){stats.done++;stats.byR[r.id].done++;}});
+    if(dy.mood)stats.moods.push(dy.mood);
+    if(comp(k).t>0)stats.days++;
+  }
+  var avg=stats.total>0?Math.round(stats.done/stats.total*100):0;
+  var bestPct=0,worstPct=100;
+  Object.keys(stats.byR).forEach(function(rid){var r=stats.byR[rid];var p=r.total>0?Math.round(r.done/r.total*100):0;if(p>=bestPct){bestPct=p;stats.best={name:r.name,pct:p};}if(p<=worstPct){worstPct=p;stats.worst={name:r.name,pct:p};}});
+  stats.avg=avg;return stats;
+}
+
+// ===== Weak Routines (2 weeks) =====
+function getWeakRoutines(){
+  var weak=[];
+  D.routines.forEach(function(r){
+    if(isResting(r))return;
+    var missed=0,total=0;
+    for(var i=0;i<14;i++){
+      var d=new Date(td);d.setDate(d.getDate()-i);
+      if((r.days||AD).indexOf(d.getDay())<0)continue;
+      var dy=gdd(dk(d));if(dy.skips&&dy.skips[r.id])continue;
+      total++;if(!dy.rc||!dy.rc[r.id])missed++;
+    }
+    if(total>0)weak.push({id:r.id,name:r.name,cat:r.cat||"health",missed:missed,total:total,pct:Math.round((total-missed)/total*100)});
+  });
+  weak.sort(function(a,b){return a.pct-b.pct;});
+  return weak.slice(0,3).filter(function(w){return w.pct<80;});
+}
+
+// ===== Rest Mode =====
+function setRest(rid,days){
+  D.routines=D.routines.map(function(r){
+    if(r.id===rid){
+      if(days===0){return Object.assign({},r,{restUntil:null});}
+      var end=new Date(td);end.setDate(end.getDate()+days);
+      return Object.assign({},r,{restUntil:dk(end)});
+    }return r;
+  });save();render();toast("💤");
+}
 
 // ===== UNDO =====
 var undoData=null,undoTimer=null;
@@ -330,7 +448,7 @@ function saveNow(){
   var tot=activeR.length+(dy.todos||[]).length;
   var pct=tot>0?Math.round((rd+t2)/tot*100):0;
   fb.ref("users/"+nk).set({nk:nk,pct:pct,sk:gSk(),pts:D.pts||0,lvl:ln(gL(D.pts||0)),
-    routines:D.routines.map(function(r){return{name:r.name,cat:r.cat||"health",slot:r.slot||"morning"};}),
+    routines:D.routines.map(function(r){return{name:r.name,cat:r.cat||"health",slot:r.slot||"morning",restUntil:r.restUntil||null};}),
     todos:(dy.todos||[]).map(function(x){return{text:x.text,done:x.done};}),
     journals:Object.keys(D.days).filter(function(k){return D.days[k].journal;}).sort().reverse().slice(0,5).map(function(k){var v=D.days[k];return{date:k,text:v.journal,mood:v.mood};}),
     ts:Date.now()});
@@ -361,12 +479,119 @@ function loadFr(){
   // Friend data (requires fk)
   if(!fk)return;
   fb.ref("users/"+fk).on("value",function(snap){fD=snap.val();render();});
-  fb.ref("cheers/"+nk).on("value",function(snap){mCh=snap.val()?Object.values(snap.val()):[];render();});
   fb.ref("comments/"+nk).on("value",function(snap){fCmts=snap.val()||{};render();});
   fb.ref("comments/"+fk).on("value",function(snap){myCmts=snap.val()||{};render();});
+  // 치지직 리스너
+  cjLoadSentCount();cjListen();cjListenStreaks();cjListenLog();
 }
-function sendCh(em){if(!fb||!fk)return;fb.ref("cheers/"+fk).push({from:nk,em:em,ts:Date.now()});toast(t("cheerSent"));}
 function sendCmt(dateKey,inputId){var el=$(inputId);if(!el)return;var txt=el.value.trim();if(!fb||!fk||!txt)return;fb.ref("comments/"+fk+"/"+dateKey).push({from:nk,text:txt,ts:Date.now()});el.value="";toast("💬");}
+
+// ===== 치지직 교신 시스템 =====
+var CJ_MSGS=[
+"치지직... 신호 수신","교신 감지됨","치지직... 전파 포착","...수신 중...","미확인 신호 감지",
+"치지직... 주파수 일치","교신 채널 열림","원격 신호 도달","치지직... 응답 확인","수신 감도 양호",
+"신호 추적 완료","치지직... 연결됨","전파 수신 성공","통신 링크 활성화","치지직... 데이터 수신 중",
+"{name} 신호 옴!","{name} 살아있음. 좋음.","{name} 신호 받음. 나 기쁨.",
+"{name} 나 생각함, 질문?","교신 성공. {name}, 주먹 콩 해.",
+"{name} 여기 있음!","{name} 신호 강함. 좋음 좋음 좋음!",
+"나 외로움 없음. {name} 있음.","{name} 전파 도착. 나 안심.",
+"{name} 건강, 질문?","치지직... {name}!",
+"먼 곳 신호 옴. {name} 살아있음.","{name} 교신. 나 힘 남.",
+"{name} 포기 안 함. 나 또한.","{name} 신호 하나. 충분.",
+"{name} 혼자 아님. 나 여기 있음.","{name} 오늘 루틴 함, 질문? 나 궁금.",
+"{name} 물 마심, 질문? 인간 물 안 마시면 고장남.",
+"{name} 수고. 나 알음. 힘든 것.",
+"{name} 잠 잘 잤음, 질문? 인간 잠 안 자면 바보 됨.",
+"{name} 와 나 같은 별 봄. 같은 시간 살아있음.",
+"{name} 얼굴 물 나옴, 질문? 기쁨 또는 슬픔. 둘 다 괜찮음.",
+"나 {name} 신호 기다림. 매일.","{name} 와 나 좋은 사람. 맞음 맞음 맞음.",
+"수신 완료. 이상 없음.","{name} 루틴 함, 질문? 빨리 함.",
+"치지직... 나 배고픔. 인간 또한, 질문?",
+"잡음 많음. {name} 우주선 고장, 질문?",
+"{name} 살아있음, 질문? 응답 요청.",
+"치지직... 나 졸림. 인간 졸림 이상함. 왜 눈 감아야 함, 질문?",
+"{name} 지구 상태 보고 요망. 나 궁금.",
+"{name} 힘듦, 질문? 나 알음. 쉬어도 됨.",
+"치지직... 커피 마심, 질문?",
+"이 교신 5초 후 사라짐... 거짓.",
+"치지직치지직치지직..."
+];
+function cjFmtMsg(raw){return raw.replace(/([.?!])\s+/g,'$1<br>');}
+var _cjQ=[],_cjRun=false;
+function cjReceive(msgs){if(!msgs||!msgs.length)return;msgs.forEach(function(m){_cjQ.push(m);});if(!_cjRun)_cjNext();}
+function _cjNext(){
+  if(!_cjQ.length){_cjRun=false;return;}_cjRun=true;
+  var item=_cjQ.shift();
+  var sn=item.from||fk||"?";
+  var raw=CJ_MSGS[item.msgIdx%CJ_MSGS.length].replace(/\{name\}/g,sn);
+  var html=cjFmtMsg(raw);
+  var gw=$('cj-glitch-wrap');
+  if(!gw){_cjRun=false;return;}
+  gw.classList.add('active');
+  setTimeout(function(){
+    gw.classList.remove('active');
+    var cw=$('cj-card-wrap'),cd=$('cj-card'),cm=$('cj-msg');
+    if(!cw||!cd||!cm){_cjRun=false;return;}
+    cm.innerHTML=html;cd.className='';cw.style.display='flex';
+    void cd.offsetWidth;cd.style.animation='crtOn 0.5s ease forwards';
+    setTimeout(function(){
+      cd.style.animation='crtOff 0.45s ease forwards';
+      setTimeout(function(){cw.style.display='none';setTimeout(_cjNext,200);},450);
+    },3500);
+  },850);
+}
+var _cjSent=0,_cjCRef=null;
+function cjLoadSentCount(){
+  if(!fb||!nk)return;var today=dk(new Date());
+  _cjCRef=fb.ref('chijikCount/'+nk+'/'+today);
+  _cjCRef.on('value',function(snap){_cjSent=snap.val()||0;render();});
+}
+function sendCj(){
+  if(!fb||!fk||!nk)return;if(_cjSent>=3){toast("오늘 치지직을 다 썼어요 📡");return;}
+  var idx=Math.floor(Math.random()*CJ_MSGS.length);
+  fb.ref('chijik/'+fk).push({from:nk,ts:Date.now(),msgIdx:idx,read:false});
+  fb.ref('chijikCount/'+nk+'/'+dk(new Date())).transaction(function(v){return(v||0)+1;});
+  toast("치지직... 송신 완료 📡");
+}
+var _cjListening=false;
+function cjListen(){
+  if(!fb||!nk||_cjListening)return;_cjListening=true;
+  fb.ref('chijik/'+nk).on('value',function(snap){
+    var data=snap.val();if(!data)return;
+    var unread=[];
+    Object.entries(data).forEach(function(e){if(!e[1].read)unread.push({key:e[0],from:e[1].from,ts:e[1].ts,msgIdx:e[1].msgIdx||0});});
+    if(!unread.length)return;
+    var updates={};unread.forEach(function(u){updates['chijik/'+nk+'/'+u.key+'/read']=true;});
+    fb.ref().update(updates);cjUpdateStreak();cjReceive(unread);render();
+  });
+}
+function cjUpdateStreak(){
+  if(!fb||!nk)return;var today=dk(new Date());
+  fb.ref('chijikStreak/'+nk).once('value',function(snap){
+    var s=snap.val()||{count:0,lastDate:''};var yest=dk(new Date(Date.now()-86400000));
+    if(s.lastDate===today)return;
+    fb.ref('chijikStreak/'+nk).set({count:s.lastDate===yest?(s.count||0)+1:1,lastDate:today});
+  });
+}
+var _cjMyStr={count:0,lastDate:''},_cjFrStr={count:0,lastDate:''};
+function cjListenStreaks(){
+  if(!fb||!nk)return;
+  fb.ref('chijikStreak/'+nk).on('value',function(snap){_cjMyStr=snap.val()||{count:0,lastDate:''};render();});
+  if(fk)fb.ref('chijikStreak/'+fk).on('value',function(snap){_cjFrStr=snap.val()||{count:0,lastDate:''};render();});
+}
+var _cjLog={my:[],fr:[]};
+function cjListenLog(){
+  if(!fb||!nk||!fk)return;
+  fb.ref('chijik/'+nk).orderByChild('ts').limitToLast(30).on('value',function(snap){
+    var a=[];if(snap.val())Object.values(snap.val()).forEach(function(v){a.push(v);});
+    _cjLog.fr=a.sort(function(a,b){return b.ts-a.ts;});render();
+  });
+  fb.ref('chijik/'+fk).orderByChild('from').equalTo(nk).limitToLast(30).on('value',function(snap){
+    var a=[];if(snap.val())Object.values(snap.val()).forEach(function(v){a.push(v);});
+    _cjLog.my=a.sort(function(a,b){return b.ts-a.ts;});render();
+  });
+}
+function cjSigBars(n){var h='<span class="cj-sig-bars">';for(var i=1;i<=3;i++)h+='<span class="cj-sig-bar '+(i<=n?'on':'off')+'"></span>';return h+'</span>';}
 
 // ===== BACKUP REMINDER =====
 function chkBackup(){var lb=localStorage.getItem("73r-lastBackup");if(!lb){localStorage.setItem("73r-lastBackup",Date.now());return;}if(Date.now()-Number(lb)>7*24*60*60*1000){toast(L==="en"?"📥 It's been a week! Consider backing up.":"📥 일주일이 지났어요! 백업을 해보세요.");localStorage.setItem("73r-lastBackup",Date.now());}}
@@ -443,7 +668,8 @@ function addR2(){
   var timer=$("nr-timer");var tmVal=timer?parseInt(timer.value)||0:0;
   var days=[];document.querySelectorAll(".dp-d").forEach(function(el){if(el.classList.contains("dp-on"))days.push(+el.dataset.d);});
   if(!days.length)days=AD;
-  D.routines.push({id:String(Date.now()),name:nm.value.trim(),cat:cat,slot:slot,days:days,timer:tmVal>0?tmVal:0});
+  var rName=nm.value.trim();
+  D.routines.push({id:String(Date.now()),name:rName,cat:cat,slot:slot,days:days,timer:tmVal>0?tmVal:0,restUntil:null});
   nm.value="";if(timer)timer.value="";save();render();toast(t("added"));
 }
 function rmR(id){
@@ -461,7 +687,7 @@ function saveEdit(id){
   var timer=$("ed-timer");var tmVal=timer?parseInt(timer.value)||0:0;
   var days=[];document.querySelectorAll(".edp-d").forEach(function(el){if(el.classList.contains("dp-on"))days.push(+el.dataset.d);});
   if(!days.length)days=AD;
-  D.routines=D.routines.map(function(r){if(r.id===id)return{id:r.id,name:nm.value.trim(),cat:cat,slot:slot,days:days,timer:tmVal>0?tmVal:0};return r;});
+  D.routines=D.routines.map(function(r){if(r.id===id)return{id:r.id,name:nm.value.trim(),cat:cat,slot:slot,days:days,timer:tmVal>0?tmVal:0,restUntil:r.restUntil||null};return r;});
   editId=null;save();render();toast(t("updated"));
 }
 function togDP(el){el.classList.toggle("dp-on");el.classList.toggle("dp-off");}
@@ -474,7 +700,8 @@ function togR(k,rid){
   if(!was)chkLv(D.pts-2,D.pts);
   save();render();
   // Shooting star effect
-  if(!was){var btn=event&&event.target;if(btn){var rect=btn.getBoundingClientRect();for(var i=0;i<3;i++){var star=document.createElement("div");star.className="shoot-star";star.style.left=rect.left+rect.width/2+"px";star.style.top=rect.top+"px";star.style.animationDelay=i*0.1+"s";document.body.appendChild(star);setTimeout(function(s){s.remove()},800,star);}}}
+  if(!was){
+    var btn=event&&event.target;if(btn){var rect=btn.getBoundingClientRect();for(var i=0;i<3;i++){var star=document.createElement("div");star.className="shoot-star";star.style.left=rect.left+rect.width/2+"px";star.style.top=rect.top+"px";star.style.animationDelay=i*0.1+"s";document.body.appendChild(star);setTimeout(function(s){s.remove()},800,star);}}}
   // Check 100%
   var sc=comp(k);if(sc.p===100&&sc.t>0)showRocket();
 }
@@ -749,7 +976,7 @@ function render(){
   $("h-sub").textContent=fmtD(td)+" · "+nk;
   var sk=gSk();if(sk>0){$("h-sk").classList.remove("hd");$("h-skn").textContent=sk;}else $("h-sk").classList.add("hd");
   var lv=gL(D.pts||0),nl=nLL(D.pts||0),pts=D.pts||0;
-  $("h-lv").textContent=ln(lv);$("h-lg").textContent=L==="en"?"한":"EN";
+  $("h-lg").textContent=L==="en"?"한":"EN";
   $("xp-b").style.width=nl?Math.min(100,(pts-lv.m)/(nl.m-lv.m)*100)+"%":"100%";
   $("xp-t").textContent=ln(lv)+" · "+t("tPts").replace("{n}",pts);
   $("xp-n").textContent=nl?t("nLvl").replace("{n}",nl.m-pts):"MAX ✨";
@@ -770,14 +997,20 @@ function render(){
     else h+=' <button onclick="goToday()" style="padding:1px 8px;border-radius:10px;background:rgba(168,85,247,0.15);color:var(--acc);font-size:9px;font-weight:700;border:none">'+t("today")+' ↩</button>';
     h+='</div><button class="nb" onclick="navD(1)">▶</button></div>';
 
-    // Stats row: progress + timer total
-    h+='<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:12px">';
-    h+='<div style="width:56px;height:56px;border-radius:50%;background:'+tl2.b+';display:flex;align-items:center;justify-content:center;border:2px solid '+tl2.cr+'"><span style="font-size:18px;font-weight:900;color:'+tl2.cr+';font-family:var(--font-d)">'+sc.p+'%</span></div>';
-    h+='<div><p style="font-size:12px;color:var(--t3)">'+t("done")+'</p><p style="font-size:22px;font-weight:800;color:var(--t1)">'+sc.d+'<span style="font-size:14px;color:var(--t3)">/'+sc.t+'</span></p></div>';
-    var ttm=totalTimerMins();
-    if(ttm>0)h+='<div style="text-align:center;padding:6px 12px;border-radius:10px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2)"><p style="font-size:9px;color:var(--acc3)">'+t("totalTime")+'</p><p style="font-size:16px;font-weight:800;color:var(--acc);font-family:var(--font-d)">'+ttm+t("mins")+'</p></div>';
-    if(fD)h+='<div style="text-align:center;padding:6px 12px;border-radius:10px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2)"><p style="font-size:9px;color:var(--amber)">'+esc(fD.nk)+'</p><p style="font-size:16px;font-weight:800;color:var(--amber);font-family:var(--font-d)">'+fD.pct+'%</p></div>';
+    // Stats pills (unified style)
+    var ttm=totalTimerMins(sel);
+    h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">';
+    h+='<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)">';
+    h+='<span style="font-size:11px;color:var(--acc3)">✓</span>';
+    h+='<span style="font-size:13px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+sc.d+'<span style="color:var(--t3)">/'+sc.t+'</span></span>';
     h+='</div>';
+    if(ttm>0){
+    h+='<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)">';
+    h+='<span style="font-size:11px;color:var(--acc3)">⏱</span>';
+    h+='<span style="font-size:13px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+ttm+t("mins")+'</span>';
+    h+='</div>';}
+    h+='</div>';
+
 
     // Mood row
     h+='<div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px">';
@@ -815,7 +1048,6 @@ function render(){
             h+='<div id="tmr-'+r.id+'" class="timer-ring" onclick="startTimer(\''+r.id+'\')" style="cursor:pointer;background:'+(at?"rgba(168,85,247,0.15)":"rgba(255,255,255,0.04)")+';border:1px solid '+(at?"var(--acc)":"rgba(255,255,255,0.1)")+'">';
             h+='<span class="timer-text" id="tm-'+r.id+'">'+(at?fmtTime(at.remaining):r.timer+"m")+'</span></div>';
           }
-          if(rs>0&&on)h+='<span style="font-size:9px;color:'+cat.c+';font-weight:700">🔥'+rs+'</span>';
           h+='<button class="skip-btn" onclick="event.stopPropagation();skipR(\''+sk2+'\',\''+r.id+'\')">'+(isSkip?"↩":"⏭")+'</button>';
           h+='</div>';});h+='</div>';});
     }
@@ -859,6 +1091,17 @@ function render(){
         if(dd.mood)h+='<span style="font-size:12px">'+dd.mood+'</span>';
         h+='</button>';}
       h+='</div>';
+      // Auto Weekly Report
+      var rpt=genWeekReport(ws2);
+      if(rpt.total>0){
+        h+='<div class="report-card">';
+        h+='<p style="font-size:13px;font-weight:800;color:var(--acc);margin-bottom:10px">📊 '+t("weekReport")+'</p>';
+        h+='<div class="report-stat"><span style="font-size:20px">📈</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("avgRate")+'</span><p style="font-size:18px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+rpt.avg+'%</p></div></div>';
+        if(rpt.best){h+='<div class="report-stat"><span style="font-size:20px">🏆</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("bestR")+'</span><p style="font-size:13px;font-weight:700;color:var(--green)">'+esc(rpt.best.name)+' ('+rpt.best.pct+'%)</p></div></div>';}
+        if(rpt.worst&&rpt.worst.pct<100){h+='<div class="report-stat"><span style="font-size:20px">💡</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("worstR")+'</span><p style="font-size:13px;font-weight:700;color:var(--amber)">'+esc(rpt.worst.name)+' ('+rpt.worst.pct+'%)</p></div></div>';}
+        if(rpt.moods.length){h+='<div class="report-stat"><span style="font-size:20px">😊</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("mood")+'</span><p style="font-size:16px;letter-spacing:4px">'+rpt.moods.join("")+'</p></div></div>';}
+        h+='</div>';
+      }
     }
     if(dashVM==="month"){
       var dim=new Date(dashMY.y,dashMY.m+1,0).getDate(),fDow=new Date(dashMY.y,dashMY.m,1).getDay();
@@ -879,7 +1122,7 @@ function render(){
       h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">📊 '+t("byCat")+'</p>';
       h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
       CA.forEach(function(cat){
-        var catR=D.routines.filter(function(r){return(r.cat||"health")===cat.id;});
+        var catR=D.routines.filter(function(r){return(r.cat||"health")===cat.id&&!isResting(r);});
         if(!catR.length)return;
         var done7=0,total7=0;
         for(var ii=0;ii<7;ii++){var dd2=new Date(td);dd2.setDate(dd2.getDate()-ii);var kk=dk(dd2),dyy=gdd(kk),skk=dyy.skips||{};
@@ -919,6 +1162,7 @@ function render(){
       var cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0];
       var sl=SL.find(function(s){return s.id===(r.slot||"morning");})||SL[0];
       var rs=rSk(r.id);
+      var resting=isResting(r);
       if(editId===r.id){
         h+='<div class="card" style="border:1.5px solid var(--acc);margin-bottom:4px">';
         h+='<div style="display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap">';
@@ -931,7 +1175,7 @@ function render(){
         DW[L].forEach(function(n,i){var on=rdays.indexOf(i)>=0;h+='<button class="edp-d '+(on?"dp-on":"dp-off")+'" data-d="'+i+'" onclick="togDP(this)" style="flex:1;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:none">'+n+'</button>';});
         h+='</div><div style="display:flex;gap:4px"><button class="btn" onclick="saveEdit(\''+r.id+'\')" style="flex:1">'+t("save")+'</button><button class="bs" onclick="cancelEdit()" style="flex:1;padding:8px">'+t("cancel")+'</button></div></div>';
       } else {
-        h+='<div draggable="true" ondragstart="dStart(event,'+idx+')" ondragover="dOver(event)" ondragleave="dLeave(event)" ondrop="dDrop(event,'+idx+')" ondragend="dEnd(event)" style="display:flex;align-items:center;gap:6px;padding:10px;background:var(--card);border:var(--card-b);border-radius:10px;margin-bottom:4px">';
+        h+='<div draggable="true" ondragstart="dStart(event,'+idx+')" ondragover="dOver(event)" ondragleave="dLeave(event)" ondrop="dDrop(event,'+idx+')" ondragend="dEnd(event)" style="display:flex;align-items:center;gap:6px;padding:10px;background:'+(resting?"rgba(99,102,241,0.05)":"var(--card)")+';border:var(--card-b);border-radius:10px;margin-bottom:4px;'+(resting?"opacity:0.6;":"")+'">';
         h+='<div style="display:flex;flex-direction:column;gap:2px">';
         if(idx>0)h+='<button onclick="moveR('+idx+',-1)" style="background:rgba(168,85,247,0.15);border:none;border-radius:4px;padding:2px 6px;font-size:10px;color:var(--acc);line-height:1">▲</button>';
         else h+='<span style="padding:2px 6px;font-size:10px;color:transparent;line-height:1">▲</span>';
@@ -942,10 +1186,12 @@ function render(){
         h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span>';
         h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+sl.c+'20;color:'+sl.c+';font-weight:700">'+sl.icon+t(sl.id)+'</span>';
         if(r.timer)h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:rgba(168,85,247,0.15);color:var(--acc3);font-weight:700">⏱'+r.timer+t("mins")+'</span>';
+        if(resting)h+='<span class="rest-badge">'+t("restActive")+' ~'+r.restUntil+'</span>';
         h+='</div>';
         h+='<span style="font-size:13px;color:var(--t1);font-weight:500">'+esc(r.name)+'</span>';
         h+='<div style="font-size:10px;color:var(--acc3);margin-top:1px">'+dLbl(r.days)+'</div></div>';
-        if(rs>0)h+='<span style="font-size:10px;color:var(--acc);font-weight:700">🔥'+rs+'</span>';
+        if(resting){h+='<button class="bs" onclick="setRest(\''+r.id+'\',0)" style="color:var(--blue)">'+t("restOff")+'</button>';}
+        else{h+='<select class="sel" onchange="if(this.value)setRest(\''+r.id+'\',+this.value);this.value=\'\';" style="font-size:9px;padding:3px 5px"><option value="">💤</option><option value="1">1'+t("dS")+'</option><option value="3">3'+t("dS")+'</option><option value="7">7'+t("dS")+'</option><option value="14">14'+t("dS")+'</option></select>';}
         h+='<button class="bs" onclick="startEdit(\''+r.id+'\')">✏️</button>';
         h+='<button class="bs" onclick="rmR(\''+r.id+'\')" style="color:var(--red)">🗑</button></div>';}
     });
@@ -955,24 +1201,60 @@ function render(){
   // ======= SOCIAL =======
   if(curT==="social"){
     h+='<div class="fi">';
-    if(mCh.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">💌 '+t("cheerFor")+'</p><div style="display:flex;flex-wrap:wrap;gap:4px">';
-      mCh.slice(-10).reverse().forEach(function(c){h+='<span style="padding:4px 8px;border-radius:8px;background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.2);font-size:12px">'+c.em+' <span style="font-size:10px;color:var(--t3)">'+esc(c.from)+'</span></span>';});h+='</div></div>';}
     if(!fD){h+='<div class="card" style="text-align:center;padding:24px"><span style="font-size:40px">👥</span><p style="color:var(--t3);font-size:13px;margin-top:8px">'+t("noFr")+'</p><button class="bs" onclick="chgFr()" style="margin-top:8px;padding:6px 16px">'+t("connect")+'</button></div>';}
     else{
       var ftl=tli(fD.pct);
-      h+='<div class="card" style="background:linear-gradient(135deg,rgba(249,115,22,0.1),rgba(236,72,153,0.1))">';
+      // 치지직 버튼 카드
+      var cjRem=Math.max(0,3-_cjSent),cjDis=cjRem===0;
+      h+='<div class="card" style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(99,102,241,0.08));border:1px solid rgba(168,85,247,0.25)">';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
+      h+='<div><p style="font-size:13px;font-weight:800;color:var(--acc)">'+esc(fD.nk)+'에게 교신</p>';
+      h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">오늘 남은 횟수 · '+cjRem+'/3</p></div>';
+      h+=cjSigBars(cjRem);
+      h+='</div>';
+      h+='<button onclick="sendCj()" '+(cjDis?'disabled':'')+' style="width:100%;padding:12px;border-radius:12px;border:none;background:'+(cjDis?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#7c3aed,#4f46e5)')+';color:'+(cjDis?'var(--t3)':'#fff')+';font-size:16px;font-weight:800;cursor:'+(cjDis?'default':'pointer')+';'+(cjDis?'':'box-shadow:0 4px 15px rgba(124,58,237,0.4)')+'">'+(cjDis?'오늘 교신 완료':'📡 치지직')+'</button></div>';
+
+      // 연속 교신 카운터
+      if(_cjMyStr.count>0||_cjFrStr.count>0){
+        h+='<div class="card" style="text-align:center;padding:12px 16px">';
+        h+='<p style="font-size:10px;color:var(--t3);margin-bottom:6px">📡 연속 교신</p>';
+        h+='<div style="display:flex;justify-content:center;gap:20px">';
+        h+='<div><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(_cjMyStr.count||0)+'</p><p style="font-size:9px;color:var(--t3)">'+esc(nk)+'</p></div>';
+        h+='<div style="display:flex;align-items:center;color:var(--t3);font-size:14px">···</div>';
+        h+='<div><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+(_cjFrStr.count||0)+'</p><p style="font-size:9px;color:var(--t3)">'+esc(fD.nk)+'</p></div>';
+        h+='</div></div>';
+      }
+
+      // 교신 기록
+      var allLog=[];
+      _cjLog.my.forEach(function(v){allLog.push({dir:'sent',ts:v.ts});});
+      _cjLog.fr.forEach(function(v){allLog.push({dir:'recv',ts:v.ts,from:v.from});});
+      allLog.sort(function(a,b){return b.ts-a.ts;});
+      if(allLog.length){
+        h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">교신 기록</p>';
+        var byDate={};
+        allLog.slice(0,20).forEach(function(item){var d=dk(new Date(item.ts));if(!byDate[d])byDate[d]=[];byDate[d].push(item);});
+        Object.keys(byDate).sort().reverse().forEach(function(dateKey){
+          var items=byDate[dateKey];
+          h+='<div style="margin-bottom:8px"><p style="font-size:9px;color:var(--t3);margin-bottom:4px">'+fmtD(pk(dateKey))+'</p>';
+          items.forEach(function(item){
+            var isSent=item.dir==='sent';
+            h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.03);margin-bottom:2px">';
+            if(isSent){h+='<span style="font-size:10px;color:var(--acc3)">'+esc(nk)+'</span><span style="font-size:9px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(fD.nk)+'</span><span style="font-size:9px;color:var(--acc);margin-left:auto">송신 📡</span>';}
+            else{h+='<span style="font-size:10px;color:var(--amber)">'+esc(item.from||fk)+'</span><span style="font-size:9px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(nk)+'</span><span style="font-size:9px;color:var(--amber);margin-left:auto">수신 ⬇</span>';}
+            h+='</div>';});h+='</div>';});
+        h+='</div>';}
+
+      // 친구 카드
+      h+='<div class="card" style="background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(236,72,153,0.08))">';
       h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
       h+='<div><p style="font-size:16px;font-weight:800;color:var(--t1)">'+esc(fD.nk)+'</p><p style="font-size:11px;color:var(--t3)">'+(fD.lvl||"")+'</p>';
       if(fD.ts)h+='<p style="font-size:9px;color:var(--t3)">'+t("lastSeen")+': '+fmtAgo(fD.ts)+'</p>';
       h+='</div>';
-      h+='<div style="display:flex;align-items:center;gap:8px"><div style="width:48px;height:48px;border-radius:50%;background:'+ftl.b+';display:flex;align-items:center;justify-content:center;border:2px solid '+ftl.cr+'"><span style="font-size:14px;font-weight:900;color:'+ftl.cr+';font-family:var(--font-d)">'+fD.pct+'%</span></div>';
-      if(fD.sk>0)h+='<div style="text-align:center">🔥<p style="font-size:14px;font-weight:800;color:var(--amber)">'+fD.sk+'</p></div>';
-      h+='</div></div><p style="font-size:11px;color:var(--t3);margin-bottom:4px">'+t("sendCh")+'</p><div style="display:flex;gap:4px">';
-      CH.forEach(function(c){h+='<button onclick="sendCh(\''+c+'\')" style="font-size:20px;padding:4px 8px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)">'+c+'</button>';});
-      h+='</div></div>';
+      h+='<div style="width:48px;height:48px;border-radius:50%;background:'+ftl.b+';display:flex;align-items:center;justify-content:center;border:2px solid '+ftl.cr+'"><span style="font-size:14px;font-weight:900;color:'+ftl.cr+';font-family:var(--font-d)">'+fD.pct+'%</span></div></div></div>';
 
-      // Comparison
-      h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">⚡ '+t("comp")+'</p><div style="display:flex;gap:8px"><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(168,85,247,0.1)"><p style="font-size:10px;color:var(--acc);font-weight:600">'+esc(nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+comp(dk(td)).p+'%</p><p style="font-size:10px;color:var(--acc3)">🔥'+gSk()+t("dS")+'</p></div><div style="display:flex;align-items:center;font-size:18px">⚡</div><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(249,115,22,0.1)"><p style="font-size:10px;color:var(--amber);font-weight:600">'+esc(fD.nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+fD.pct+'%</p><p style="font-size:10px;color:var(--amber)">🔥'+fD.sk+t("dS")+'</p></div></div></div>';
+      // 비교
+      h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">⚡ '+t("comp")+'</p><div style="display:flex;gap:8px"><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(168,85,247,0.1)"><p style="font-size:10px;color:var(--acc);font-weight:600">'+esc(nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+comp(dk(td)).p+'%</p></div><div style="display:flex;align-items:center;font-size:18px">⚡</div><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(249,115,22,0.1)"><p style="font-size:10px;color:var(--amber);font-weight:600">'+esc(fD.nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+fD.pct+'%</p></div></div></div>';
 
       // Friend routines
       if(fD.routines&&fD.routines.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">📋 '+esc(fD.nk)+' '+t("fR")+'</p>';
@@ -986,7 +1268,7 @@ function render(){
       if(fD.journals&&fD.journals.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">✍️ '+esc(fD.nk)+' '+t("fN")+'</p>';
         fD.journals.forEach(function(j,ji){var cid="fc-"+ji;h+='<div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--acc);margin-bottom:6px"><p style="font-size:10px;color:var(--acc3);font-weight:600">'+fmtD(pk(j.date))+' '+(j.mood||"")+'</p><p style="font-size:12px;color:var(--t2);margin-top:2px;line-height:1.5">'+esc(j.text)+'</p><div style="display:flex;gap:4px;margin-top:6px"><input class="inp" style="font-size:11px" placeholder="'+t("cmtPH")+'" id="'+cid+'"><button class="btn" onclick="sendCmt(\''+j.date+'\',\''+cid+'\')">'+t("send")+'</button></div></div>';});h+='</div>';}
 
-      // My comments on friend's journals
+      // My comments
       var myArr=[];
       Object.keys(myCmts).forEach(function(dateK){var cs=myCmts[dateK];Object.values(cs).forEach(function(c){if(c.from===nk)myArr.push({date:dateK,text:c.text,ts:c.ts});});});
       myArr.sort(function(a,b){return(b.ts||0)-(a.ts||0);});
@@ -1025,6 +1307,23 @@ function render(){
     });
     h+='</div></div>';
 
+    // Weak Routines Insight
+    var weak=getWeakRoutines();
+    if(weak.length){
+      h+='<div class="insight-card"><p style="font-size:13px;font-weight:800;color:var(--red);margin-bottom:4px">⚠️ '+t("weakTitle")+'</p>';
+      h+='<p style="font-size:10px;color:var(--t3);margin-bottom:8px">'+t("weakDesc")+'</p>';
+      weak.forEach(function(w){
+        var cat=CA.find(function(c){return c.id===w.cat;})||CA[0];
+        h+='<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:4px">';
+        h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+'</span>';
+        h+='<span style="flex:1;font-size:12px;color:var(--t1)">'+esc(w.name)+'</span>';
+        h+='<span style="font-size:11px;font-weight:700;color:var(--red)">'+w.pct+'%</span>';
+        h+='<span style="font-size:10px;color:var(--t3)">('+w.missed+'/'+w.total+' '+(L==="en"?"missed":"놓침")+')</span>';
+        h+='</div>';
+      });
+      h+='</div>';
+    }
+
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
     h+='<div class="card" style="text-align:center"><span style="font-size:28px">🔥</span><p style="font-size:24px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+gSk()+'</p><p style="font-size:10px;color:var(--t3)">'+t("streak")+'</p></div>';
     h+='<div class="card" style="text-align:center"><span style="font-size:28px">📅</span><p style="font-size:24px;font-weight:900;color:var(--pink);font-family:var(--font-d)">'+Object.keys(D.days).filter(function(k){return comp(k).p>=50;}).length+'</p><p style="font-size:10px;color:var(--t3)">'+t("tDays")+'</p></div></div>';
@@ -1033,7 +1332,7 @@ function render(){
       h+='<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><span style="font-size:8px;font-weight:700;color:'+tl4.cr+'">'+(p2>0?p2+"%":"")+'</span><div style="width:100%;max-width:26px;height:'+Math.max(4,p2)+'%;border-radius:5px;background:'+(p2>0?tl4.cr:"rgba(255,255,255,0.06)")+';transition:height .4s"></div><span style="font-size:9px;color:'+(dk(d2)===dk(td)?"var(--acc)":"var(--t3)")+';font-weight:'+(dk(d2)===dk(td)?700:400)+'">'+DW[L][d2.getDay()]+'</span></div>';}
     h+='</div></div>';
     if(D.routines.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">🔥 '+t("rStr")+'</p>';
-      D.routines.forEach(function(r){var rs=rSk(r.id),cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0];
+      D.routines.filter(function(r){return !isResting(r);}).forEach(function(r){var rs=rSk(r.id),cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0];
         h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span><span style="font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.name)+'</span><span style="font-size:13px;font-weight:800;color:'+(rs>0?"var(--acc)":"var(--t3)")+'">'+(rs>0?"🔥"+rs+t("dS"):"—")+'</span></div>';});
       h+='</div>';}
     var jnls=Object.keys(D.days).filter(function(k){return D.days[k].journal;}).sort().reverse().slice(0,5);
