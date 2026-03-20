@@ -239,6 +239,8 @@ var fb=null;try{if(FC.apiKey!=="여기에-붙여넣기"){firebase.initializeApp(
 function $(id){return document.getElementById(id);}
 function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 var L="en",nk="",fk="",D={routines:[],days:{},pts:0,reviews:{}},fD=null,mCh=[],fCmts={},myCmts={},curT="home",subT="routine",editId=null;
+// Ensure D object has all required properties
+function fixD(){if(!D)D={};if(!D.routines)D.routines=[];if(!D.days)D.days={};if(!D.pts)D.pts=0;if(!D.reviews)D.reviews={};}
 var sel=new Date();sel.setHours(0,0,0,0);var td=new Date();td.setHours(0,0,0,0);
 var dashVM="week",dashMY={y:td.getFullYear(),m:td.getMonth()};
 var saveTimer=null,journalOpen=false;
@@ -278,7 +280,7 @@ ko:{welcome:"73 Routine에 오신 걸 환영해요!",choose:"닉네임을 정해
 function t(k){return TX[L][k]||k;}
 function dk(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
 function pk(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
-function gdd(k){return D.days[k]||{rc:{},todos:[],mood:null,journal:"",skips:{}};}
+function gdd(k){if(!D.days)D.days={};return D.days[k]||{rc:{},todos:[],mood:null,journal:"",skips:{}};}
 function gL(p){var l=LV[0];LV.forEach(function(x){if(p>=x.m)l=x;});return l;}
 function nLL(p){for(var i=0;i<LV.length;i++){if(p<LV[i].m)return LV[i];}return null;}
 function ln(l){return l.icon+" "+(l[L]||l.en);}
@@ -345,7 +347,7 @@ function loadFr(){
     if(cloudTs>localTs+2000){
       fb.ref("fulldata/"+nk).once("value",function(s2){
         var cloud=s2.val();if(cloud&&cloud.D){
-          D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;
+          D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;fixD();
           localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D,ts:cloud.ts}));
           render();toast(L==="en"?"🔄 Synced!":"🔄 동기화 완료!");
         }
@@ -371,6 +373,7 @@ function load(){
   var s=localStorage.getItem("73r");
   var localTs=0;
   if(s){var p=JSON.parse(s);nk=p.nk||"";fk=p.fk||"";L=p.L||"en";D=p.D||{routines:[],days:{},pts:0,reviews:{}};localTs=p.ts||0;}
+  fixD();
   if(nk){
     $("pg-s").classList.add("hd");$("pg-m").classList.remove("hd");
     // Try to load full data from Firebase (newer wins)
@@ -380,7 +383,7 @@ function load(){
         if(cloud&&cloud.D&&cloud.ts){
           var cloudTs=cloud.ts||0;
           if(cloudTs>localTs){
-            D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;
+            D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;fixD();
             localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D,ts:cloudTs}));
             toast(L==="en"?"☁️ Synced from cloud!":"☁️ 클라우드에서 동기화!");
           }
@@ -733,7 +736,7 @@ function setDashVM(m){dashVM=m;render();}
 function dashNav(n){if(dashVM==="week"){sel.setDate(sel.getDate()+n*7);}else{dashMY.m+=n;if(dashMY.m<0){dashMY.m=11;dashMY.y--;}if(dashMY.m>11){dashMY.m=0;dashMY.y++;}}render();}
 
 function doExp(){var b=new Blob([JSON.stringify({nk:nk,fk:fk,L:L,D:D},null,2)],{type:"application/json"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="73routine-"+dk(td)+".json";a.click();URL.revokeObjectURL(u);localStorage.setItem("73r-lastBackup",Date.now());toast("📥");}
-function doImp(e){var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(d.D&&d.nk){nk=d.nk;fk=d.fk||"";L=d.L||"en";D=d.D;save();loadFr();render();toast("📤 ✓");}else toast("Error");}catch(err){toast("Error");}};r.readAsText(f);}
+function doImp(e){var f=e.target.files&&e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){try{var d=JSON.parse(ev.target.result);if(d.D&&d.nk){nk=d.nk;fk=d.fk||"";L=d.L||"en";D=d.D;fixD();save();loadFr();render();toast("📤 ✓");}else toast("Error");}catch(err){toast("Error");}};r.readAsText(f);}
 
 function fmtAgo(ts){if(!ts)return"";var diff=Math.floor((Date.now()-ts)/60000);if(diff<1)return L==="en"?"Just now":"방금";if(diff<60)return diff+(L==="en"?"m ago":"분 전");var h=Math.floor(diff/60);if(h<24)return h+(L==="en"?"h ago":"시간 전");var d=Math.floor(h/24);return d+(L==="en"?"d ago":"일 전");}
 
