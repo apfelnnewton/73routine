@@ -262,7 +262,7 @@ function doUndo(){if(undoData){undoData();undoData=null;}clearTimeout(undoTimer)
 // ===== DEBOUNCED SAVE =====
 function saveNow(){
   clearTimeout(saveTimer);
-  localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D}));
+  localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D,ts:Date.now()}));
   if(!fb||!nk)return;
   var tk=dk(td),dy=gdd(tk),ap=rFor(td);
   var skips=dy.skips||{};
@@ -276,17 +276,35 @@ function saveNow(){
     todos:(dy.todos||[]).map(function(x){return{text:x.text,done:x.done};}),
     journals:Object.keys(D.days).filter(function(k){return D.days[k].journal;}).sort().reverse().slice(0,5).map(function(k){var v=D.days[k];return{date:k,text:v.journal,mood:v.mood};}),
     ts:Date.now()});
+  // Full data sync
+  fb.ref("fulldata/"+nk).set({D:D,fk:fk,L:L,ts:Date.now()});
 }
 function save(){saveNow();}
 function saveLater(){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,1000);}
 
 // ===== FIREBASE LISTENERS =====
 function loadFr(){
-  if(!fb||!fk)return;
+  if(!fb)return;
+  // Self real-time sync (works without friend)
+  fb.ref("fulldata/"+nk+"/ts").on("value",function(snap){
+    var cloudTs=snap.val();if(!cloudTs)return;
+    var localRaw=localStorage.getItem("73r");
+    var localTs=0;if(localRaw){try{localTs=JSON.parse(localRaw).ts||0;}catch(e){}}
+    if(cloudTs>localTs+2000){
+      fb.ref("fulldata/"+nk).once("value",function(s2){
+        var cloud=s2.val();if(cloud&&cloud.D){
+          D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;
+          localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D,ts:cloud.ts}));
+          render();toast(L==="en"?"🔄 Synced!":"🔄 동기화 완료!");
+        }
+      });
+    }
+  });
+  // Friend data (requires fk)
+  if(!fk)return;
   fb.ref("users/"+fk).on("value",function(snap){fD=snap.val();render();});
   fb.ref("cheers/"+nk).on("value",function(snap){mCh=snap.val()?Object.values(snap.val()):[];render();});
   fb.ref("comments/"+nk).on("value",function(snap){fCmts=snap.val()||{};render();});
-  // Listen for my comments on friend's journals
   fb.ref("comments/"+fk).on("value",function(snap){myCmts=snap.val()||{};render();});
 }
 function sendCh(em){if(!fb||!fk)return;fb.ref("cheers/"+fk).push({from:nk,em:em,ts:Date.now()});toast(t("cheerSent"));}
@@ -298,8 +316,26 @@ function chkBackup(){var lb=localStorage.getItem("73r-lastBackup");if(!lb){local
 // ===== LOAD =====
 function load(){
   var s=localStorage.getItem("73r");
-  if(s){var p=JSON.parse(s);nk=p.nk||"";fk=p.fk||"";L=p.L||"en";D=p.D||{routines:[],days:{},pts:0,reviews:{}};}
-  if(nk){$("pg-s").classList.add("hd");$("pg-m").classList.remove("hd");loadFr();render();chkBackup();}
+  var localTs=0;
+  if(s){var p=JSON.parse(s);nk=p.nk||"";fk=p.fk||"";L=p.L||"en";D=p.D||{routines:[],days:{},pts:0,reviews:{}};localTs=p.ts||0;}
+  if(nk){
+    $("pg-s").classList.add("hd");$("pg-m").classList.remove("hd");
+    // Try to load full data from Firebase (newer wins)
+    if(fb){
+      fb.ref("fulldata/"+nk).once("value",function(snap){
+        var cloud=snap.val();
+        if(cloud&&cloud.D&&cloud.ts){
+          var cloudTs=cloud.ts||0;
+          if(cloudTs>localTs){
+            D=cloud.D;fk=cloud.fk||fk;L=cloud.L||L;
+            localStorage.setItem("73r",JSON.stringify({nk:nk,fk:fk,L:L,D:D,ts:cloudTs}));
+            toast(L==="en"?"☁️ Synced from cloud!":"☁️ 클라우드에서 동기화!");
+          }
+        }
+        loadFr();render();chkBackup();
+      });
+    } else {loadFr();render();chkBackup();}
+  }
   else updSetup();
 }
 function updSetup(){$("s-t").textContent=t("welcome");$("s-sub").textContent=t("choose");$("s-nick").placeholder=t("nickPH");$("s-fr").placeholder=t("frPH");$("s-btn").textContent=t("start");$("s-lg").textContent=L==="en"?"한국어":"English";}
