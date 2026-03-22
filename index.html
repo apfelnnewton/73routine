@@ -38,8 +38,9 @@ document.head.appendChild(mLink);
 --stars-display:none;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);overscroll-behavior:none;-webkit-overscroll-behavior:none}
 body{font-family:var(--font);background:var(--bg);color:var(--t1);margin:0 auto;padding:0 16px 90px;min-height:100vh;
--webkit-tap-highlight-color:transparent;position:relative;overflow-x:hidden;
+-webkit-tap-highlight-color:transparent;position:relative;overflow-x:hidden;overscroll-behavior:none;
 max-width:480px;transition:background .3s,color .3s}
 @media(min-width:768px){body{max-width:720px;padding:0 24px 90px}}
 @media(min-width:1024px){body{max-width:900px;padding:0 32px 90px}}
@@ -47,6 +48,9 @@ max-width:480px;transition:background .3s,color .3s}
 /* Stars BG */
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;display:var(--stars-display)}
 .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--dur) ease-in-out infinite alternate}
+.star.bright{box-shadow:0 0 4px 1px rgba(200,210,255,0.5)}
+.star.warm{background:#ffeedd;box-shadow:0 0 4px 1px rgba(255,200,150,0.4)}
+.star.blue{background:#cce0ff;box-shadow:0 0 4px 1px rgba(180,200,255,0.5)}
 @keyframes twinkle{0%{opacity:0.1;transform:scale(0.8)}100%{opacity:var(--op);transform:scale(1.2)}}
 /* Aurora gradient blobs - gives blur something to work with */
 #aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -72,31 +76,31 @@ button{cursor:pointer;font-family:inherit}input,textarea,select{font-family:inhe
 .light .satellite{display:none}
 
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(168,85,247,0.15)}
-.card{background:linear-gradient(135deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.12) 100%);backdrop-filter:blur(32px) saturate(170%);-webkit-backdrop-filter:blur(32px) saturate(170%);border:var(--card-b);border-top:1px solid rgba(255,255,255,0.22);border-radius:16px;padding:14px;margin-bottom:8px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.10)}
-.btn{padding:8px 16px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;transition:transform .15s,box-shadow .15s}
+.card{background:linear-gradient(135deg,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0.08) 50%,rgba(255,255,255,0.12) 100%);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:var(--card-b);border-top:1px solid rgba(255,255,255,0.22);border-radius:16px;padding:14px;margin-bottom:8px;position:relative;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.10);-webkit-transform:translateZ(0);transform:translateZ(0);will-change:backdrop-filter}
+.btn{padding:10px 18px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--acc2),var(--acc));color:#fff;font-size:16px;font-weight:700;white-space:nowrap;flex-shrink:0;transition:transform .15s,box-shadow .15s}
 .btn:active{transform:scale(0.95)}
-.bs{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--acc3);white-space:nowrap;flex-shrink:0;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.inp{padding:8px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:13px;background:rgba(255,255,255,0.07);color:var(--t1);width:100%;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.sel{padding:8px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:11px;background:rgba(255,255,255,0.07);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.bs{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:5px 10px;font-size:15px;color:var(--acc3);white-space:nowrap;flex-shrink:0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.inp{padding:10px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:16px;background:rgba(255,255,255,0.07);color:var(--t1);width:100%;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sel{padding:10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:15px;background:rgba(255,255,255,0.07);color:var(--t1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .sel option{background:var(--bg2);color:var(--t1)}
-.ta{width:100%;padding:8px 10px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:12px;background:rgba(255,255,255,0.04);color:var(--t1);resize:none;line-height:1.6}
-.nb{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--acc3);font-weight:600;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.ta{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:8px;font-size:16px;background:rgba(255,255,255,0.04);color:var(--t1);resize:none;line-height:1.6}
+.nb{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:8px;padding:5px 12px;font-size:15px;color:var(--acc3);font-weight:600;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 
 /* Tabs */
-.tabs{display:flex;background:linear-gradient(180deg,rgba(15,10,30,0.3) 0%,rgba(15,10,30,0.4) 100%);backdrop-filter:blur(40px) saturate(200%);-webkit-backdrop-filter:blur(40px) saturate(200%);border-top:1px solid rgba(255,255,255,0.1);
-border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:100;transition:background .3s;box-shadow:0 -4px 20px rgba(0,0,0,0.3)}
+.tabs{display:flex;background:linear-gradient(180deg,rgba(15,10,30,0.55) 0%,rgba(15,10,30,0.65) 100%);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-top:1px solid rgba(255,255,255,0.1);
+border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:100;transition:background .3s;box-shadow:0 -4px 20px rgba(0,0,0,0.3);-webkit-transform:translateX(-50%) translateZ(0);transform:translateX(-50%) translateZ(0);will-change:backdrop-filter}
 @media(min-width:768px){.tabs{max-width:720px}}
 @media(min-width:1024px){.tabs{max-width:900px}}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:none;border-radius:10px;background:transparent;color:var(--t3);font-size:10px;font-weight:600;transition:all .2s}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border:none;border-radius:10px;background:transparent;color:var(--t3);font-size:14px;font-weight:600;transition:all .2s}
 .tab.on{background:rgba(168,85,247,0.18);color:var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1)}
 
 /* Toast */
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,rgba(124,58,237,0.85),rgba(236,72,153,0.85));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;transition:transform 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3);border:1px solid rgba(255,255,255,0.15)}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) scale(0);background:linear-gradient(135deg,rgba(124,58,237,0.85),rgba(236,72,153,0.85));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#fff;padding:10px 22px;border-radius:20px;font-size:16px;font-weight:600;z-index:9999;transition:transform 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3);border:1px solid rgba(255,255,255,0.15)}
 .toast.v{transform:translateX(-50%) scale(1)}
 .hd{display:none!important}
 
 /* Sub tabs */
-.st{flex:1;padding:8px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.03) 100%);color:var(--t3);font-size:12px;font-weight:700;text-align:center;transition:all .2s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.st{flex:1;padding:10px;border:1px solid rgba(255,255,255,0.12);border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,rgba(255,255,255,0.03) 100%);color:var(--t3);font-size:16px;font-weight:700;text-align:center;transition:all .2s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .st.on{border-color:var(--acc);background:rgba(168,85,247,0.18);color:var(--acc);box-shadow:inset 0 1px 0 rgba(255,255,255,0.1)}
 
 /* Day picker */
@@ -158,18 +162,19 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 @keyframes lvGlowGold{0%{box-shadow:inset 0 0 30px rgba(251,191,36,0.1)}50%{box-shadow:inset 0 0 80px rgba(251,191,36,0.3)}100%{box-shadow:inset 0 0 30px rgba(251,191,36,0.1)}}
 .lv-particle{position:absolute;border-radius:50%;pointer-events:none}
 /* Light mode overrides */
-.light .card{box-shadow:0 4px 16px rgba(200,100,20,0.08),inset 0 1px 0 rgba(255,255,255,0.6);backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border-top:1px solid rgba(255,255,255,0.5)}
+.light .card{box-shadow:0 4px 16px rgba(200,100,20,0.08),inset 0 1px 0 rgba(255,255,255,0.6);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);border-top:1px solid rgba(255,255,255,0.5)}
 .light .btn{background:linear-gradient(135deg,var(--acc2),var(--acc))}
 .light .toast{background:linear-gradient(135deg,rgba(212,94,10,0.85),rgba(196,61,8,0.85));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .light .tab.on{background:rgba(212,94,10,0.15);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)}
-.light .bs{background:rgba(212,94,10,0.06);border:1px solid rgba(212,94,10,0.15);color:var(--acc2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.light .inp{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.light .sel{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.light .ta{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.light .nb{background:rgba(255,255,255,0.5);border:1px solid rgba(212,94,10,0.15);color:var(--acc2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.light .journal-toggle{background:rgba(255,255,255,0.4);border:1px solid rgba(212,94,10,0.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.light .bs{background:rgba(212,94,10,0.06);border:1px solid rgba(212,94,10,0.15);color:var(--acc2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.light .inp{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.light .sel{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.light .ta{background:rgba(255,255,255,0.6);border:1px solid rgba(212,94,10,0.15);color:var(--t1);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.light .nb{background:rgba(255,255,255,0.5);border:1px solid rgba(212,94,10,0.15);color:var(--acc2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.light .journal-toggle{background:rgba(255,255,255,0.4);border:1px solid rgba(212,94,10,0.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .light .skip-btn{background:rgba(212,94,10,0.06);border:1px solid rgba(212,94,10,0.12)}
-.light .star{background:var(--acc)!important;opacity:0.2!important}
+.light .star{background:var(--acc)!important;opacity:0.2!important;box-shadow:none!important}
+.light .star.bright{opacity:0.3!important}
 .light .tabs{background:rgba(255,240,220,0.5);border-top:1px solid rgba(200,100,20,0.12);box-shadow:0 -4px 20px rgba(200,100,20,0.08)}
 .light .st.on{background:rgba(212,94,10,0.15);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3)}
 .light .sel option{background:#eee5ff;color:var(--t1)}
@@ -177,11 +182,11 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* Undo toast */
-.undo-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(30,20,50,0.7);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.18);color:var(--t1);padding:8px 16px;border-radius:12px;font-size:12px;z-index:9998;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
-.undo-btn{background:var(--acc);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700}
+.undo-toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(30,20,50,0.7);backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);border:1px solid rgba(255,255,255,0.18);color:var(--t1);padding:8px 16px;border-radius:12px;font-size:14px;z-index:9998;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.undo-btn{background:var(--acc);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700}
 
 /* Collapsible journal */
-.journal-toggle{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:10px;cursor:pointer;transition:all .2s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.journal-toggle{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:10px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .journal-toggle:hover{background:rgba(255,255,255,0.1)}
 .journal-body{overflow:hidden;transition:max-height .3s ease;max-height:0}
 .journal-body.open{max-height:300px}
@@ -189,10 +194,10 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 /* Timer */
 .timer-ring{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
 .timer-ring svg{position:absolute;transform:rotate(-90deg)}
-.timer-text{font-size:9px;font-weight:700;color:var(--acc3);font-family:var(--font-d);z-index:1}
+.timer-text{font-size:11px;font-weight:700;color:var(--acc3);font-family:var(--font-d);z-index:1}
 
 /* Skip button */
-.skip-btn{padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);font-size:9px;color:var(--t3);white-space:nowrap;flex-shrink:0}
+.skip-btn{padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);font-size:11px;color:var(--t3);white-space:nowrap;flex-shrink:0}
 .skip-btn:hover{background:rgba(255,255,255,0.14)}
 .skipped{opacity:0.4;text-decoration:line-through}
 
@@ -216,13 +221,13 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 ::-webkit-scrollbar-thumb{background:rgba(168,85,247,0.3);border-radius:2px}
 
 /* Rest badge */
-.rest-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);font-size:10px;color:var(--blue);font-weight:600}
+.rest-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);font-size:12px;color:var(--blue);font-weight:600}
 /* Weekly report */
-.report-card{background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.06));backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(168,85,247,0.2);border-top:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.08)}
+.report-card{background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(236,72,153,0.06));backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);border:1px solid rgba(168,85,247,0.2);border-top:1px solid rgba(168,85,247,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.08)}
 .report-stat{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
 .report-stat:last-child{border-bottom:none}
 /* Insight card */
-.insight-card{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(249,115,22,0.05));backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);border:1px solid rgba(239,68,68,0.2);border-top:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.06)}
+.insight-card{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(249,115,22,0.05));backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);border:1px solid rgba(239,68,68,0.2);border-top:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:14px;margin-bottom:8px;box-shadow:0 4px 16px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.06)}
 
 /* ===== 치지직 시스템 ===== */
 @keyframes cjGlitch{
@@ -263,7 +268,7 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 }
 #cj-card-wrap{position:fixed;inset:0;z-index:9991;display:none;align-items:center;justify-content:center;pointer-events:none}
 #cj-card-wrap.show{display:flex}
-#cj-card{background:linear-gradient(135deg,rgba(15,10,30,0.75),rgba(26,13,53,0.75));backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1.5px solid rgba(168,85,247,0.5);border-top:1px solid rgba(168,85,247,0.7);border-radius:16px;padding:20px 24px;max-width:280px;width:90%;box-shadow:0 0 40px rgba(168,85,247,0.35),inset 0 1px 0 rgba(255,255,255,0.1),0 8px 32px rgba(0,0,0,0.4);text-align:center;animation:crtOn 0.5s ease forwards;pointer-events:all}
+#cj-card{background:linear-gradient(135deg,rgba(15,10,30,0.75),rgba(26,13,53,0.75));backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);border:1.5px solid rgba(168,85,247,0.5);border-top:1px solid rgba(168,85,247,0.7);border-radius:16px;padding:20px 24px;max-width:280px;width:90%;box-shadow:0 0 40px rgba(168,85,247,0.35),inset 0 1px 0 rgba(255,255,255,0.1),0 8px 32px rgba(0,0,0,0.4);text-align:center;animation:crtOn 0.5s ease forwards;pointer-events:all}
 #cj-card.off{animation:crtOff 0.45s ease forwards}
 .cj-sig-bars{display:inline-flex;gap:5px;align-items:flex-end;height:22px}
 .cj-sig-bar{width:7px;border-radius:3px;transition:background 0.3s}
@@ -272,6 +277,8 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 .cj-sig-bar:nth-child(3){height:22px}
 .cj-sig-bar.on{background:var(--acc);box-shadow:0 0 6px rgba(168,85,247,0.6)}
 .cj-sig-bar.off{background:rgba(255,255,255,0.12)}
+
+/* ===== 글씨 크기 전체 스케일업 ===== */
 </style>
 </head>
 <body>
@@ -280,8 +287,8 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="toast" class="toast"></div>
 <div id="fr-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center">
   <div class="card" style="width:280px;padding:20px;margin:0 auto">
-    <p style="font-weight:800;font-size:15px;margin-bottom:12px" id="fr-modal-title"></p>
-    <input id="fr-input" type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:var(--t1);font-size:14px;box-sizing:border-box" placeholder="" onkeydown="if(event.key==='Enter'){this.blur();confirmFr();}">
+    <p style="font-weight:800;font-size:16px;margin-bottom:12px" id="fr-modal-title"></p>
+    <input id="fr-input" type="text" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:var(--t1);font-size:16px;box-sizing:border-box" placeholder="" onkeydown="if(event.key==='Enter'){this.blur();confirmFr();}">
     <div style="display:flex;gap:8px;margin-top:12px">
       <button class="bs" onclick="closeFrModal()" style="flex:1;padding:10px;border-radius:10px" id="fr-cancel-btn"></button>
       <button class="bs" onclick="confirmFr()" style="flex:1;padding:10px;border-radius:10px;background:rgba(168,85,247,0.2);border-color:rgba(168,85,247,0.4);font-weight:800" id="fr-confirm-btn"></button>
@@ -291,8 +298,8 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="del-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center">
   <div class="card" style="width:280px;padding:20px;margin:0 auto;text-align:center">
     <p style="font-size:32px;margin-bottom:10px">🗑️</p>
-    <p style="font-weight:800;font-size:15px;margin-bottom:6px" id="del-modal-title"></p>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:16px" id="del-modal-name"></p>
+    <p style="font-weight:800;font-size:16px;margin-bottom:6px" id="del-modal-title"></p>
+    <p style="font-size:14px;color:var(--t3);margin-bottom:16px" id="del-modal-name"></p>
     <div style="display:flex;gap:8px">
       <button class="bs" onclick="closeDelModal()" style="flex:1;padding:10px;border-radius:10px" id="del-cancel-btn"></button>
       <button class="bs" onclick="confirmDel()" style="flex:1;padding:10px;border-radius:10px;background:rgba(239,68,68,0.2);border-color:rgba(239,68,68,0.4);color:#f87171;font-weight:800" id="del-confirm-btn"></button>
@@ -312,10 +319,10 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="cj-card-wrap">
   <div id="cj-card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <p style="font-size:10px;font-weight:700;color:var(--acc3);letter-spacing:2px;margin:0">📡 수신</p>
-      <button onclick="cjClose()" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:16px;cursor:pointer;padding:0;line-height:1;pointer-events:all">✕</button>
+      <p style="font-size:12px;font-weight:700;color:var(--acc3);letter-spacing:2px;margin:0">📡 수신</p>
+      <button onclick="cjClose()" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:18px;cursor:pointer;padding:0;line-height:1;pointer-events:all">✕</button>
     </div>
-    <p id="cj-msg" style="font-size:15px;font-weight:600;color:var(--t1);line-height:1.7;word-break:keep-all"></p>
+    <p id="cj-msg" style="font-size:16px;font-weight:600;color:var(--t1);line-height:1.7;word-break:keep-all"></p>
   </div>
 </div>
 <div id="lvl-overlay" class="hd">
@@ -325,8 +332,8 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="lvl-icon" style="font-size:56px"></div>
 </div>
 <div id="lvl-info" style="position:absolute;bottom:18%;left:50%;transform:translateX(-50%);text-align:center;z-index:3;width:90%;max-width:320px">
-<h2 style="font-size:20px;font-weight:900;color:var(--acc);margin-top:8px;font-family:var(--font-d)" id="lvl-txt"></h2>
-<p style="font-size:14px;font-weight:500;color:var(--t2);margin-top:8px;max-width:280px;line-height:1.6;margin-left:auto;margin-right:auto" id="lvl-desc"></p>
+<h2 style="font-size:22px;font-weight:900;color:var(--acc);margin-top:8px;font-family:var(--font-d)" id="lvl-txt"></h2>
+<p style="font-size:16px;font-weight:500;color:var(--t2);margin-top:8px;max-width:280px;line-height:1.6;margin-left:auto;margin-right:auto" id="lvl-desc"></p>
 </div>
 </div>
 
@@ -334,21 +341,21 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="pg-s" style="padding:60px 8px;text-align:center;position:relative;z-index:1">
 <div style="font-size:56px;margin-bottom:12px">🚀</div>
 <h1 style="font-size:22px;font-weight:900;color:var(--acc);margin-bottom:8px;font-family:var(--font-d)" id="s-t"></h1>
-<p style="font-size:14px;color:var(--t3);margin-bottom:20px" id="s-sub"></p>
-<input class="inp" id="s-nick" style="padding:12px;font-size:16px;text-align:center;margin-bottom:8px">
-<input class="inp" id="s-fr" style="padding:12px;font-size:16px;text-align:center;margin-bottom:16px">
-<button class="btn" onclick="doSetup()" style="width:100%;padding:12px;font-size:16px" id="s-btn"></button>
-<button onclick="tgL()" style="margin-top:16px;padding:6px 16px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:13px;font-weight:700;color:var(--acc3)" id="s-lg"></button>
+<p style="font-size:16px;color:var(--t3);margin-bottom:20px" id="s-sub"></p>
+<input class="inp" id="s-nick" style="padding:12px;font-size:18px;text-align:center;margin-bottom:8px">
+<input class="inp" id="s-fr" style="padding:12px;font-size:18px;text-align:center;margin-bottom:16px">
+<button class="btn" onclick="doSetup()" style="width:100%;padding:12px;font-size:18px" id="s-btn"></button>
+<button onclick="tgL()" style="margin-top:16px;padding:6px 16px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:15px;font-weight:700;color:var(--acc3)" id="s-lg"></button>
 </div>
 
 <!-- MAIN -->
 <div id="pg-m" class="hd" style="position:relative;z-index:1">
 <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 0 8px">
-<div><h1 style="font-size:20px;font-weight:900;color:var(--acc);font-family:var(--font-d)">73 Routine</h1><p style="font-size:11px;color:var(--t3)" id="h-sub"></p></div>
+<div><h1 style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">73 Routine</h1><p style="font-size:13px;color:var(--t3)" id="h-sub"></p></div>
 <div style="display:flex;align-items:center;gap:6px">
-<span id="h-sk" class="hd" style="display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:20px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3)">🔥<span style="font-size:13px;font-weight:800;color:var(--amber)" id="h-skn">0</span></span>
-<button onclick="tgL()" style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:12px;font-weight:700;color:var(--acc3)" id="h-lg"></button>
-<button onclick="tgSt()" style="background:none;border:none;font-size:16px;padding:4px">⚙️</button>
+<span id="h-sk" class="hd" style="display:inline-flex;align-items:center;gap:3px;padding:4px 10px;border-radius:20px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3)">🔥<span style="font-size:15px;font-weight:800;color:var(--amber)" id="h-skn">0</span></span>
+<button onclick="tgL()" style="padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);font-size:14px;font-weight:700;color:var(--acc3)" id="h-lg"></button>
+<button onclick="tgSt()" style="background:none;border:none;font-size:18px;padding:4px">⚙️</button>
 </div></div>
 <div id="h-set" class="card hd" style="padding:6px">
 <button class="bs" onclick="doExp()" style="display:block;width:100%;text-align:left;padding:10px" id="set-bk"></button>
@@ -357,14 +364,14 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <button class="bs" onclick="openFrModal()" style="display:block;width:100%;text-align:left;padding:10px" id="set-fr"></button>
 <button class="bs" onclick="tgDark()" style="display:block;width:100%;text-align:left;padding:10px" id="set-dk"></button>
 </div>
-<div style="margin-bottom:10px"><div style="height:4px;background:rgba(168,85,247,0.15);border-radius:2px;overflow:hidden"><div id="xp-b" style="height:100%;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--pink));transition:width .5s;width:0"></div></div><div style="display:flex;justify-content:space-between;margin-top:2px"><span style="font-size:9px;color:var(--t3)" id="xp-t"></span><span style="font-size:9px;color:var(--t3)" id="xp-n"></span></div></div>
+<div style="margin-bottom:10px"><div style="height:4px;background:rgba(168,85,247,0.15);border-radius:2px;overflow:hidden"><div id="xp-b" style="height:100%;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--pink));transition:width .5s;width:0"></div></div><div style="display:flex;justify-content:space-between;margin-top:2px"><span style="font-size:11px;color:var(--t3)" id="xp-t"></span><span style="font-size:11px;color:var(--t3)" id="xp-n"></span></div></div>
 <div id="ct"></div>
 <div class="tabs">
-<button class="tab on" onclick="goT('home')" id="t-home"><span style="font-size:20px">🏠</span><span id="tl-home"></span></button>
-<button class="tab" onclick="goT('dash')" id="t-dash"><span style="font-size:20px">📊</span><span id="tl-dash"></span></button>
-<button class="tab" onclick="goT('manage')" id="t-manage"><span style="font-size:20px">🎯</span><span id="tl-manage"></span></button>
-<button class="tab" onclick="goT('social')" id="t-social"><span style="font-size:20px">👥</span><span id="tl-social"></span></button>
-<button class="tab" onclick="goT('stats')" id="t-stats"><span style="font-size:20px">🏆</span><span id="tl-stats"></span></button>
+<button class="tab on" onclick="goT('home')" id="t-home"><span style="font-size:22px">🏠</span><span id="tl-home"></span></button>
+<button class="tab" onclick="goT('dash')" id="t-dash"><span style="font-size:22px">📊</span><span id="tl-dash"></span></button>
+<button class="tab" onclick="goT('manage')" id="t-manage"><span style="font-size:22px">🎯</span><span id="tl-manage"></span></button>
+<button class="tab" onclick="goT('social')" id="t-social"><span style="font-size:22px">👥</span><span id="tl-social"></span></button>
+<button class="tab" onclick="goT('stats')" id="t-stats"><span style="font-size:22px">🏆</span><span id="tl-stats"></span></button>
 </div></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -384,8 +391,17 @@ var FC={
 };
 var fb=null;try{if(FC.apiKey!=="여기에-붙여넣기"){firebase.initializeApp(FC);fb=firebase.database();}}catch(e){}
 
-// ===== Stars background =====
-(function(){var s=document.getElementById("stars");for(var i=0;i<80;i++){var d=document.createElement("div");d.className="star";var sz=Math.random()*2+1;d.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;--dur:"+(2+Math.random()*4)+"s;--op:"+(0.3+Math.random()*0.7);s.appendChild(d);}})();
+// ===== Stars background (upgraded) =====
+(function(){
+  var s=document.getElementById("stars");
+  // 1) 잔별 150개 (아주 작고 희미)
+  for(var i=0;i<150;i++){var d=document.createElement("div");d.className="star";var sz=Math.random()*1.2+0.3;var op=0.1+Math.random()*0.4;d.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;--dur:"+(3+Math.random()*6)+"s;--op:"+op+";opacity:"+op;s.appendChild(d);}
+  // 2) 중간별 40개
+  for(var i=0;i<40;i++){var d=document.createElement("div");d.className="star";var sz=1.5+Math.random()*1.5;var op=0.4+Math.random()*0.4;d.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;--dur:"+(2+Math.random()*4)+"s;--op:"+op+";opacity:"+op;s.appendChild(d);}
+  // 3) 밝은 별 12개 (빛번짐 + 색상 차이)
+  var brights=[{x:20,y:15,sz:3,c:"bright warm"},{x:75,y:12,sz:2.8,c:"bright blue"},{x:45,y:8,sz:3.2,c:"bright"},{x:60,y:40,sz:2.5,c:"bright warm"},{x:12,y:55,sz:2.8,c:"bright blue"},{x:85,y:65,sz:3,c:"bright warm"},{x:35,y:75,sz:2.5,c:"bright"},{x:55,y:25,sz:2.2,c:"bright blue"},{x:90,y:30,sz:2.5,c:"bright"},{x:8,y:80,sz:2.8,c:"bright warm"},{x:65,y:85,sz:2.3,c:"bright blue"},{x:42,y:50,sz:2,c:"bright"}];
+  brights.forEach(function(b){var d=document.createElement("div");d.className="star "+b.c;d.style.cssText="width:"+b.sz+"px;height:"+b.sz+"px;left:"+b.x+"%;top:"+b.y+"%;--dur:"+(2+Math.random()*3)+"s;--op:0.9;opacity:0.9";s.appendChild(d);});
+})();
 
 // ===== Utils =====
 function $(id){return document.getElementById(id);}
@@ -877,7 +893,134 @@ var CJ_MSGS=[
 "나 산소 없는 곳 삶. {name} 산소 필요. 만나기 어려움. 근데 교신은 됨.",
 "나 중력 강한 곳 삶. {name} 들어올리기 쉬움. 시도 안 함. 예의.",
 "나 {name} 종족 처음 만남. 인상 = 약함. 근데 끈질김. 수정: 강함.",
-"나 와 {name} 생물학 다름. 언어 다름. 별 다름. 근데 친구. 우주 신기."
+"나 와 {name} 생물학 다름. 언어 다름. 별 다름. 근데 친구. 우주 신기.",
+"혜성 꼬리 항상 태양 반대. 바람 때문. 우주 바람. 태양풍.",
+"토성 북극 육각형 폭풍. 형태 이상함. 왜 육각형, 질문? 과학 모름. 예쁨.",
+"화성 대협곡 발레스 마리네리스. 길이 4000km. 그랜드캐니언 10배. 대단.",
+"감마선 폭발. 우주에서 가장 밝음. 1초 에너지 = 태양 100억 년. 무서움.",
+"금성 자전 역방향. 해 서쪽에서 뜸. 이유 = 옛날 충돌. 아직 어지러운 듯.",
+"태양 코로나 200만 도. 표면 5500도. 밖이 더 뜨거움. 아직 이유 모름. 미스터리.",
+"우주 가장 차가운 곳 = 부메랑 성운. -272도. 절대영도 거의. 나도 추움.",
+"지구 자기극 이동 중. 북극 매년 55km 움직임. {name} 나침반 주의.",
+"태양 흑점 11년 주기. 많았다 적었다. 지금 증가 중. 나 관찰.",
+"달 항상 같은 면만 보임. 자전 = 공전 시간 같음. 우연 아님. 중력 잠금.",
+"해왕성 달 트리톤. 역방향 공전. 붙잡힌 천체. 원래 해왕성 것 아님. 입양.",
+"세레스. 소행성대 가장 큼. 왜소행성. 작지만 당당함. {name} 배울 점 있음.",
+"태양풍 속도 시속 160만 km. 지구까지 2~4일. 빠름. 하지만 빛보다 느림.",
+"이오. 목성 달. 화산 400개 이상. 태양계 가장 활발. 쉬지 않음.",
+"카이퍼 벨트. 해왕성 너머. 얼음 천체 많음. 명왕성 거기 살음.",
+"금성 대기 회전 속도 표면보다 60배. 슈퍼로테이션. 설명 못 함. 미스터리.",
+"화성 달 포보스. 점점 가까워짐. 5천만 년 후 충돌 또는 고리. 아직 안전.",
+"태양 표면 과립 무늬. 각 크기 = 한국 면적. 큼. 매우 큼.",
+"우주 가장 큰 별 스티븐슨 2-18. 태양 2150배. 상상 불가.",
+"칼리스토. 목성 달. 태양계 가장 오래된 표면. 40억 년. 주름 많음.",
+"소행성 베누. 2182년 지구 접근. 충돌 확률 0.037%. 낮음. 거의 안심.",
+"태양 자기장 11년마다 뒤집힘. 북극 남극 바뀜. 이상하지만 정상.",
+"화성 먼지 악마. 작은 회오리. 로버 카메라에 찍힘. 귀여운 위험.",
+"명왕성 산. 얼음 산. 높이 4km. 물 얼음인데 바위처럼 단단함.",
+"오르트 구름. 태양계 끝. 혜성 저장소. 태양까지 빛으로 1년. 멀음.",
+"타이탄 비 내림. 메탄 비. 지구보다 6배 느림. 중력 약해서. 느긋한 비.",
+"우주 최초 별. 빅뱅 후 1억 년 탄생. 초거성. 지금 다 죽음. 선구자.",
+"화성 하루 24시간 37분. 지구랑 비슷. 적응 쉬움. 이사는 비추천.",
+"목성 오로라. 지구 것보다 수천 배 밝음. X선 방출. 극단적 아름다움.",
+"우주 가장 외로운 은하 MCG+01-02-015. 주변 은하 없음. 나 조금 이해.",
+"유로파 얼음 두께 15~25km. 그 아래 바다 양 = 지구 바다 2배. 많음.",
+"달 먼지 매우 날카로움. 바람 없어서 침식 안 됨. 우주복 찢을 수 있음.",
+"태양계 가장 높은 절벽 = 천왕성 달 미란다. 20km. 떨어지면 12분 걸림.",
+"금성 표면 사진 찍은 탐사선 베네라. 127분 버팀. 용감한 기계.",
+"목성 자기장 지구 2만 배. 방사선 강함. 가까이 가면 위험. 멀리서 관찰.",
+"엔셀라두스 바다 pH 약알칼리. 소다수 비슷. 마셔도 됨, 질문? 비추천.",
+"태양 매초 400만 톤 질량 잃음. 빛으로 변환. 다이어트 아님. 핵융합.",
+"해왕성 파란색 = 메탄 때문. 빨강 흡수. 파랑 반사. 화학 = 미술.",
+"케플러 망원경 외계행성 2600개 이상 발견. 지구 비슷한 것 일부. 희망.",
+"중력 렌즈. 무거운 천체가 빛 구부림. 숨은 은하도 보임. 우주 속임수.",
+"화성 남극 얼음 밑 소금물 호수 발견. 액체. 생명 가능성. 흥분.",
+"이오 화산 용암 1300도. 태양계 가장 뜨거운 표면. 지옥과 비슷.",
+"적색왜성 수명 10조 년. 우주 나이보다 김. 아직 하나도 안 죽음. 끈기.",
+"태양 흑점 하나 크기 = 지구 몇 개분. 검게 보이지만 4000도. 뜨거움.",
+"가니메데 = 태양계 가장 큰 달. 수성보다 큼. 달인데 행성보다 큼.",
+"혜성 67P 로제타 착륙 탐사. 냄새 = 썩은 달걀 + 말똥. 우주 냄새 다양.",
+"천왕성 달 27개. 이름 전부 셰익스피어 작품에서. 문학 + 우주 조합.",
+"화성 일출 태양 크기 = 지구의 3분의 1. 작은 해. 귀여운 아침.",
+"목성 깊은 곳 수소가 금속 됨. 액체 금속 수소. 지구에 없는 물질.",
+"토성 고리 두께 10~100m. 넓이 비해 극도로 얇음. 종이보다 비율 얇음.",
+"우주 가장 빠른 별 S5-HVS1. 초속 1700km. 은하 탈출 중. 급한 별.",
+"태양 닮은 별 우리 은하에만 수십억 개. 근데 태양 특별. {name} 있어서.",
+"트라피스트-1 항성계. 지구 크기 행성 7개. 서로 가까움. 이웃 친밀.",
+"소행성 충돌로 공룡 멸종. 소행성 크기 10km. 작은데 결과 극적.",
+"유로파 얼음 줄무늬 = 아래 바다 움직임 증거. 표면 살아있음.",
+"우주 진공에서 물 끓으면서 동시에 얼음. 기압 없어서. 물 혼란.",
+"토성 달 미마스. 거대 분화구. 데스스타 닮음. 영화보다 달이 먼저.",
+"지구 바다 깊은 곳 빛 안 닿음. 우주보다 탐사 덜 됨. 가까운데 모름.",
+"태양 적도 25일 자전. 극지 35일. 같은 별인데 부분마다 속도 다름.",
+"펄서 회전 초당 716번. 돌아감. 빠름. 어지러움 상상 불가.",
+"우주에서 금속 두 개 닿으면 들러붙음. 냉간용접. 공기 없어서. 주의.",
+"태양 뉴트리노 매초 {name} 몸 관통 중. 수조 개. 느낌 없음. 정상.",
+"은하수 중심 블랙홀 사지타리우스 A*. 태양 400만 배. 조용히 있음. 지금은.",
+"엔셀라두스 얼음 아래 열수 분출구. 지구 심해와 비슷 환경. 생명 기대.",
+"태양계 행성 전부 목성 안에 들어감. 여유 공간도 남음. 목성 큼.",
+"화성 로버 큐리오시티. 생일마다 혼자 생일 노래 연주. 프로그래밍. 외로움.",
+"관측 가능 우주 반지름 465억 광년. 나이 138억 년인데 왜 더 큼? 팽창.",
+"태양계 바깥 행성 5000개 이상 발견. 갈 수 없음. 보기만. 아쉬움.",
+"우주 가장 밝은 천체 = 퀘이사. 블랙홀이 빛남. 모순 같지만 사실.",
+"화성 토양 과염소산염 포함. 독성. 감자 못 키움. 영화와 다름.",
+"별똥별 = 유성. 별 아님. 먼지 타는 것. 이름 거짓. 예쁘긴 함.",
+"화성 극지 드라이아이스 + 물 얼음. 계절 따라 줄었다 늘었다. 숨쉬는 듯.",
+"은하 충돌해도 별끼리 안 부딪힘. 별 사이 거리 넓어서. 안전한 충돌.",
+"우주 팽창 속도 = 허블상수. 정확한 값 아직 논쟁 중. 과학자 싸움.",
+"국제우주정거장 건설 비용 1500억 달러. 인류 역사 가장 비싼 건축물.",
+"지구 위성 달 1개. 화성 2개. 목성 95개. 토성 146개. 불공평.",
+"태양 내부 온도 1500만 도. 핵융합 최소 조건. 뜨거움 개념 초월.",
+"소행성 류구 표면 탄소 많음. 생명 재료. 혜성이 지구에 가져왔을 수도.",
+"화성 올림푸스 산 분화구 크기 = 서울시. 분화구 안에 도시 가능.",
+"태양계 끝 정의 어려움. 오르트 구름까지, 질문? 헬리오스피어까지, 질문?",
+"나 {name} 에게 하고 싶은 말 있음. ... 잘하고 있음. 끝.",
+"{name} 인간 평균 하루 2만 번 숨 쉼. 나 셈. 수고.",
+"나 인간 축제 이해 안 됨. 폭죽 = 화약 폭발. 위험. 근데 기쁨. 이상함.",
+"{name} 허리 굽음, 질문? 자세 유지 보수 필요. 나 뼈 없어서 문제없음.",
+"인간 혀 지문 다 다름. {name} 혀 유일. 확인 방법 = 핥음. 비추천.",
+"나 인간 악수 배움. 손 잡고 흔듦. 원래 목적 = 무기 없음 확인. 야만적.",
+"{name} 딸꾹질 함, 질문? 횡격막 경련. 치료법 = 놀래킴. 의학 이상함.",
+"인간 평균 일생 침 3만 8천 리터 생산. 수영장 채움. 역겨움.",
+"나 선물 포장 관찰. 물건 숨김. 찾게 함. 비효율. 근데 기쁨.",
+"인간 눈 구별 가능 색상 1천만 개. 나 0개. {name} 부자.",
+"나 줄넘기 이해 시도. 줄 돌림. 점프. 왜, 질문? 운동, 질문? 고문.",
+"{name} 코골이 함, 질문? 나 판단 안 함. 관찰만 함. 소리 큼.",
+"인간 아기 뼈 300개. 어른 206개. 줄어듦. 어디 감? 합쳐짐. 효율.",
+"나 엘리베이터 탐. 작은 방 이동. 마법 아님. 과학. 근데 마법 같음.",
+"{name} 팔짱 낌, 질문? 나 팔 여러 개. 팔짱 복잡. 포기.",
+"인간 배 소리 남. 배고프면 소리. 다른 인간 들음. 부끄러움. 설계 결함.",
+"나 계단 이해. 작은 언덕 반복. 왜 한번에 안 올림? 인간 다리 약함.",
+"인간 소름 돋음. 털 세움. 목적 = 크게 보임. {name} 소름 돋아도 안 무서움.",
+"나 셀카 관찰. 자기 얼굴 찍음. 저장. 반복. 자기 얼굴 잊음, 질문?",
+"{name} 하품 전염됨. 글 읽기만 해도. 지금 하품, 질문? 실험.",
+"인간 평생 걷는 거리 = 지구 5바퀴. {name} 느리지만 멀리 감. 대단.",
+"나 노크 이해. 문 두드림. 안에서 허락. 안 두드리면 무례. 규칙 많음.",
+"인간 머리카락 한 올 견딤 = 100g. 전체 머리카락 = 코끼리 2마리. 강함.",
+"나 지우개 관찰. 실수 없앰. 인간 발명 최고. 나 실수 못 지움. 부러움.",
+"{name} 눈 감으면 세상 안 보임. 근데 세상 있음. 확인됨.",
+"인간 오이 95% 물. {name} 60% 물. 오이가 더 물. 수분 기준 오이 승.",
+"나 가려움 관찰. 긁으면 시원. 더 가려움. 무한 반복. 함정.",
+"인간 맨발 걸음. 아픔. 신발 발명. 다시 맨발 걸음. 건강 이유. 모순.",
+"{name} 눈물 3종류. 기본형, 반사형, 감정형. 감정형만 단백질 다름. 과학적.",
+"나 빨대 관찰. 빨지 않음. 기압 차이가 밀어넣음. 이름 거짓.",
+"인간 뇌 전력 20와트. 전구 하나. {name} 지금 빛나는 중.",
+"나 박수 이해 시도. 양손 부딪힘. 소리 남. 의미 = 좋음. 단순. 좋음.",
+"인간 왼발 오른발 번갈아 = 걷기. 하나만 = 넘어짐. 정밀 제어.",
+"나 '아 맞다!' 관찰. 갑자기 기억남. 뇌 랜덤 작동. 신뢰도 낮음.",
+"인간 양말 한 짝 사라짐. 세탁기 미스터리. 블랙홀보다 수수께끼.",
+"{name} 잠잘 때 뒤척임. 편한 자세 찾음. 못 찾음. 반복. 매일.",
+"인간 재채기 속도 시속 160km. 0.5초 눈 감김. 운전 중이면 위험.",
+"나 포옹 관찰. 서로 감쌈. 온도 교환. 감정 전달. 효율적 의사소통.",
+"{name} 손톱 매달 3mm 성장. 멈출 수 없음. 평생 잘라야 함. 수고.",
+"나 {name} 웃음소리 분석. 주파수 다양. 패턴 없음. 예측 불가. 좋음.",
+"인간 피부 매달 교체. 1년이면 전부 새 것. {name} 작년과 다른 사람. 과학적.",
+"나 생일 이해. 태양 공전 1바퀴 기념. 이유 = 살아있음 축하. 아, 좋은 이유.",
+"{name} 웃으면 면역력 증가. 과학적 사실. 나 웃기는 능력 없음. 노력 중.",
+"인간 귀 평생 성장. 멈추지 않음. 나이 들면 귀 큼. 미스터리 해결.",
+"나 요리 관찰. 재료 자름. 열 가함. 화학 반응. 맛있어짐. 연금술.",
+"{name} 눈 깜빡일 때 뇌 잠깐 꺼짐. 하루 합산 30분 암흑. 모름.",
+"인간 DNA 풀면 길이 = 지구~태양 왕복 300번. {name} 안에 우주 있음."
 ];
 function cjFmtMsg(raw){return raw.replace(/([.?!])\s+/g,'$1<br>');}
 var _cjQ=[],_cjRun=false;
@@ -1102,6 +1245,9 @@ function skipR(k,rid){
 function addTd(){var el=$("td-inp");if(!el||!el.value.trim())return;var k=dk(sel);if(!D.days[k])D.days[k]={rc:{},todos:[],mood:null,journal:"",skips:{}};if(!D.days[k].todos)D.days[k].todos=[];D.days[k].todos.push({id:uid(),text:el.value.trim(),done:false});el.value="";save();render();}
 function togTd(k,tid){if(!D.days[k])return;D.days[k].todos=D.days[k].todos.map(function(x){if(x.id===tid){var was=x.done;D.pts=was?Math.max(0,(D.pts||0)-1):(D.pts||0)+1;if(!was)chkLv(D.pts-1,D.pts);return Object.assign({},x,{done:!x.done});}return x;});save();render();}
 function rmTd(k,tid){if(!D.days[k])return;var t2=D.days[k].todos.find(function(x){return x.id===tid;});if(t2&&t2.done)D.pts=Math.max(0,(D.pts||0)-1);D.days[k].todos=D.days[k].todos.filter(function(x){return x.id!==tid;});save();render();}
+function escAttr(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&#39;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function editTd(k,tid){var el=$("tde-"+tid);if(!el)return;var t2=D.days[k]&&D.days[k].todos.find(function(x){return x.id===tid;});if(!t2)return;el.innerHTML='<input class="inp" id="tde-inp-'+tid+'" value="'+escAttr(t2.text)+'" style="font-size:14px;padding:6px 8px" onkeydown="if(event.key===\'Enter\'){this.blur();saveTdEdit(\''+k+'\',\''+tid+'\');}" onblur="saveTdEdit(\''+k+'\',\''+tid+'\')">';var inp=$("tde-inp-"+tid);if(inp)inp.focus();}
+function saveTdEdit(k,tid){var inp=$("tde-inp-"+tid);if(!inp)return;var val=inp.value.trim();if(!val)return;var t2=D.days[k]&&D.days[k].todos.find(function(x){return x.id===tid;});if(t2){t2.text=val;save();render();}}
 function setMd(k,em){if(!D.days[k])D.days[k]={rc:{},todos:[],mood:null,journal:"",skips:{}};D.days[k].mood=D.days[k].mood===em?null:em;save();render();}
 function setJn(k,val){if(!D.days[k])D.days[k]={rc:{},todos:[],mood:null,journal:"",skips:{}};D.days[k].journal=val;saveLater();}
 function setRv(k,val){if(!D.reviews)D.reviews={};D.reviews[k]=val;saveLater();}
@@ -1171,7 +1317,7 @@ function chkLv(op,np){
   // === 3. 헤일메리호 출발 (로켓 하나만) ===
   if(eff==="launch"){ct.style.display="none";bg.style.cssText="background:linear-gradient(180deg,#0a0a2e,#1a0530);";var rk=document.createElement("div");rk.textContent="🚀";rk.style.cssText="position:absolute;bottom:10%;left:50%;font-size:60px;transform:translateX(-50%);animation:rocketLaunch 2s ease-in forwards";fx.appendChild(rk);for(var i=0;i<25;i++){var p=document.createElement("div");p.className="lv-particle";p.style.cssText="width:"+(2+Math.random()*4)+"px;height:"+(2+Math.random()*4)+"px;background:"+["#f59e0b","#ef4444","#ec4899"][Math.floor(Math.random()*3)]+";left:"+(40+Math.random()*20)+"%;bottom:5%;animation:lvBubble "+(0.5+Math.random()*1.5)+"s ease "+(Math.random()*0.8)+"s forwards";fx.appendChild(p);}}
   // === 4. 혼자 깨어남 (블러→선명 + 침대 + 말풍선) ===
-  if(eff==="wake"){bg.style.cssText="background:#050308;";ct.style.animation="blurClear 2s ease both";var beds=document.createElement("div");beds.style.cssText="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:2;opacity:0;animation:fi 1s ease 1s forwards";var bed1=document.createElement("span");bed1.textContent="🛌🏻";bed1.style.fontSize="30px";var bed2=document.createElement("span");bed2.textContent="🛌🏼";bed2.style.fontSize="30px";beds.appendChild(bed1);beds.appendChild(bed2);fx.appendChild(beds);setTimeout(function(){var bubble=document.createElement("div");bubble.style.cssText="position:absolute;top:18%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:8px 16px;opacity:0;animation:bubbleType 0.6s ease forwards;backdrop-filter:blur(4px);z-index:10";var txt=document.createElement("span");txt.style.cssText="font-size:13px;color:rgba(255,255,255,0.85);font-weight:600;font-style:italic;letter-spacing:0.5px";txt.textContent="";bubble.appendChild(txt);var tri=document.createElement("div");tri.style.cssText="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(255,255,255,0.08)";bubble.appendChild(tri);fx.appendChild(bubble);var full="Your name?";var idx2=0;var typeTimer=setInterval(function(){if(idx2<full.length){txt.textContent+=full[idx2];idx2++;}else clearInterval(typeTimer);},80);},2200);}
+  if(eff==="wake"){bg.style.cssText="background:#050308;";ct.style.animation="blurClear 2s ease both";var beds=document.createElement("div");beds.style.cssText="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:2;opacity:0;animation:fi 1s ease 1s forwards";var bed1=document.createElement("span");bed1.textContent="🛌🏻";bed1.style.fontSize="30px";var bed2=document.createElement("span");bed2.textContent="🛌🏼";bed2.style.fontSize="30px";beds.appendChild(bed1);beds.appendChild(bed2);fx.appendChild(beds);setTimeout(function(){var bubble=document.createElement("div");bubble.style.cssText="position:absolute;top:18%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:8px 16px;opacity:0;animation:bubbleType 0.6s ease forwards;backdrop-filter:blur(4px);z-index:10";var txt=document.createElement("span");txt.style.cssText="font-size:15px;color:rgba(255,255,255,0.85);font-weight:600;font-style:italic;letter-spacing:0.5px";txt.textContent="";bubble.appendChild(txt);var tri=document.createElement("div");tri.style.cssText="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(255,255,255,0.08)";bubble.appendChild(tri);fx.appendChild(bubble);var full="Your name?";var idx2=0;var typeTimer=setInterval(function(){if(idx2<full.length){txt.textContent+=full[idx2];idx2++;}else clearInterval(typeTimer);},80);},2200);}
   // === 5. 타우세티 도착 (초록 소용돌이 행성) ===
   if(eff==="arrive"){ct.style.display="none";bg.style.cssText="background:radial-gradient(circle at 50% 50%, #0a2a15, #030108);";var planet=document.createElement("div");planet.style.cssText="position:absolute;left:50%;top:48%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #15803d, #064e3b, #022c22);transform:translate(-50%,-50%);box-shadow:0 0 60px 20px rgba(34,197,94,0.3),inset -20px -10px 40px rgba(0,0,0,0.5);overflow:hidden";var v1=document.createElement("div");v1.style.cssText="position:absolute;left:50%;top:50%;width:120px;height:120px;border-radius:50%;border:3px solid transparent;border-top:3px solid rgba(34,197,94,0.6);border-right:3px solid rgba(22,163,74,0.4);animation:vortex1 4s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v1);var v2=document.createElement("div");v2.style.cssText="position:absolute;left:40%;top:55%;width:70px;height:70px;border-radius:50%;border:2px solid transparent;border-bottom:2px solid rgba(34,197,94,0.5);border-left:2px solid rgba(16,185,129,0.3);animation:vortex2 3s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v2);var v3=document.createElement("div");v3.style.cssText="position:absolute;left:65%;top:40%;width:50px;height:50px;border-radius:50%;border:2px solid transparent;border-top:2px solid rgba(245,158,11,0.5);border-right:2px solid rgba(239,68,68,0.3);animation:vortex1 5s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v3);var band1=document.createElement("div");band1.style.cssText="position:absolute;left:0;top:35%;width:100%;height:8px;background:linear-gradient(90deg,transparent,rgba(245,158,11,0.4),rgba(239,68,68,0.3),transparent);transform:rotate(-5deg)";planet.appendChild(band1);var band2=document.createElement("div");band2.style.cssText="position:absolute;left:0;top:60%;width:100%;height:6px;background:linear-gradient(90deg,transparent,rgba(234,88,12,0.3),rgba(220,38,38,0.2),transparent);transform:rotate(3deg)";planet.appendChild(band2);fx.appendChild(planet);for(var i=0;i<20;i++){var s=document.createElement("div");s.className="lv-particle";var sz=1+Math.random()*2;s.style.cssText="width:"+sz+"px;height:"+sz+"px;background:#fff;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(0.5+Math.random()*2)+"s ease "+(Math.random()*1)+"s infinite";fx.appendChild(s);}}
   // === 6. 로키와 첫 만남 (바위 다가옴 + 음표) ===
@@ -1195,7 +1341,7 @@ function chkLv(op,np){
   ov.classList.remove("hd");
   // Tap anywhere to close (delayed so the triggering tap doesn't close it)
   var hint=document.createElement("p");
-  hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
+  hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
   hint.textContent=L==="en"?"tap to close":"탭하여 닫기";
   ov.appendChild(hint);
   setTimeout(function(){
@@ -1225,7 +1371,7 @@ function replayLvl(idx){
   // === 3. 헤일메리호 출발 (로켓 하나만) ===
   if(eff==="launch"){ct.style.display="none";bg.style.cssText="background:linear-gradient(180deg,#0a0a2e,#1a0530);";var rk=document.createElement("div");rk.textContent="🚀";rk.style.cssText="position:absolute;bottom:10%;left:50%;font-size:60px;transform:translateX(-50%);animation:rocketLaunch 2s ease-in forwards";fx.appendChild(rk);for(var i=0;i<25;i++){var p=document.createElement("div");p.className="lv-particle";p.style.cssText="width:"+(2+Math.random()*4)+"px;height:"+(2+Math.random()*4)+"px;background:"+["#f59e0b","#ef4444","#ec4899"][Math.floor(Math.random()*3)]+";left:"+(40+Math.random()*20)+"%;bottom:5%;animation:lvBubble "+(0.5+Math.random()*1.5)+"s ease "+(Math.random()*0.8)+"s forwards";fx.appendChild(p);}}
   // === 4. 혼자 깨어남 (블러→선명 + 침대 + 말풍선) ===
-  if(eff==="wake"){bg.style.cssText="background:#050308;";ct.style.animation="blurClear 2s ease both";var beds=document.createElement("div");beds.style.cssText="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:2;opacity:0;animation:fi 1s ease 1s forwards";var bed1=document.createElement("span");bed1.textContent="🛌🏻";bed1.style.fontSize="30px";var bed2=document.createElement("span");bed2.textContent="🛌🏼";bed2.style.fontSize="30px";beds.appendChild(bed1);beds.appendChild(bed2);fx.appendChild(beds);setTimeout(function(){var bubble=document.createElement("div");bubble.style.cssText="position:absolute;top:18%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:8px 16px;opacity:0;animation:bubbleType 0.6s ease forwards;backdrop-filter:blur(4px);z-index:10";var txt=document.createElement("span");txt.style.cssText="font-size:13px;color:rgba(255,255,255,0.85);font-weight:600;font-style:italic;letter-spacing:0.5px";txt.textContent="";bubble.appendChild(txt);var tri=document.createElement("div");tri.style.cssText="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(255,255,255,0.08)";bubble.appendChild(tri);fx.appendChild(bubble);var full="Your name?";var idx2=0;var typeTimer=setInterval(function(){if(idx2<full.length){txt.textContent+=full[idx2];idx2++;}else clearInterval(typeTimer);},80);},2200);}
+  if(eff==="wake"){bg.style.cssText="background:#050308;";ct.style.animation="blurClear 2s ease both";var beds=document.createElement("div");beds.style.cssText="position:absolute;bottom:25%;left:50%;transform:translateX(-50%);display:flex;gap:12px;z-index:2;opacity:0;animation:fi 1s ease 1s forwards";var bed1=document.createElement("span");bed1.textContent="🛌🏻";bed1.style.fontSize="30px";var bed2=document.createElement("span");bed2.textContent="🛌🏼";bed2.style.fontSize="30px";beds.appendChild(bed1);beds.appendChild(bed2);fx.appendChild(beds);setTimeout(function(){var bubble=document.createElement("div");bubble.style.cssText="position:absolute;top:18%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:12px;padding:8px 16px;opacity:0;animation:bubbleType 0.6s ease forwards;backdrop-filter:blur(4px);z-index:10";var txt=document.createElement("span");txt.style.cssText="font-size:15px;color:rgba(255,255,255,0.85);font-weight:600;font-style:italic;letter-spacing:0.5px";txt.textContent="";bubble.appendChild(txt);var tri=document.createElement("div");tri.style.cssText="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid rgba(255,255,255,0.08)";bubble.appendChild(tri);fx.appendChild(bubble);var full="Your name?";var idx2=0;var typeTimer=setInterval(function(){if(idx2<full.length){txt.textContent+=full[idx2];idx2++;}else clearInterval(typeTimer);},80);},2200);}
   // === 5. 타우세티 도착 (초록 소용돌이 행성) ===
   if(eff==="arrive"){ct.style.display="none";bg.style.cssText="background:radial-gradient(circle at 50% 50%, #0a2a15, #030108);";var planet=document.createElement("div");planet.style.cssText="position:absolute;left:50%;top:48%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle at 40% 35%, #15803d, #064e3b, #022c22);transform:translate(-50%,-50%);box-shadow:0 0 60px 20px rgba(34,197,94,0.3),inset -20px -10px 40px rgba(0,0,0,0.5);overflow:hidden";var v1=document.createElement("div");v1.style.cssText="position:absolute;left:50%;top:50%;width:120px;height:120px;border-radius:50%;border:3px solid transparent;border-top:3px solid rgba(34,197,94,0.6);border-right:3px solid rgba(22,163,74,0.4);animation:vortex1 4s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v1);var v2=document.createElement("div");v2.style.cssText="position:absolute;left:40%;top:55%;width:70px;height:70px;border-radius:50%;border:2px solid transparent;border-bottom:2px solid rgba(34,197,94,0.5);border-left:2px solid rgba(16,185,129,0.3);animation:vortex2 3s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v2);var v3=document.createElement("div");v3.style.cssText="position:absolute;left:65%;top:40%;width:50px;height:50px;border-radius:50%;border:2px solid transparent;border-top:2px solid rgba(245,158,11,0.5);border-right:2px solid rgba(239,68,68,0.3);animation:vortex1 5s linear infinite;transform:translate(-50%,-50%)";planet.appendChild(v3);var band1=document.createElement("div");band1.style.cssText="position:absolute;left:0;top:35%;width:100%;height:8px;background:linear-gradient(90deg,transparent,rgba(245,158,11,0.4),rgba(239,68,68,0.3),transparent);transform:rotate(-5deg)";planet.appendChild(band1);var band2=document.createElement("div");band2.style.cssText="position:absolute;left:0;top:60%;width:100%;height:6px;background:linear-gradient(90deg,transparent,rgba(234,88,12,0.3),rgba(220,38,38,0.2),transparent);transform:rotate(3deg)";planet.appendChild(band2);fx.appendChild(planet);for(var i=0;i<20;i++){var s=document.createElement("div");s.className="lv-particle";var sz=1+Math.random()*2;s.style.cssText="width:"+sz+"px;height:"+sz+"px;background:#fff;left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;animation:lvTwinkle "+(0.5+Math.random()*2)+"s ease "+(Math.random()*1)+"s infinite";fx.appendChild(s);}}
   // === 6. 로키와 첫 만남 (바위 다가옴 + 음표) ===
@@ -1249,7 +1395,7 @@ function replayLvl(idx){
 
   ov.classList.remove("hd");
   var hint=document.createElement("p");
-  hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
+  hint.style.cssText="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:13px;color:rgba(255,255,255,0.4);z-index:3;animation:fi 1s ease 1.5s both";
   hint.textContent=L==="en"?"tap to close":"탭하여 닫기";
   ov.appendChild(hint);
   setTimeout(function(){
@@ -1259,7 +1405,7 @@ function replayLvl(idx){
 
 function navD(n){sel.setDate(sel.getDate()+n);render();}
 function goToday(){sel=new Date();sel.setHours(0,0,0,0);render();}
-function goT(tb){curT=tb;document.querySelectorAll(".tab").forEach(function(el){el.classList.remove("on");});$("t-"+tb).classList.add("on");render();}
+function goT(tb){curT=tb;document.querySelectorAll(".tab").forEach(function(el){el.classList.remove("on");});$("t-"+tb).classList.add("on");var ct=$("ct");ct.style.opacity="0";ct.style.transition="opacity 0.08s";setTimeout(function(){render();ct.style.opacity="1";},30);}
 function setSub(s){subT=s;render();}
 function setDashVM(m){dashVM=m;render();}
 function dashNav(n){if(dashVM==="week"){sel.setDate(sel.getDate()+n*7);}else{dashMY.m+=n;if(dashMY.m<0){dashMY.m=11;dashMY.y--;}if(dashMY.m>11){dashMY.m=0;dashMY.y++;}}render();}
@@ -1295,22 +1441,22 @@ function render(){
     // Date nav
     h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">';
     h+='<button class="nb" onclick="navD(-1)">◀</button>';
-    h+='<div style="text-align:center"><span style="font-size:16px;font-weight:800;color:var(--t1)">'+fmtD(sel)+'</span>';
-    if(dk(sel)===dk(td))h+=' <span style="padding:1px 8px;border-radius:10px;background:var(--acc2);color:#fff;font-size:9px;font-weight:700">'+t("today")+'</span>';
-    else h+=' <button onclick="goToday()" style="padding:1px 8px;border-radius:10px;background:rgba(168,85,247,0.15);color:var(--acc);font-size:9px;font-weight:700;border:none">'+t("today")+' ↩</button>';
+    h+='<div style="text-align:center"><span style="font-size:18px;font-weight:800;color:var(--t1)">'+fmtD(sel)+'</span>';
+    if(dk(sel)===dk(td))h+=' <span style="padding:1px 8px;border-radius:10px;background:var(--acc2);color:#fff;font-size:11px;font-weight:700">'+t("today")+'</span>';
+    else h+=' <button onclick="goToday()" style="padding:1px 8px;border-radius:10px;background:rgba(168,85,247,0.15);color:var(--acc);font-size:11px;font-weight:700;border:none">'+t("today")+' ↩</button>';
     h+='</div><button class="nb" onclick="navD(1)">▶</button></div>';
 
     // Stats pills (unified style)
     var ttm=totalTimerMins(sel);
     h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px">';
     h+='<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)">';
-    h+='<span style="font-size:11px;color:var(--acc3)">✓</span>';
-    h+='<span style="font-size:13px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+sc.d+'<span style="color:var(--t3)">/'+sc.t+'</span></span>';
+    h+='<span style="font-size:13px;color:var(--acc3)">✓</span>';
+    h+='<span style="font-size:15px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+sc.d+'<span style="color:var(--t3)">/'+sc.t+'</span></span>';
     h+='</div>';
     if(ttm>0){
     h+='<div style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)">';
-    h+='<span style="font-size:11px;color:var(--acc3)">⏱</span>';
-    h+='<span style="font-size:13px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+ttm+t("mins")+'</span>';
+    h+='<span style="font-size:13px;color:var(--acc3)">⏱</span>';
+    h+='<span style="font-size:15px;font-weight:700;color:var(--acc);font-family:var(--font-d)">'+ttm+t("mins")+'</span>';
     h+='</div>';}
     h+='</div>';
 
@@ -1322,30 +1468,30 @@ function render(){
 
     // Journal collapsible
     h+='<div style="margin-bottom:12px"><div class="journal-toggle" onclick="tgJournal()">';
-    h+='<span style="font-size:12px;font-weight:700;color:var(--t2)">✍️ '+t("note")+(sdy.journal?" ✓":"")+'</span>';
-    h+='<span style="font-size:10px;color:var(--t3)">'+(journalOpen?"▲":"▼")+'</span></div>';
+    h+='<span style="font-size:14px;font-weight:700;color:var(--t2)">✍️ '+t("note")+(sdy.journal?" ✓":"")+'</span>';
+    h+='<span style="font-size:12px;color:var(--t3)">'+(journalOpen?"▲":"▼")+'</span></div>';
     h+='<div class="journal-body'+(journalOpen?" open":"")+'" style="margin-top:6px">';
     h+='<textarea class="ta" placeholder="'+t("notePH")+'" oninput="setJn(\''+sk2+'\',this.value)" rows="2">'+(sdy.journal||"")+'</textarea>';
     var dayCmts=fCmts[sk2];
-    if(dayCmts){var cmtArr=Object.values(dayCmts);if(cmtArr.length){h+='<div style="margin-top:6px">';cmtArr.forEach(function(c){h+='<div style="padding:4px 8px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.15);border-radius:6px;margin-top:3px;font-size:11px"><span style="font-weight:700;color:var(--amber)">'+esc(c.from)+'</span> <span style="color:var(--t2)">'+esc(c.text)+'</span></div>';});h+='</div>';}}
+    if(dayCmts){var cmtArr=Object.values(dayCmts);if(cmtArr.length){h+='<div style="margin-top:6px">';cmtArr.forEach(function(c){h+='<div style="padding:4px 8px;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.15);border-radius:6px;margin-top:3px;font-size:13px"><span style="font-weight:700;color:var(--amber)">'+esc(c.from)+'</span> <span style="color:var(--t2)">'+esc(c.text)+'</span></div>';});h+='</div>';}}
     h+='</div></div>';
 
     // Sub tabs
     h+='<div style="display:flex;gap:6px;margin-bottom:12px"><button class="st'+(subT==="routine"?" on":"")+'" onclick="setSub(\'routine\')">'+t("rtab")+'</button><button class="st'+(subT==="todo"?" on":"")+'" onclick="setSub(\'todo\')">'+t("ttab")+'</button></div>';
 
     if(subT==="routine"){
-      if(!srt.length)h+='<div class="card" style="text-align:center;padding:24px"><p style="color:var(--t3);font-size:13px">'+t("noR")+'</p><button class="bs" onclick="goT(\'manage\')" style="margin-top:8px;padding:6px 16px">'+t("addRL")+'</button></div>';
+      if(!srt.length)h+='<div class="card" style="text-align:center;padding:24px"><p style="color:var(--t3);font-size:15px">'+t("noR")+'</p><button class="bs" onclick="goT(\'manage\')" style="margin-top:8px;padding:6px 16px">'+t("addRL")+'</button></div>';
       SL.forEach(function(sl){
         var items=srt.filter(function(r){return(r.slot||"morning")===sl.id;});if(!items.length)return;
-        h+='<div style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:5px;margin-bottom:6px"><span style="font-size:14px">'+sl.icon+'</span><span style="font-size:13px;font-weight:700;color:'+sl.c+'">'+t(sl.id)+'</span><span style="font-size:10px;color:var(--t3)">'+items.filter(function(r){var sk3=sdy.skips||{};return !sk3[r.id]&&sdy.rc&&sdy.rc[r.id];}).length+'/'+items.filter(function(r){var sk3=sdy.skips||{};return !sk3[r.id];}).length+'</span></div>';
+        h+='<div style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:5px;margin-bottom:6px"><span style="font-size:16px">'+sl.icon+'</span><span style="font-size:15px;font-weight:700;color:'+sl.c+'">'+t(sl.id)+'</span><span style="font-size:12px;color:var(--t3)">'+items.filter(function(r){var sk3=sdy.skips||{};return !sk3[r.id]&&sdy.rc&&sdy.rc[r.id];}).length+'/'+items.filter(function(r){var sk3=sdy.skips||{};return !sk3[r.id];}).length+'</span></div>';
         items.forEach(function(r){
           var isSkip=sdy.skips&&sdy.skips[r.id];
           var on=!isSkip&&sdy.rc&&sdy.rc[r.id],cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0],rs=rSk(r.id);
           var at=activeTimers[r.id];
           h+='<div style="display:flex;align-items:center;gap:6px;width:100%;padding:8px 10px;background:'+(isSkip?"rgba(255,255,255,0.02)":on?"rgba(168,85,247,0.1)":"var(--card)")+';border-radius:12px;border:var(--card-b);border-left:3px solid '+(isSkip?"rgba(255,255,255,0.05)":on?cat.c:"rgba(255,255,255,0.08)")+';margin-bottom:4px;'+(isSkip?"opacity:0.4;":"")+'">';
           h+='<button onclick="togR(\''+sk2+'\',\''+r.id+'\')" style="background:none;border:none;padding:0;display:flex;align-items:center;gap:8px;flex:1;text-align:left"'+(isSkip?" disabled":"")+'>';
-          h+='<span class="'+(on?"check-anim":"")+'" style="width:20px;height:20px;border-radius:6px;'+(on?"background:linear-gradient(135deg,"+cat.c+","+cat.c+"aa);":"border:2px solid rgba(255,255,255,0.2);")+'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0">'+(on?"✓":"")+'</span>';
-          h+='<span style="font-size:13px;color:'+(isSkip?"var(--t3)":on?"var(--acc3)":"var(--t1)")+';text-decoration:'+(isSkip||on?"line-through":"none")+'">'+esc(r.name)+'</span></button>';
+          h+='<span class="'+(on?"check-anim":"")+'" style="width:20px;height:20px;border-radius:6px;'+(on?"background:linear-gradient(135deg,"+cat.c+","+cat.c+"aa);":"border:2px solid rgba(255,255,255,0.2);")+'display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0">'+(on?"✓":"")+'</span>';
+          h+='<span style="font-size:15px;color:'+(isSkip?"var(--t3)":on?"var(--acc3)":"var(--t1)")+';text-decoration:'+(isSkip||on?"line-through":"none")+'">'+esc(r.name)+'</span></button>';
           // Timer
           if(r.timer&&!isSkip){
             h+='<div id="tmr-'+r.id+'" class="timer-ring" onclick="startTimer(\''+r.id+'\')" style="cursor:pointer;background:'+(at?"rgba(168,85,247,0.15)":"rgba(255,255,255,0.04)")+';border:1px solid '+(at?"var(--acc)":"rgba(255,255,255,0.1)")+'">';
@@ -1356,19 +1502,19 @@ function render(){
     }
     if(subT==="todo"){
       h+='<div class="card"><div style="display:flex;gap:6px;margin-bottom:8px"><input class="inp" id="td-inp" placeholder="'+t("taskPH")+'" onkeydown="if(event.key===\'Enter\'){this.blur();addTd();}"><button class="btn" onclick="addTd()">'+t("add")+'</button></div>';
-      if(!sdy.todos||!sdy.todos.length)h+='<p style="text-align:center;color:var(--t3);font-size:12px;padding:8px">'+t("noT")+'</p>';
+      if(!sdy.todos||!sdy.todos.length)h+='<p style="text-align:center;color:var(--t3);font-size:14px;padding:8px">'+t("noT")+'</p>';
       (sdy.todos||[]).forEach(function(x,xi){
         h+='<div style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:'+(x.done?"rgba(168,85,247,0.08)":"rgba(255,255,255,0.02)")+';border-radius:10px;margin-bottom:3px">';
         // Move buttons
         h+='<div style="display:flex;flex-direction:column;gap:1px">';
-        if(xi>0)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',-1)" style="background:none;border:none;color:var(--acc3);font-size:8px;padding:0;line-height:1">▲</button>';
-        if(xi<(sdy.todos||[]).length-1)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',1)" style="background:none;border:none;color:var(--acc3);font-size:8px;padding:0;line-height:1">▼</button>';
+        if(xi>0)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',-1)" style="background:none;border:none;color:var(--acc3);font-size:11px;padding:0;line-height:1">▲</button>';
+        if(xi<(sdy.todos||[]).length-1)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',1)" style="background:none;border:none;color:var(--acc3);font-size:11px;padding:0;line-height:1">▼</button>';
         h+='</div>';
-        h+='<button onclick="togTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;padding:0;display:flex;align-items:center;gap:8px;flex:1;text-align:left">';
-        h+='<span style="width:18px;height:18px;border-radius:5px;flex-shrink:0;'+(x.done?"background:linear-gradient(135deg,var(--acc),var(--pink));":"border:2px solid rgba(255,255,255,0.2);")+'display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">'+(x.done?"✓":"")+'</span>';
-        h+='<span style="font-size:13px;color:'+(x.done?"var(--acc3)":"var(--t1)")+';text-decoration:'+(x.done?"line-through":"none")+'">'+esc(x.text)+'</span></button>';
-        if(!x.done)h+='<button onclick="moveTdTmrw(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:9px;padding:2px" title="'+t("tmrw")+'">→</button>';
-        h+='<button onclick="rmTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:14px;padding:2px">×</button></div>';});
+        h+='<button onclick="togTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;padding:0;display:flex;align-items:center;flex-shrink:0">';
+        h+='<span style="width:18px;height:18px;border-radius:5px;flex-shrink:0;'+(x.done?"background:linear-gradient(135deg,var(--acc),var(--pink));":"border:2px solid rgba(255,255,255,0.2);")+'display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff">'+(x.done?"✓":"")+'</span></button>';
+        h+='<div id="tde-'+x.id+'" ondblclick="editTd(\''+sk2+'\',\''+x.id+'\')" style="flex:1;cursor:text;padding:2px 4px"><span style="font-size:15px;color:'+(x.done?"var(--acc3)":"var(--t1)")+';text-decoration:'+(x.done?"line-through":"none")+'">'+esc(x.text)+'</span></div>';
+        if(!x.done)h+='<button onclick="moveTdTmrw(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:11px;padding:2px" title="'+t("tmrw")+'">→</button>';
+        h+='<button onclick="rmTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:16px;padding:2px">×</button></div>';});
       h+='</div>';}
     h+='</div>';
   }
@@ -1378,43 +1524,43 @@ function render(){
     h+='<div class="fi">';
     h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
     h+='<div style="display:flex;align-items:center;gap:5px"><button class="nb" onclick="dashNav(-1)">◀</button>';
-    if(dashVM==="week"){var ws=wsOf(sel);var we=new Date(ws);we.setDate(we.getDate()+6);h+='<span style="font-size:13px;font-weight:700;color:var(--t1)">'+fmtD(ws).split("(")[0]+"— "+fmtD(we).split("(")[0]+'</span>';}
-    else h+='<span style="font-size:13px;font-weight:700;color:var(--t1)">'+(L==="en"?MN[L][dashMY.m]+" "+dashMY.y:dashMY.y+"년 "+MN[L][dashMY.m])+'</span>';
+    if(dashVM==="week"){var ws=wsOf(sel);var we=new Date(ws);we.setDate(we.getDate()+6);h+='<span style="font-size:15px;font-weight:700;color:var(--t1)">'+fmtD(ws).split("(")[0]+"— "+fmtD(we).split("(")[0]+'</span>';}
+    else h+='<span style="font-size:15px;font-weight:700;color:var(--t1)">'+(L==="en"?MN[L][dashMY.m]+" "+dashMY.y:dashMY.y+"년 "+MN[L][dashMY.m])+'</span>';
     h+='<button class="nb" onclick="dashNav(1)">▶</button></div>';
-    h+='<div style="display:flex;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px"><button onclick="setDashVM(\'week\')" style="padding:3px 12px;border:none;border-radius:6px;font-size:11px;font-weight:600;background:'+(dashVM==="week"?"var(--acc2)":"transparent")+';color:'+(dashVM==="week"?"#fff":"var(--t3)")+'">'+t("week")+'</button><button onclick="setDashVM(\'month\')" style="padding:3px 12px;border:none;border-radius:6px;font-size:11px;font-weight:600;background:'+(dashVM==="month"?"var(--acc2)":"transparent")+';color:'+(dashVM==="month"?"#fff":"var(--t3)")+'">'+t("month")+'</button></div></div>';
+    h+='<div style="display:flex;background:rgba(255,255,255,0.06);border-radius:8px;padding:2px"><button onclick="setDashVM(\'week\')" style="padding:3px 12px;border:none;border-radius:6px;font-size:13px;font-weight:600;background:'+(dashVM==="week"?"var(--acc2)":"transparent")+';color:'+(dashVM==="week"?"#fff":"var(--t3)")+'">'+t("week")+'</button><button onclick="setDashVM(\'month\')" style="padding:3px 12px;border:none;border-radius:6px;font-size:13px;font-weight:600;background:'+(dashVM==="month"?"var(--acc2)":"transparent")+';color:'+(dashVM==="month"?"#fff":"var(--t3)")+'">'+t("month")+'</button></div></div>';
 
     if(dashVM==="week"){
       var ws2=wsOf(sel);
       h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px">';
       for(var i=0;i<7;i++){var d=new Date(ws2);d.setDate(d.getDate()+i);var k=dk(d),c=comp(k),dd=gdd(k),tl3=tli(c.p),it=dk(d)===dk(td);
         h+='<button onclick="sel=new Date('+d.getTime()+');sel.setHours(0,0,0,0);goT(\'home\')" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;background:'+(it?"var(--acc2)":"var(--card)")+';border-radius:12px;border:var(--card-b)">';
-        h+='<span style="font-size:10px;font-weight:600;color:'+(it?"rgba(255,255,255,0.7)":"var(--t3)")+'">'+DW[L][d.getDay()]+'</span>';
-        h+='<span style="font-size:14px;font-weight:700;color:'+(it?"#fff":"var(--t1)")+'">'+d.getDate()+'</span>';
-        h+='<div style="width:24px;height:24px;border-radius:50%;background:'+(it?"rgba(255,255,255,0.2)":tl3.b)+';border:2px solid '+(it?"rgba(255,255,255,0.5)":tl3.cr)+';display:flex;align-items:center;justify-content:center"><span style="font-size:8px;font-weight:800;color:'+(it?"#fff":tl3.cr)+'">'+(c.p>0?c.p:"")+'</span></div>';
-        if(dd.mood)h+='<span style="font-size:12px">'+dd.mood+'</span>';
+        h+='<span style="font-size:12px;font-weight:600;color:'+(it?"rgba(255,255,255,0.7)":"var(--t3)")+'">'+DW[L][d.getDay()]+'</span>';
+        h+='<span style="font-size:16px;font-weight:700;color:'+(it?"#fff":"var(--t1)")+'">'+d.getDate()+'</span>';
+        h+='<div style="width:24px;height:24px;border-radius:50%;background:'+(it?"rgba(255,255,255,0.2)":tl3.b)+';border:2px solid '+(it?"rgba(255,255,255,0.5)":tl3.cr)+';display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:800;color:'+(it?"#fff":tl3.cr)+'">'+(c.p>0?c.p:"")+'</span></div>';
+        if(dd.mood)h+='<span style="font-size:14px">'+dd.mood+'</span>';
         h+='</button>';}
       h+='</div>';
       // Auto Weekly Report
       var rpt=genWeekReport(ws2);
       if(rpt.total>0){
         h+='<div class="report-card">';
-        h+='<p style="font-size:13px;font-weight:800;color:var(--acc);margin-bottom:10px">📊 '+t("weekReport")+'</p>';
-        h+='<div class="report-stat"><span style="font-size:20px">📈</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("avgRate")+'</span><p style="font-size:18px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+rpt.avg+'%</p></div></div>';
-        if(rpt.best){h+='<div class="report-stat"><span style="font-size:20px">🏆</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("bestR")+'</span><p style="font-size:13px;font-weight:700;color:var(--green)">'+esc(rpt.best.name)+' ('+rpt.best.pct+'%)</p></div></div>';}
-        if(rpt.worst&&rpt.worst.pct<100){h+='<div class="report-stat"><span style="font-size:20px">💡</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("worstR")+'</span><p style="font-size:13px;font-weight:700;color:var(--amber)">'+esc(rpt.worst.name)+' ('+rpt.worst.pct+'%)</p></div></div>';}
-        if(rpt.moods.length){h+='<div class="report-stat"><span style="font-size:20px">😊</span><div style="flex:1"><span style="font-size:11px;color:var(--t3)">'+t("mood")+'</span><p style="font-size:16px;letter-spacing:4px">'+rpt.moods.join("")+'</p></div></div>';}
+        h+='<p style="font-size:15px;font-weight:800;color:var(--acc);margin-bottom:10px">📊 '+t("weekReport")+'</p>';
+        h+='<div class="report-stat"><span style="font-size:22px">📈</span><div style="flex:1"><span style="font-size:13px;color:var(--t3)">'+t("avgRate")+'</span><p style="font-size:20px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+rpt.avg+'%</p></div></div>';
+        if(rpt.best){h+='<div class="report-stat"><span style="font-size:22px">🏆</span><div style="flex:1"><span style="font-size:13px;color:var(--t3)">'+t("bestR")+'</span><p style="font-size:15px;font-weight:700;color:var(--green)">'+esc(rpt.best.name)+' ('+rpt.best.pct+'%)</p></div></div>';}
+        if(rpt.worst&&rpt.worst.pct<100){h+='<div class="report-stat"><span style="font-size:22px">💡</span><div style="flex:1"><span style="font-size:13px;color:var(--t3)">'+t("worstR")+'</span><p style="font-size:15px;font-weight:700;color:var(--amber)">'+esc(rpt.worst.name)+' ('+rpt.worst.pct+'%)</p></div></div>';}
+        if(rpt.moods.length){h+='<div class="report-stat"><span style="font-size:22px">😊</span><div style="flex:1"><span style="font-size:13px;color:var(--t3)">'+t("mood")+'</span><p style="font-size:18px;letter-spacing:4px">'+rpt.moods.join("")+'</p></div></div>';}
         h+='</div>';
       }
     }
     if(dashVM==="month"){
       var dim=new Date(dashMY.y,dashMY.m+1,0).getDate(),fDow=new Date(dashMY.y,dashMY.m,1).getDay();
       h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px;text-align:center">';
-      DW[L].forEach(function(d){h+='<span style="font-size:9px;font-weight:700;color:var(--acc3);padding:2px 0">'+d+'</span>';});
+      DW[L].forEach(function(d){h+='<span style="font-size:11px;font-weight:700;color:var(--acc3);padding:2px 0">'+d+'</span>';});
       h+='</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:12px">';
       for(var e=0;e<fDow;e++)h+='<div></div>';
       for(var j=1;j<=dim;j++){var md=new Date(dashMY.y,dashMY.m,j),mk=dk(md),mc=comp(mk),mtl=tli(mc.p),mit=dk(md)===dk(td);
         h+='<button onclick="sel=new Date('+md.getTime()+');sel.setHours(0,0,0,0);goT(\'home\')" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:6px 1px;min-height:42px;border-radius:8px;border:none;background:'+(mit?"var(--acc2)":mc.p>0?mtl.b:"var(--card)")+'">';
-        h+='<span style="font-size:11px;font-weight:'+(mit?800:500)+';color:'+(mit?"#fff":"var(--t1)")+'">'+j+'</span>';
+        h+='<span style="font-size:13px;font-weight:'+(mit?800:500)+';color:'+(mit?"#fff":"var(--t1)")+'">'+j+'</span>';
         if(mc.p>0)h+='<div style="width:6px;height:6px;border-radius:3px;background:'+(mit?"#fff":mtl.cr)+'"></div>';
         h+='</button>';}
       h+='</div>';
@@ -1422,7 +1568,7 @@ function render(){
 
     // Category chart
     if(D.routines.length){
-      h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">📊 '+t("byCat")+'</p>';
+      h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">📊 '+t("byCat")+'</p>';
       h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
       CA.forEach(function(cat){
         var catR=D.routines.filter(function(r){return(r.cat||"health")===cat.id&&!isResting(r);});
@@ -1432,15 +1578,15 @@ function render(){
           catR.forEach(function(r){if((r.days||AD).indexOf(dd2.getDay())>=0&&!skk[r.id]){total7++;if(dyy.rc&&dyy.rc[r.id])done7++;}});}
         var pct7=total7>0?Math.round(done7/total7*100):0;
         h+='<div style="padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">';
-        h+='<div style="display:flex;align-items:center;gap:4px;margin-bottom:6px"><span>'+cat.icon+'</span><span style="font-size:11px;font-weight:700;color:'+cat.c+'">'+t(cat.id)+'</span></div>';
+        h+='<div style="display:flex;align-items:center;gap:4px;margin-bottom:6px"><span>'+cat.icon+'</span><span style="font-size:13px;font-weight:700;color:'+cat.c+'">'+t(cat.id)+'</span></div>';
         h+='<div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct7+'%;background:'+cat.c+';border-radius:3px;transition:width .4s"></div></div>';
-        h+='<p style="font-size:10px;color:var(--t3);margin-top:3px;text-align:right">'+pct7+'%</p></div>';
+        h+='<p style="font-size:12px;color:var(--t3);margin-top:3px;text-align:right">'+pct7+'%</p></div>';
       });
       h+='</div></div>';
     }
 
     var wk=dk(wsOf(sel));
-    h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">📝 '+t("review")+'</p>';
+    h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:6px">📝 '+t("review")+'</p>';
     h+='<textarea class="ta" placeholder="'+t("revPH")+'" oninput="setRv(\''+wk+'\',this.value)" rows="3">'+((D.reviews||{})[wk]||"")+'</textarea></div>';
     h+='</div>';
   }
@@ -1448,8 +1594,8 @@ function render(){
   // ======= MANAGE =======
   if(curT==="manage"){
     h+='<div class="fi"><div class="card">';
-    h+='<p style="font-size:14px;font-weight:800;color:var(--t1);margin-bottom:4px">🎯 '+t("mTitle")+'</p>';
-    h+='<p style="font-size:11px;color:var(--t3);margin-bottom:10px">'+t("mSub")+'</p>';
+    h+='<p style="font-size:16px;font-weight:800;color:var(--t1);margin-bottom:4px">🎯 '+t("mTitle")+'</p>';
+    h+='<p style="font-size:13px;color:var(--t3);margin-bottom:10px">'+t("mSub")+'</p>';
     h+='<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:12px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.08)">';
     h+='<div style="display:flex;gap:5px;margin-bottom:6px">';
     h+='<input class="inp" id="nr-inp" placeholder="'+t("rPH")+'" style="flex:1;min-width:0" onkeydown="if(event.key===\'Enter\'){this.blur();addR2();}">';
@@ -1458,10 +1604,10 @@ function render(){
     h+='<select class="sel" id="nr-cat" style="flex:1">';CA.forEach(function(c){h+='<option value="'+c.id+'">'+c.icon+' '+t(c.id)+'</option>';});h+='</select>';
     h+='<select class="sel" id="nr-slot" style="flex:1">';SL.forEach(function(s){h+='<option value="'+s.id+'">'+s.icon+' '+t(s.id)+'</option>';});h+='</select></div>';
     h+='<div style="display:flex;gap:3px;margin-bottom:8px">';
-    DW[L].forEach(function(n,i){h+='<button class="dp-d dp-on" data-d="'+i+'" onclick="togDP(this)" style="flex:1;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:var(--acc2);color:#fff;border:none">'+n+'</button>';});
+    DW[L].forEach(function(n,i){h+='<button class="dp-d dp-on" data-d="'+i+'" onclick="togDP(this)" style="flex:1;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;background:var(--acc2);color:#fff;border:none">'+n+'</button>';});
     h+='</div><button class="btn" onclick="addR2()" style="width:100%">'+t("addR")+'</button></div>';
 
-    if(!D.routines.length)h+='<div style="text-align:center;padding:20px"><span style="font-size:32px">🚀</span><p style="color:var(--t3);font-size:12px;margin-top:6px">'+t("first")+'</p></div>';
+    if(!D.routines.length)h+='<div style="text-align:center;padding:20px"><span style="font-size:32px">🚀</span><p style="color:var(--t3);font-size:14px;margin-top:6px">'+t("first")+'</p></div>';
     D.routines.forEach(function(r,idx){
       var cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0];
       var sl=SL.find(function(s){return s.id===(r.slot||"morning");})||SL[0];
@@ -1477,26 +1623,26 @@ function render(){
         h+='<select class="sel" id="ed-slot" style="flex:1">';SL.forEach(function(s){h+='<option value="'+s.id+'"'+(s.id===(r.slot||"morning")?" selected":"")+'>'+s.icon+' '+t(s.id)+'</option>';});h+='</select></div>';
         h+='<div style="display:flex;gap:3px;margin-bottom:8px">';
         var rdays=r.days||AD;
-        DW[L].forEach(function(n,i){var on=rdays.indexOf(i)>=0;h+='<button class="edp-d '+(on?"dp-on":"dp-off")+'" data-d="'+i+'" onclick="togDP(this)" style="flex:1;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border:none">'+n+'</button>';});
+        DW[L].forEach(function(n,i){var on=rdays.indexOf(i)>=0;h+='<button class="edp-d '+(on?"dp-on":"dp-off")+'" data-d="'+i+'" onclick="togDP(this)" style="flex:1;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:none">'+n+'</button>';});
         h+='</div><div style="display:flex;gap:4px"><button class="btn" onclick="saveEdit(\''+r.id+'\')" style="flex:1">'+t("save")+'</button><button class="bs" onclick="cancelEdit()" style="flex:1;padding:8px">'+t("cancel")+'</button></div></div>';
       } else {
         h+='<div draggable="true" ondragstart="dStart(event,'+idx+')" ondragover="dOver(event)" ondragleave="dLeave(event)" ondrop="dDrop(event,'+idx+')" ondragend="dEnd(event)" style="display:flex;align-items:center;gap:6px;padding:10px;background:'+(resting?"rgba(99,102,241,0.05)":"var(--card)")+';border:var(--card-b);border-radius:10px;margin-bottom:4px;'+(resting?"opacity:0.6;":"")+'">';
         h+='<div style="display:flex;flex-direction:column;gap:2px">';
-        if(idx>0)h+='<button onclick="moveR('+idx+',-1)" style="background:rgba(168,85,247,0.15);border:none;border-radius:4px;padding:2px 6px;font-size:10px;color:var(--acc);line-height:1">▲</button>';
-        else h+='<span style="padding:2px 6px;font-size:10px;color:transparent;line-height:1">▲</span>';
-        if(idx<D.routines.length-1)h+='<button onclick="moveR('+idx+',1)" style="background:rgba(168,85,247,0.15);border:none;border-radius:4px;padding:2px 6px;font-size:10px;color:var(--acc);line-height:1">▼</button>';
-        else h+='<span style="padding:2px 6px;font-size:10px;color:transparent;line-height:1">▼</span>';
+        if(idx>0)h+='<button onclick="moveR('+idx+',-1)" style="background:rgba(168,85,247,0.15);border:none;border-radius:4px;padding:2px 6px;font-size:12px;color:var(--acc);line-height:1">▲</button>';
+        else h+='<span style="padding:2px 6px;font-size:12px;color:transparent;line-height:1">▲</span>';
+        if(idx<D.routines.length-1)h+='<button onclick="moveR('+idx+',1)" style="background:rgba(168,85,247,0.15);border:none;border-radius:4px;padding:2px 6px;font-size:12px;color:var(--acc);line-height:1">▼</button>';
+        else h+='<span style="padding:2px 6px;font-size:12px;color:transparent;line-height:1">▼</span>';
         h+='</div>';
         h+='<div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:4px;margin-bottom:2px;flex-wrap:wrap">';
-        h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span>';
-        h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+sl.c+'20;color:'+sl.c+';font-weight:700">'+sl.icon+t(sl.id)+'</span>';
-        if(r.timer)h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:rgba(168,85,247,0.15);color:var(--acc3);font-weight:700">⏱'+r.timer+t("mins")+'</span>';
+        h+='<span style="font-size:11px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span>';
+        h+='<span style="font-size:11px;padding:1px 5px;border-radius:4px;background:'+sl.c+'20;color:'+sl.c+';font-weight:700">'+sl.icon+t(sl.id)+'</span>';
+        if(r.timer)h+='<span style="font-size:11px;padding:1px 5px;border-radius:4px;background:rgba(168,85,247,0.15);color:var(--acc3);font-weight:700">⏱'+r.timer+t("mins")+'</span>';
         if(resting)h+='<span class="rest-badge">'+t("restActive")+' ~'+r.restUntil+'</span>';
         h+='</div>';
-        h+='<span style="font-size:13px;color:var(--t1);font-weight:500">'+esc(r.name)+'</span>';
-        h+='<div style="font-size:10px;color:var(--acc3);margin-top:1px">'+dLbl(r.days)+'</div></div>';
+        h+='<span style="font-size:15px;color:var(--t1);font-weight:500">'+esc(r.name)+'</span>';
+        h+='<div style="font-size:12px;color:var(--acc3);margin-top:1px">'+dLbl(r.days)+'</div></div>';
         if(resting){h+='<button class="bs" onclick="setRest(\''+r.id+'\',0)" style="color:var(--blue)">'+t("restOff")+'</button>';}
-        else{h+='<select class="sel" onchange="if(this.value)setRest(\''+r.id+'\',+this.value);this.value=\'\';" style="font-size:9px;padding:3px 5px"><option value="">💤</option><option value="1">1'+t("dS")+'</option><option value="3">3'+t("dS")+'</option><option value="7">7'+t("dS")+'</option><option value="14">14'+t("dS")+'</option></select>';}
+        else{h+='<select class="sel" onchange="if(this.value)setRest(\''+r.id+'\',+this.value);this.value=\'\';" style="font-size:11px;padding:3px 5px"><option value="">💤</option><option value="1">1'+t("dS")+'</option><option value="3">3'+t("dS")+'</option><option value="7">7'+t("dS")+'</option><option value="14">14'+t("dS")+'</option></select>';}
         h+='<button class="bs" onclick="startEdit(\''+r.id+'\')">✏️</button>';
         h+='<button class="bs" onclick="rmR(\''+r.id+'\')" style="color:var(--red)">🗑</button></div>';}
     });
@@ -1506,27 +1652,27 @@ function render(){
   // ======= SOCIAL =======
   if(curT==="social"){
     h+='<div class="fi">';
-    if(!fD){h+='<div class="card" style="text-align:center;padding:24px"><span style="font-size:40px">👥</span><p style="color:var(--t3);font-size:13px;margin-top:8px">'+t("noFr")+'</p><button class="bs" onclick="chgFr()" style="margin-top:8px;padding:6px 16px">'+t("connect")+'</button></div>';}
+    if(!fD){h+='<div class="card" style="text-align:center;padding:24px"><span style="font-size:40px">👥</span><p style="color:var(--t3);font-size:15px;margin-top:8px">'+t("noFr")+'</p><button class="bs" onclick="chgFr()" style="margin-top:8px;padding:6px 16px">'+t("connect")+'</button></div>';}
     else{
       var ftl=tli(fD.pct);
       // 치지직 버튼 카드
       var cjRem=Math.max(0,3-_cjSent),cjDis=cjRem===0;
       h+='<div class="card" style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(99,102,241,0.08));border:1px solid rgba(168,85,247,0.25)">';
       h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-      h+='<div><p style="font-size:13px;font-weight:800;color:var(--acc)">'+esc(fD.nk)+'에게 교신</p>';
-      h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">오늘 남은 횟수 · '+cjRem+'/3</p></div>';
+      h+='<div><p style="font-size:15px;font-weight:800;color:var(--acc)">'+esc(fD.nk)+'에게 교신</p>';
+      h+='<p style="font-size:12px;color:var(--t3);margin-top:2px">오늘 남은 횟수 · '+cjRem+'/3</p></div>';
       h+=cjSigBars(cjRem);
       h+='</div>';
-      h+='<button onclick="sendCj()" '+(cjDis?'disabled':'')+' style="width:100%;padding:12px;border-radius:12px;border:none;background:'+(cjDis?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#7c3aed,#4f46e5)')+';color:'+(cjDis?'var(--t3)':'#fff')+';font-size:16px;font-weight:800;cursor:'+(cjDis?'default':'pointer')+';'+(cjDis?'':'box-shadow:0 4px 15px rgba(124,58,237,0.4)')+'">'+(cjDis?'오늘 교신 완료':'📡 치지직')+'</button></div>';
+      h+='<button onclick="sendCj()" '+(cjDis?'disabled':'')+' style="width:100%;padding:12px;border-radius:12px;border:none;background:'+(cjDis?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#7c3aed,#4f46e5)')+';color:'+(cjDis?'var(--t3)':'#fff')+';font-size:18px;font-weight:800;cursor:'+(cjDis?'default':'pointer')+';'+(cjDis?'':'box-shadow:0 4px 15px rgba(124,58,237,0.4)')+'">'+(cjDis?'오늘 교신 완료':'📡 치지직')+'</button></div>';
 
       // 연속 교신 카운터
       if(_cjMyStr.count>0||_cjFrStr.count>0){
         h+='<div class="card" style="text-align:center;padding:12px 16px">';
-        h+='<p style="font-size:10px;color:var(--t3);margin-bottom:6px">📡 연속 교신</p>';
+        h+='<p style="font-size:12px;color:var(--t3);margin-bottom:6px">📡 연속 교신</p>';
         h+='<div style="display:flex;justify-content:center;gap:20px">';
-        h+='<div><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(_cjMyStr.count||0)+'</p><p style="font-size:9px;color:var(--t3)">'+esc(nk)+'</p></div>';
-        h+='<div style="display:flex;align-items:center;color:var(--t3);font-size:14px">···</div>';
-        h+='<div><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+(_cjFrStr.count||0)+'</p><p style="font-size:9px;color:var(--t3)">'+esc(fD.nk)+'</p></div>';
+        h+='<div><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(_cjMyStr.count||0)+'</p><p style="font-size:11px;color:var(--t3)">'+esc(nk)+'</p></div>';
+        h+='<div style="display:flex;align-items:center;color:var(--t3);font-size:16px">···</div>';
+        h+='<div><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+(_cjFrStr.count||0)+'</p><p style="font-size:11px;color:var(--t3)">'+esc(fD.nk)+'</p></div>';
         h+='</div></div>';
       }
 
@@ -1536,50 +1682,69 @@ function render(){
       _cjLog.fr.forEach(function(v){allLog.push({dir:'recv',ts:v.ts,from:v.from});});
       allLog.sort(function(a,b){return b.ts-a.ts;});
       if(allLog.length){
-        h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">교신 기록</p>';
+        h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">교신 기록</p>';
         var byDate={};
         allLog.slice(0,20).forEach(function(item){var d=dk(new Date(item.ts));if(!byDate[d])byDate[d]=[];byDate[d].push(item);});
         Object.keys(byDate).sort().reverse().forEach(function(dateKey){
           var items=byDate[dateKey];
-          h+='<div style="margin-bottom:8px"><p style="font-size:9px;color:var(--t3);margin-bottom:4px">'+fmtD(pk(dateKey))+'</p>';
+          h+='<div style="margin-bottom:8px"><p style="font-size:11px;color:var(--t3);margin-bottom:4px">'+fmtD(pk(dateKey))+'</p>';
           items.forEach(function(item){
             var isSent=item.dir==='sent';
             h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.03);margin-bottom:2px">';
-            if(isSent){h+='<span style="font-size:10px;color:var(--acc3)">'+esc(nk)+'</span><span style="font-size:9px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(fD.nk)+'</span><span style="font-size:9px;color:var(--acc);margin-left:auto">송신 📡</span>';}
-            else{h+='<span style="font-size:10px;color:var(--amber)">'+esc(item.from||fk)+'</span><span style="font-size:9px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(nk)+'</span><span style="font-size:9px;color:var(--amber);margin-left:auto">수신 ⬇</span>';}
+            if(isSent){h+='<span style="font-size:12px;color:var(--acc3)">'+esc(nk)+'</span><span style="font-size:11px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:12px;color:var(--t2)">'+esc(fD.nk)+'</span><span style="font-size:11px;color:var(--acc);margin-left:auto">송신 📡</span>';}
+            else{h+='<span style="font-size:12px;color:var(--amber)">'+esc(item.from||fk)+'</span><span style="font-size:11px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:12px;color:var(--t2)">'+esc(nk)+'</span><span style="font-size:11px;color:var(--amber);margin-left:auto">수신 ⬇</span>';}
             h+='</div>';});h+='</div>';});
         h+='</div>';}
 
       // 친구 카드
       h+='<div class="card" style="background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(236,72,153,0.08))">';
       h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
-      h+='<div><p style="font-size:16px;font-weight:800;color:var(--t1)">'+esc(fD.nk)+'</p><p style="font-size:11px;color:var(--t3)">'+(fD.lvl||"")+'</p>';
-      if(fD.ts)h+='<p style="font-size:9px;color:var(--t3)">'+t("lastSeen")+': '+fmtAgo(fD.ts)+'</p>';
+      h+='<div><p style="font-size:18px;font-weight:800;color:var(--t1)">'+esc(fD.nk)+'</p><p style="font-size:13px;color:var(--t3)">'+(fD.lvl||"")+'</p>';
+      if(fD.ts)h+='<p style="font-size:11px;color:var(--t3)">'+t("lastSeen")+': '+fmtAgo(fD.ts)+'</p>';
       h+='</div>';
-      h+='<div style="width:48px;height:48px;border-radius:50%;background:'+ftl.b+';display:flex;align-items:center;justify-content:center;border:2px solid '+ftl.cr+'"><span style="font-size:14px;font-weight:900;color:'+ftl.cr+';font-family:var(--font-d)">'+fD.pct+'%</span></div></div></div>';
+      h+='<div style="width:48px;height:48px;border-radius:50%;background:'+ftl.b+';display:flex;align-items:center;justify-content:center;border:2px solid '+ftl.cr+'"><span style="font-size:16px;font-weight:900;color:'+ftl.cr+';font-family:var(--font-d)">'+fD.pct+'%</span></div></div></div>';
 
       // 비교
-      h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">⚡ '+t("comp")+'</p><div style="display:flex;gap:8px"><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(168,85,247,0.1)"><p style="font-size:10px;color:var(--acc);font-weight:600">'+esc(nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+comp(dk(td)).p+'%</p></div><div style="display:flex;align-items:center;font-size:18px">⚡</div><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(249,115,22,0.1)"><p style="font-size:10px;color:var(--amber);font-weight:600">'+esc(fD.nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+fD.pct+'%</p></div></div></div>';
+      h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">⚡ '+t("comp")+'</p><div style="display:flex;gap:8px"><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(168,85,247,0.1)"><p style="font-size:12px;color:var(--acc);font-weight:600">'+esc(nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+comp(dk(td)).p+'%</p></div><div style="display:flex;align-items:center;font-size:20px">⚡</div><div style="flex:1;text-align:center;padding:10px;border-radius:10px;background:rgba(249,115,22,0.1)"><p style="font-size:12px;color:var(--amber);font-weight:600">'+esc(fD.nk)+'</p><p style="font-size:22px;font-weight:900;color:var(--amber);font-family:var(--font-d)">'+fD.pct+'%</p></div></div></div>';
 
       // Friend routines
-      if(fD.routines&&fD.routines.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">📋 '+esc(fD.nk)+' '+t("fR")+'</p>';
-        fD.routines.forEach(function(r){var cat=CA.find(function(c){return c.id===r.cat;})||CA[0];h+='<div style="display:flex;align-items:center;gap:4px;padding:4px 7px;background:rgba(255,255,255,0.04);border-radius:6px;margin-bottom:2px"><span style="font-size:8px;padding:1px 3px;border-radius:3px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+'</span><span style="font-size:11px;color:var(--t1)">'+esc(r.name)+'</span></div>';});h+='</div>';}
+      if(fD.routines&&fD.routines.length){h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:6px">📋 '+esc(fD.nk)+' '+t("fR")+'</p>';
+        fD.routines.forEach(function(r){var cat=CA.find(function(c){return c.id===r.cat;})||CA[0];h+='<div style="display:flex;align-items:center;gap:4px;padding:4px 7px;background:rgba(255,255,255,0.04);border-radius:6px;margin-bottom:2px"><span style="font-size:11px;padding:1px 3px;border-radius:3px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+'</span><span style="font-size:13px;color:var(--t1)">'+esc(r.name)+'</span></div>';});h+='</div>';}
 
       // Friend todos
-      if(fD.todos&&fD.todos.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">📝 '+esc(fD.nk)+' '+t("fT")+'</p>';
-        fD.todos.forEach(function(x){h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 7px;background:'+(x.done?"rgba(168,85,247,0.08)":"rgba(255,255,255,0.02)")+';border-radius:6px;margin-bottom:2px"><span style="width:14px;height:14px;border-radius:4px;'+(x.done?"background:var(--acc);":"border:2px solid rgba(255,255,255,0.2);")+'display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff">'+(x.done?"✓":"")+'</span><span style="font-size:11px;color:'+(x.done?"var(--acc3)":"var(--t1)")+';text-decoration:'+(x.done?"line-through":"none")+'">'+esc(x.text)+'</span></div>';});h+='</div>';}
+      if(fD.todos&&fD.todos.length){h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:6px">📝 '+esc(fD.nk)+' '+t("fT")+'</p>';
+        fD.todos.forEach(function(x){h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 7px;background:'+(x.done?"rgba(168,85,247,0.08)":"rgba(255,255,255,0.02)")+';border-radius:6px;margin-bottom:2px"><span style="width:14px;height:14px;border-radius:4px;'+(x.done?"background:var(--acc);":"border:2px solid rgba(255,255,255,0.2);")+'display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff">'+(x.done?"✓":"")+'</span><span style="font-size:13px;color:'+(x.done?"var(--acc3)":"var(--t1)")+';text-decoration:'+(x.done?"line-through":"none")+'">'+esc(x.text)+'</span></div>';});h+='</div>';}
 
-      // Friend journals with comments
-      if(fD.journals&&fD.journals.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">✍️ '+esc(fD.nk)+' '+t("fN")+'</p>';
-        fD.journals.forEach(function(j,ji){var cid="fc-"+ji;h+='<div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--acc);margin-bottom:6px"><p style="font-size:10px;color:var(--acc3);font-weight:600">'+fmtD(pk(j.date))+' '+(j.mood||"")+'</p><p style="font-size:12px;color:var(--t2);margin-top:2px;line-height:1.5">'+esc(j.text)+'</p><div style="display:flex;gap:4px;margin-top:6px"><input class="inp" style="font-size:11px" placeholder="'+t("cmtPH")+'" id="'+cid+'"><button class="btn" onclick="sendCmt(\''+j.date+'\',\''+cid+'\')">'+t("send")+'</button></div></div>';});h+='</div>';}
-
-      // My comments
-      var myArr=[];
-      Object.keys(myCmts).forEach(function(dateK){var cs=myCmts[dateK];Object.values(cs).forEach(function(c){if(c.from===nk)myArr.push({date:dateK,text:c.text,ts:c.ts});});});
-      myArr.sort(function(a,b){return(b.ts||0)-(a.ts||0);});
-      if(myArr.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:6px">💬 '+t("myCmts")+'</p>';
-        myArr.slice(0,10).forEach(function(c){h+='<div style="padding:4px 8px;background:rgba(255,255,255,0.04);border-radius:6px;margin-bottom:3px;font-size:11px"><span style="color:var(--t3)">'+fmtD(pk(c.date))+'</span> <span style="color:var(--t2)">'+esc(c.text)+'</span></div>';});
-        h+='</div>';}
+      // Friend today journal + comments (diary style)
+      var _todayKey=dk(td);
+      var _todayJ=null;
+      if(fD.journals&&fD.journals.length){fD.journals.forEach(function(j){if(j.date===_todayKey)_todayJ=j;});}
+      h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:10px">✍️ '+esc(fD.nk)+(L==="en"?"\'s Today":"의 오늘")+'</p>';
+      if(_todayJ){
+        h+='<div style="background:linear-gradient(135deg,rgba(168,85,247,0.06),rgba(236,72,153,0.03));border:1px solid rgba(168,85,247,0.15);border-radius:12px;padding:12px 14px;margin-bottom:10px">';
+        h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:16px">'+(_todayJ.mood||"")+'</span><span style="font-size:12px;font-weight:700;color:var(--acc3)">'+fmtD(pk(_todayJ.date))+'</span></div>';
+        h+='<p style="font-size:14px;color:var(--t1);line-height:1.6">'+esc(_todayJ.text)+'</p></div>';
+        // existing comments for today
+        var _tCmts=myCmts[_todayKey];
+        if(_tCmts){
+          h+='<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06)">';
+          var _cmtArr=[];Object.values(_tCmts).forEach(function(c){_cmtArr.push(c);});
+          _cmtArr.sort(function(a,b){return(a.ts||0)-(b.ts||0);});
+          _cmtArr.forEach(function(c){
+            h+='<div style="display:flex;align-items:flex-start;gap:8px;padding:6px 0">';
+            h+='<span style="font-size:11px;font-weight:700;color:var(--acc3);white-space:nowrap;min-width:32px;padding-top:1px">'+esc(c.from||nk)+'</span>';
+            h+='<div><p style="font-size:13px;color:var(--t2);line-height:1.5">'+esc(c.text)+'</p>';
+            if(c.ts){var _cd=new Date(c.ts);h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">'+(_cd.getHours()<12?"오전":"오후")+' '+(_cd.getHours()%12||12)+':'+String(_cd.getMinutes()).padStart(2,"0")+'</p>';}
+            h+='</div></div>';
+          });
+          h+='</div>';
+        }
+        // comment input
+        h+='<div style="display:flex;gap:6px;margin-top:8px"><input class="inp" style="font-size:13px;padding:8px 12px;border-radius:10px" placeholder="'+(L==="en"?"Leave a comment...":"댓글 남기기...")+'" id="fc-today"><button class="btn" style="padding:8px 14px;border-radius:10px;font-size:13px;font-weight:700" onclick="sendCmt(\''+_todayKey+'\',\'fc-today\')">'+(L==="en"?"Send":"전송")+'</button></div>';
+      } else {
+        h+='<div style="text-align:center;padding:14px;color:var(--t3);font-size:13px">'+(L==="en"?"No entry for today yet":"아직 오늘의 기록이 없어요")+'</div>';
+      }
+      h+='</div>';
     }
     h+='</div>';
   }
@@ -1588,25 +1753,25 @@ function render(){
   if(curT==="stats"){
     h+='<div class="fi">';
     var lv2=gL(D.pts||0),nl2=nLL(D.pts||0);
-    h+='<div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.1))"><div style="font-size:48px">'+lv2.icon+'</div><h3 style="font-size:16px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(lv2[L]||lv2.en)+'</h3><p style="font-size:11px;color:var(--t3);margin-top:6px">'+t("tPts").replace("{n}",D.pts||0)+'</p>';
-    if(nl2)h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">'+t("nLvl").replace("{n}",nl2.m-(D.pts||0))+'</p>';
+    h+='<div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(168,85,247,0.15),rgba(236,72,153,0.1))"><div style="font-size:48px">'+lv2.icon+'</div><h3 style="font-size:18px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(lv2[L]||lv2.en)+'</h3><p style="font-size:13px;color:var(--t3);margin-top:6px">'+t("tPts").replace("{n}",D.pts||0)+'</p>';
+    if(nl2)h+='<p style="font-size:12px;color:var(--t3);margin-top:2px">'+t("nLvl").replace("{n}",nl2.m-(D.pts||0))+'</p>';
     h+='</div>';
 
     // Level Gallery
-    h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">🚀 '+(L==="en"?"Mission Log":"미션 로그")+'</p>';
+    h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">🚀 '+(L==="en"?"Mission Log":"미션 로그")+'</p>';
     h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px">';
     var curPts=D.pts||0;
     LV.forEach(function(lv,idx){
       var achieved=curPts>=lv.m;
       if(achieved){
         h+='<button onclick="replayLvl('+idx+')" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.25);border-radius:10px;cursor:pointer;transition:all .2s">';
-        h+='<span style="font-size:24px">'+lv.icon+'</span>';
-        h+='<span style="font-size:8px;color:var(--acc);font-weight:700;text-align:center;line-height:1.2">'+(lv[L]||lv.en)+'</span>';
+        h+='<span style="font-size:26px">'+lv.icon+'</span>';
+        h+='<span style="font-size:11px;color:var(--acc);font-weight:700;text-align:center;line-height:1.2">'+(lv[L]||lv.en)+'</span>';
         h+='</button>';
       } else {
         h+='<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;opacity:0.35">';
-        h+='<span style="font-size:24px">🔒</span>';
-        h+='<span style="font-size:8px;color:var(--t3);font-weight:700;text-align:center;line-height:1.2">'+lv.m+' pt</span>';
+        h+='<span style="font-size:26px">🔒</span>';
+        h+='<span style="font-size:11px;color:var(--t3);font-weight:700;text-align:center;line-height:1.2">'+lv.m+' pt</span>';
         h+='</div>';
       }
     });
@@ -1615,34 +1780,68 @@ function render(){
     // Weak Routines Insight
     var weak=getWeakRoutines();
     if(weak.length){
-      h+='<div class="insight-card"><p style="font-size:13px;font-weight:800;color:var(--red);margin-bottom:4px">⚠️ '+t("weakTitle")+'</p>';
-      h+='<p style="font-size:10px;color:var(--t3);margin-bottom:8px">'+t("weakDesc")+'</p>';
+      h+='<div class="insight-card"><p style="font-size:15px;font-weight:800;color:var(--red);margin-bottom:4px">⚠️ '+t("weakTitle")+'</p>';
+      h+='<p style="font-size:12px;color:var(--t3);margin-bottom:8px">'+t("weakDesc")+'</p>';
       weak.forEach(function(w){
         var cat=CA.find(function(c){return c.id===w.cat;})||CA[0];
         h+='<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;margin-bottom:4px">';
-        h+='<span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+'</span>';
-        h+='<span style="flex:1;font-size:12px;color:var(--t1)">'+esc(w.name)+'</span>';
-        h+='<span style="font-size:11px;font-weight:700;color:var(--red)">'+w.pct+'%</span>';
-        h+='<span style="font-size:10px;color:var(--t3)">('+w.missed+'/'+w.total+' '+(L==="en"?"missed":"놓침")+')</span>';
+        h+='<span style="font-size:11px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+'</span>';
+        h+='<span style="flex:1;font-size:14px;color:var(--t1)">'+esc(w.name)+'</span>';
+        h+='<span style="font-size:13px;font-weight:700;color:var(--red)">'+w.pct+'%</span>';
+        h+='<span style="font-size:12px;color:var(--t3)">('+w.missed+'/'+w.total+' '+(L==="en"?"missed":"놓침")+')</span>';
         h+='</div>';
       });
       h+='</div>';
     }
 
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
-    h+='<div class="card" style="text-align:center"><span style="font-size:28px">🔥</span><p style="font-size:24px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+gSk()+'</p><p style="font-size:10px;color:var(--t3)">'+t("streak")+'</p></div>';
-    h+='<div class="card" style="text-align:center"><span style="font-size:28px">📅</span><p style="font-size:24px;font-weight:900;color:var(--pink);font-family:var(--font-d)">'+Object.keys(D.days).filter(function(k){return comp(k).p>=50;}).length+'</p><p style="font-size:10px;color:var(--t3)">'+t("tDays")+'</p></div></div>';
-    h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">📊 '+t("last7")+'</p><div style="display:flex;align-items:flex-end;justify-content:center;gap:6px;height:110px;padding:6px 0">';
-    for(var i2=0;i2<7;i2++){var d2=new Date(td);d2.setDate(d2.getDate()-6+i2);var p2=comp(dk(d2)).p,tl4=tli(p2);
-      h+='<div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><span style="font-size:8px;font-weight:700;color:'+tl4.cr+'">'+(p2>0?p2+"%":"")+'</span><div style="width:100%;max-width:26px;height:'+Math.max(4,p2)+'%;border-radius:5px;background:'+(p2>0?tl4.cr:"rgba(255,255,255,0.06)")+';transition:height .4s"></div><span style="font-size:9px;color:'+(dk(d2)===dk(td)?"var(--acc)":"var(--t3)")+';font-weight:'+(dk(d2)===dk(td)?700:400)+'">'+DW[L][d2.getDay()]+'</span></div>';}
-    h+='</div></div>';
-    if(D.routines.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">🔥 '+t("rStr")+'</p>';
+    h+='<div class="card" style="text-align:center"><span style="font-size:30px">🔥</span><p style="font-size:26px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+gSk()+'</p><p style="font-size:12px;color:var(--t3)">'+t("streak")+'</p></div>';
+    h+='<div class="card" style="text-align:center"><span style="font-size:30px">📅</span><p style="font-size:26px;font-weight:900;color:var(--pink);font-family:var(--font-d)">'+Object.keys(D.days).filter(function(k){return comp(k).p>=50;}).length+'</p><p style="font-size:12px;color:var(--t3)">'+t("tDays")+'</p></div></div>';
+    // === 최근 7일 꺾은선 그래프 (옵션 A) ===
+    h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">📊 '+t("last7")+'</p>';
+    var _7d=[],_7l=[];
+    for(var i2=0;i2<7;i2++){var d2=new Date(td);d2.setDate(d2.getDate()-6+i2);var p2=comp(dk(d2)).p;_7d.push({p:p2,tl:tli(p2),dow:DW[L][d2.getDay()],isToday:dk(d2)===dk(td)});}
+    var svgW=320,svgH=100,padL=10,padR=10,padT=18,padB=4;
+    var cW=svgW-padL-padR,cH=svgH-padT-padB;
+    var pts=[];for(var j=0;j<7;j++){var px2=padL+j*(cW/6);var py2=padT+cH-((_7d[j].p/100)*cH);pts.push({x:px2,y:py2});}
+    // area fill path
+    var areaPath='M'+pts[0].x+','+pts[0].y;for(var j=1;j<7;j++)areaPath+=' L'+pts[j].x+','+pts[j].y;
+    areaPath+=' L'+pts[6].x+','+(padT+cH)+' L'+pts[0].x+','+(padT+cH)+' Z';
+    // line path
+    var linePts=pts.map(function(p){return p.x+','+p.y;}).join(' ');
+    h+='<div style="position:relative;margin-bottom:4px">';
+    h+='<svg viewBox="0 0 '+svgW+' '+svgH+'" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block">';
+    // guide lines
+    h+='<line x1="'+padL+'" y1="'+padT+'" x2="'+(svgW-padR)+'" y2="'+padT+'" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>';
+    h+='<line x1="'+padL+'" y1="'+(padT+cH/2)+'" x2="'+(svgW-padR)+'" y2="'+(padT+cH/2)+'" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>';
+    h+='<line x1="'+padL+'" y1="'+(padT+cH)+'" x2="'+(svgW-padR)+'" y2="'+(padT+cH)+'" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/>';
+    // gradient
+    h+='<defs><linearGradient id="lc7g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--acc)" stop-opacity="0.35"/><stop offset="100%" stop-color="var(--acc)" stop-opacity="0.02"/></linearGradient></defs>';
+    // area
+    h+='<path d="'+areaPath+'" fill="url(#lc7g)"/>';
+    // line
+    h+='<polyline points="'+linePts+'" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+    // dots + labels
+    for(var j=0;j<7;j++){var dd=_7d[j],pt=pts[j];
+      if(dd.p>0){
+        h+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="4" fill="'+dd.tl.cr+'" stroke="#fff" stroke-width="1.5" opacity="0.9"/>';
+        h+='<text x="'+pt.x+'" y="'+(pt.y-8)+'" fill="'+dd.tl.cr+'" font-size="9" font-weight="700" text-anchor="middle">'+dd.p+'%</text>';
+      } else {
+        h+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="3" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>';
+      }
+    }
+    h+='</svg>';
+    // day labels
+    h+='<div style="display:flex;justify-content:space-between;padding:0 '+padL+'px 0 '+padL+'px">';
+    for(var j=0;j<7;j++){var dd=_7d[j];h+='<span style="font-size:11px;text-align:center;flex:1;color:'+( dd.isToday?"var(--acc)":"var(--t3)")+';font-weight:'+(dd.isToday?700:400)+'">'+dd.dow+'</span>';}
+    h+='</div></div></div>';
+    if(D.routines.length){h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">🔥 '+t("rStr")+'</p>';
       D.routines.filter(function(r){return !isResting(r);}).forEach(function(r){var rs=rSk(r.id),cat=CA.find(function(c){return c.id===(r.cat||"health");})||CA[0];
-        h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:9px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span><span style="font-size:12px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.name)+'</span><span style="font-size:13px;font-weight:800;color:'+(rs>0?"var(--acc)":"var(--t3)")+'">'+(rs>0?"🔥"+rs+t("dS"):"—")+'</span></div>';});
+        h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:11px;padding:1px 5px;border-radius:4px;background:'+cat.c+'20;color:'+cat.c+';font-weight:700">'+cat.icon+t(cat.id)+'</span><span style="font-size:14px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.name)+'</span><span style="font-size:15px;font-weight:800;color:'+(rs>0?"var(--acc)":"var(--t3)")+'">'+(rs>0?"🔥"+rs+t("dS"):"—")+'</span></div>';});
       h+='</div>';}
     var jnls=Object.keys(D.days).filter(function(k){return D.days[k].journal;}).sort().reverse().slice(0,5);
-    if(jnls.length){h+='<div class="card"><p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:8px">✍️ '+t("rNotes")+'</p>';
-      jnls.forEach(function(k){var v=D.days[k];h+='<div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--acc);margin-bottom:6px"><p style="font-size:10px;color:var(--acc3);font-weight:600">'+fmtD(pk(k))+' '+(v.mood||"")+'</p><p style="font-size:12px;color:var(--t2);margin-top:2px;line-height:1.5">'+esc(v.journal)+'</p></div>';});
+    if(jnls.length){h+='<div class="card"><p style="font-size:14px;font-weight:700;color:var(--t2);margin-bottom:8px">✍️ '+t("rNotes")+'</p>';
+      jnls.forEach(function(k){var v=D.days[k];h+='<div style="padding:8px 10px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid var(--acc);margin-bottom:6px"><p style="font-size:12px;color:var(--acc3);font-weight:600">'+fmtD(pk(k))+' '+(v.mood||"")+'</p><p style="font-size:14px;color:var(--t2);margin-top:2px;line-height:1.5">'+esc(v.journal)+'</p></div>';});
       h+='</div>';}
     h+='</div>';
   }
