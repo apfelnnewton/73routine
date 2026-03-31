@@ -362,7 +362,7 @@ border-radius:0;padding:4px 8px;position:fixed;bottom:0;left:50%;transform:trans
 <div id="cj-card-wrap">
   <div id="cj-card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <p style="font-size:10px;font-weight:700;color:var(--acc3);letter-spacing:2px;margin:0">📡 수신</p>
+      <p id="cj-label" style="font-size:10px;font-weight:700;color:var(--acc3);letter-spacing:2px;margin:0">📡 수신</p>
       <button onclick="cjClose()" style="background:none;border:none;color:rgba(255,255,255,0.4);font-size:10px;cursor:pointer;padding:0;line-height:1;pointer-events:all">✕</button>
     </div>
     <p id="cj-msg" style="font-size:10px;font-weight:600;color:var(--t1);line-height:1.7;word-break:keep-all"></p>
@@ -1143,25 +1143,34 @@ function _cjNext(){
   gw.classList.add('active');
   setTimeout(function(){
     gw.classList.remove('active');
-    var cw=$('cj-card-wrap'),cd=$('cj-card'),cm=$('cj-msg');
+    var cw=$('cj-card-wrap'),cd=$('cj-card'),cm=$('cj-msg'),cl=$('cj-label');
     if(!cw||!cd||!cm){_cjRun=false;return;}
+    // 친구 2명 이상이면 보낸 사람 이름 표시
+    if(cl){if(fks.length>=2&&item.from){cl.textContent='📡 '+item.from+(L==="en"?' signal':'에게서 수신');}else{cl.textContent='📡 '+(L==="en"?'Incoming':'수신');}}
     cm.innerHTML=html;cd.className='';cw.style.display='flex';
     void cd.offsetWidth;cd.style.animation='crtOn 0.5s ease forwards';
   },850);
 }
 var _cjSent=0,_cjCRef=null;
 function cjLoadSentCount(){
-  if(!fb||!nk)return;var today=dk(new Date());
-  _cjCRef=fb.ref('chijikCount/'+nk+'/'+today);
+  if(!fb||!nk)return;var today=dk(new Date());var afk=activeFk();if(!afk)return;
+  _cjCRef=fb.ref('chijikCount/'+nk+'/'+afk+'/'+today);
   _cjCRef.on('value',function(snap){_cjSent=snap.val()||0;render();});_fbRefs.push(_cjCRef);
 }
 function sendCj(){
-  var afk=activeFk();if(!fb||!afk||!nk)return;if(_cjSent>=3){toast("오늘 치지직을 다 썼어요 📡");return;}
+  var afk=activeFk();if(!fb||!afk||!nk)return;if(_cjSent>=3){toast(L==="en"?"No more signals today 📡":"오늘 치지직을 다 썼어요 📡");return;}
   var msgs=L==="en"?CJ_MSGS_EN:CJ_MSGS;
   var idx=Math.floor(Math.random()*msgs.length);
   fb.ref('chijik/'+afk).push({from:nk,ts:Date.now(),msgIdx:idx,read:false});
-  fb.ref('chijikCount/'+nk+'/'+dk(new Date())).transaction(function(v){return(v||0)+1;});
-  toast("치지직... 송신 완료 📡");
+  fb.ref('chijikCount/'+nk+'/'+afk+'/'+dk(new Date())).transaction(function(v){return(v||0)+1;});
+  // 보낸 쪽 스트릭 업데이트 (친구별)
+  var today=dk(new Date());
+  fb.ref('chijikStreak/'+afk+'/'+nk).once('value',function(snap){
+    var s=snap.val()||{count:0,lastDate:''};if(s.lastDate===today)return;
+    var yest=dk(new Date(Date.now()-86400000));
+    fb.ref('chijikStreak/'+afk+'/'+nk).set({count:s.lastDate===yest?(s.count||0)+1:1,lastDate:today});
+  });
+  toast(L==="en"?"Bzzt... signal sent 📡":"치지직... 송신 완료 📡");
 }
 var _cjListening=false;
 function cjListen(){
@@ -1178,22 +1187,34 @@ function cjListen(){
 }
 function cjUpdateStreak(){
   if(!fb||!nk)return;var today=dk(new Date());
-  fb.ref('chijikStreak/'+nk).once('value',function(snap){
-    var s=snap.val()||{count:0,lastDate:''};var yest=dk(new Date(Date.now()-86400000));
-    if(s.lastDate===today)return;
-    fb.ref('chijikStreak/'+nk).set({count:s.lastDate===yest?(s.count||0)+1:1,lastDate:today});
+  // 보낸 사람 기준으로 스트릭 업데이트 (from → 나에게 보낸 친구)
+  // 수신 시 호출되므로, 각 친구별 스트릭을 업데이트
+  fks.forEach(function(fk){
+    fb.ref('chijikStreak/'+nk+'/'+fk).once('value',function(snap){
+      var s=snap.val()||{count:0,lastDate:''};var yest=dk(new Date(Date.now()-86400000));
+      if(s.lastDate===today)return;
+      // 오늘 이 친구에게서 받은 게 있는지 확인
+      fb.ref('chijik/'+nk).orderByChild('from').equalTo(fk).limitToLast(1).once('value',function(csnap){
+        var hasToday=false;
+        if(csnap.val())Object.values(csnap.val()).forEach(function(v){if(dk(new Date(v.ts))===today)hasToday=true;});
+        if(hasToday)fb.ref('chijikStreak/'+nk+'/'+fk).set({count:s.lastDate===yest?(s.count||0)+1:1,lastDate:today});
+      });
+    });
   });
 }
 var _cjMyStr={count:0,lastDate:''},_cjFrStr={count:0,lastDate:''};
 function cjListenStreaks(){
   if(!fb||!nk)return;
-  var r1=fb.ref('chijikStreak/'+nk);r1.on('value',function(snap){_cjMyStr=snap.val()||{count:0,lastDate:''};render();});_fbRefs.push(r1);
-  var afk=activeFk();if(afk){var r2=fb.ref('chijikStreak/'+afk);r2.on('value',function(snap){_cjFrStr=snap.val()||{count:0,lastDate:''};render();});_fbRefs.push(r2);}
+  var afk=activeFk();if(!afk)return;
+  // 내 스트릭: 내가 이 친구에게 보낸 연속 교신
+  var r1=fb.ref('chijikStreak/'+afk+'/'+nk);r1.on('value',function(snap){_cjMyStr=snap.val()||{count:0,lastDate:''};render();});_fbRefs.push(r1);
+  // 친구 스트릭: 이 친구가 나에게 보낸 연속 교신
+  var r2=fb.ref('chijikStreak/'+nk+'/'+afk);r2.on('value',function(snap){_cjFrStr=snap.val()||{count:0,lastDate:''};render();});_fbRefs.push(r2);
 }
 var _cjLog={my:[],fr:[]};
 function cjListenLog(){
   var afk=activeFk();if(!fb||!nk||!afk)return;
-  var r1=fb.ref('chijik/'+nk).orderByChild('ts').limitToLast(30);r1.on('value',function(snap){
+  var r1=fb.ref('chijik/'+nk).orderByChild('from').equalTo(afk).limitToLast(30);r1.on('value',function(snap){
     var a=[];if(snap.val())Object.values(snap.val()).forEach(function(v){a.push(v);});
     _cjLog.fr=a.sort(function(a,b){return b.ts-a.ts;});render();
   });_fbRefs.push(r1);
@@ -1890,16 +1911,16 @@ function render(){
       var cjRem=Math.max(0,3-_cjSent),cjDis=cjRem===0;
       h+='<div class="card" style="background:linear-gradient(135deg,rgba(168,85,247,0.1),rgba(99,102,241,0.08));border:1px solid rgba(168,85,247,0.25)">';
       h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
-      h+='<div><p style="font-size:10px;font-weight:800;color:var(--acc)">'+esc(frName(fD))+'에게 교신</p>';
-      h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">오늘 남은 횟수 · '+cjRem+'/3</p></div>';
+      h+='<div><p style="font-size:10px;font-weight:800;color:var(--acc)">'+(L==="en"?'Signal to '+esc(frName(fD)):esc(frName(fD))+'에게 교신')+'</p>';
+      h+='<p style="font-size:10px;color:var(--t3);margin-top:2px">'+(L==="en"?'Remaining today':'오늘 남은 횟수')+' · '+cjRem+'/3</p></div>';
       h+=cjSigBars(cjRem);
       h+='</div>';
-      h+='<button onclick="sendCj()" '+(cjDis?'disabled':'')+' style="width:100%;padding:12px;border-radius:12px;border:none;background:'+(cjDis?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#7c3aed,#4f46e5)')+';color:'+(cjDis?'var(--t3)':'#fff')+';font-size:10px;font-weight:800;cursor:'+(cjDis?'default':'pointer')+';'+(cjDis?'':'box-shadow:0 4px 15px rgba(124,58,237,0.4)')+'">'+(cjDis?'오늘 교신 완료':'📡 치지직')+'</button></div>';
+      h+='<button onclick="sendCj()" '+(cjDis?'disabled':'')+' style="width:100%;padding:12px;border-radius:12px;border:none;background:'+(cjDis?'rgba(255,255,255,0.06)':'linear-gradient(135deg,#7c3aed,#4f46e5)')+';color:'+(cjDis?'var(--t3)':'#fff')+';font-size:10px;font-weight:800;cursor:'+(cjDis?'default':'pointer')+';'+(cjDis?'':'box-shadow:0 4px 15px rgba(124,58,237,0.4)')+'">'+(cjDis?(L==="en"?'Signal sent today':'오늘 교신 완료'):'📡 '+(L==="en"?'Bzzt':'치지직'))+'</button></div>';
 
       // 연속 교신 카운터
       if(_cjMyStr.count>0||_cjFrStr.count>0){
         h+='<div class="card" style="text-align:center;padding:12px 16px">';
-        h+='<p style="font-size:10px;color:var(--t3);margin-bottom:6px">📡 연속 교신</p>';
+        h+='<p style="font-size:10px;color:var(--t3);margin-bottom:6px">📡 '+(L==="en"?'Signal Streak':'연속 교신')+'</p>';
         h+='<div style="display:flex;justify-content:center;gap:20px">';
         h+='<div><p style="font-size:10px;font-weight:900;color:var(--acc);font-family:var(--font-d)">'+(_cjMyStr.count||0)+'</p><p style="font-size:10px;color:var(--t3)">'+esc(myName())+'</p></div>';
         h+='<div style="display:flex;align-items:center;color:var(--t3);font-size:10px">···</div>';
@@ -1907,25 +1928,30 @@ function render(){
         h+='</div></div>';
       }
 
-      // 교신 기록
+      // 교신 기록 (오늘만 + 시간 표시)
       var allLog=[];
-      _cjLog.my.forEach(function(v){allLog.push({dir:'sent',ts:v.ts});});
-      _cjLog.fr.forEach(function(v){allLog.push({dir:'recv',ts:v.ts,from:v.from});});
+      var todayKey=dk(new Date());
+      _cjLog.my.forEach(function(v){if(dk(new Date(v.ts))===todayKey)allLog.push({dir:'sent',ts:v.ts});});
+      _cjLog.fr.forEach(function(v){if(dk(new Date(v.ts))===todayKey)allLog.push({dir:'recv',ts:v.ts,from:v.from});});
       allLog.sort(function(a,b){return b.ts-a.ts;});
+      var CJ_EMPTY_KR=["오늘 교신 없음. 조용. 기다림.","오늘 교신 0회. 안테나 고장, 질문?","아직 신호 없음. 버튼 누름. 좋음.","주파수 조용함. 나 여기 있음.","오늘 전파 없음. 우주 넓음. 기다림 필요."];
+      var CJ_EMPTY_EN=["No signal today. Quiet. Wait.","Signal today: zero. Antenna broken, question?","No signal yet. Press button. Good.","Frequency quiet. I here.","No wave today. Space big. Wait needed."];
       if(allLog.length){
-        h+='<div class="card"><p style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:8px">교신 기록</p>';
-        var byDate={};
-        allLog.slice(0,20).forEach(function(item){var d=dk(new Date(item.ts));if(!byDate[d])byDate[d]=[];byDate[d].push(item);});
-        Object.keys(byDate).sort().reverse().forEach(function(dateKey){
-          var items=byDate[dateKey];
-          h+='<div style="margin-bottom:8px"><p style="font-size:10px;color:var(--t3);margin-bottom:4px">'+fmtD(pk(dateKey))+'</p>';
-          items.forEach(function(item){
-            var isSent=item.dir==='sent';
-            h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.03);margin-bottom:2px">';
-            if(isSent){h+='<span style="font-size:10px;color:var(--acc3)">'+esc(myName())+'</span><span style="font-size:10px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(frName(fD))+'</span><span style="font-size:10px;color:var(--acc);margin-left:auto">송신 📡</span>';}
-            else{h+='<span style="font-size:10px;color:var(--amber)">'+esc(item.from||activeFk())+'</span><span style="font-size:10px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(myName())+'</span><span style="font-size:10px;color:var(--amber);margin-left:auto">수신 ⬇</span>';}
-            h+='</div>';});h+='</div>';});
+        h+='<div class="card"><p style="font-size:10px;font-weight:700;color:var(--t2);margin-bottom:8px">'+(L==="en"?"Today's Signal Log":"오늘의 교신 기록")+'</p>';
+        allLog.forEach(function(item){
+          var isSent=item.dir==='sent';
+          var d=new Date(item.ts);var hh=('0'+d.getHours()).slice(-2);var mm=('0'+d.getMinutes()).slice(-2);var timeStr=hh+':'+mm;
+          h+='<div style="display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:7px;background:rgba(255,255,255,0.03);margin-bottom:2px">';
+          h+='<span style="font-size:10px;color:var(--t3);min-width:36px">'+timeStr+'</span>';
+          if(isSent){h+='<span style="font-size:10px;color:var(--acc3)">'+esc(myName())+'</span><span style="font-size:10px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(frName(fD))+'</span><span style="font-size:10px;color:var(--acc);margin-left:auto">'+(L==="en"?'Sent 📡':'송신 📡')+'</span>';}
+          else{h+='<span style="font-size:10px;color:var(--amber)">'+esc(item.from||activeFk())+'</span><span style="font-size:10px;color:var(--t3);letter-spacing:2px">·····</span><span style="font-size:10px;color:var(--t2)">'+esc(myName())+'</span><span style="font-size:10px;color:var(--amber);margin-left:auto">'+(L==="en"?'Recv ⬇':'수신 ⬇')+'</span>';}
+          h+='</div>';});
         h+='</div>';}
+      else{
+        var emptyMsgs=L==="en"?CJ_EMPTY_EN:CJ_EMPTY_KR;
+        var emptyIdx=Math.floor(Math.random()*emptyMsgs.length);
+        h+='<div class="card" style="text-align:center;padding:16px"><p style="font-size:10px;color:var(--t3);font-style:italic">📡 '+emptyMsgs[emptyIdx]+'</p></div>';
+      }
 
       // 친구 카드
       h+='<div class="card" style="background:linear-gradient(135deg,rgba(249,115,22,0.08),rgba(236,72,153,0.08))">';
