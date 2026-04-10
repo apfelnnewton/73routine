@@ -1226,7 +1226,27 @@ function cjListenLog(){
 function cjSigBars(n){var h='<span class="cj-sig-bars">';for(var i=1;i<=3;i++)h+='<span class="cj-sig-bar '+(i<=n?'on':'off')+'"></span>';return h+'</span>';}
 
 // ===== BACKUP REMINDER =====
-function chkBackup(){}
+function chkBackup(){
+  try{
+    if(!nk||!D||!D.routines||!D.routines.length)return;
+    var last=parseInt(localStorage.getItem("73r-lastBackup")||"0",10);
+    var now=Date.now();
+    var WEEK=7*24*60*60*1000;
+    if(now-last<WEEK)return;
+    // Auto backup: trigger download
+    var b=new Blob([JSON.stringify({nk:nk,nkEn:nkEn,fks:fks,L:L,D:D},null,2)],{type:"application/json"});
+    var u=URL.createObjectURL(b);
+    var a=document.createElement("a");
+    a.href=u;
+    a.download="73routine-auto-"+dk(td)+".json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(u);
+    localStorage.setItem("73r-lastBackup",now);
+    setTimeout(function(){toast(L==="en"?"📥 Weekly auto-backup saved":"📥 주간 자동 백업 저장됨");},1500);
+  }catch(e){}
+}
 
 // ===== 페트로바 선 이벤트 =====
 var _pvActive=false,_pvTimer=null;
@@ -1317,7 +1337,35 @@ function load(){
   else updSetup();
 }
 function updSetup(){$("s-t").textContent=t("welcome");$("s-sub").textContent=t("choose");$("s-nick").placeholder=L==="en"?"Korean nickname":"한국어 닉네임";$("s-nick-en").placeholder=L==="en"?"English nickname":"영어 닉네임";$("s-fr").placeholder=t("frPH");$("s-btn").textContent=t("start");$("s-lg").textContent=L==="en"?"한국어":"English";}
-function doSetup(){var n=$("s-nick").value.trim(),ne=$("s-nick-en").value.trim(),f=$("s-fr").value.trim();if(!n)return;nk=n;nkEn=ne||n;if(f)fks=[f];save();$("pg-s").classList.add("hd");$("pg-m").classList.remove("hd");loadFr();render();toast("Welcome, "+myName()+"! 🚀");}
+function doSetup(){
+  var n=$("s-nick").value.trim(),ne=$("s-nick-en").value.trim(),f=$("s-fr").value.trim();
+  if(!n)return;
+  var btn=$("s-btn");var origText=btn.textContent;btn.disabled=true;btn.textContent=L==="en"?"Checking...":"확인 중...";
+  function finish(){btn.disabled=false;btn.textContent=origText;$("pg-s").classList.add("hd");$("pg-m").classList.remove("hd");loadFr();render();}
+  function asNew(){
+    nk=n;nkEn=ne||n;if(f)fks=[f];
+    save();
+    finish();toast("Welcome, "+myName()+"! 🚀");
+  }
+  function fromCloud(cloud){
+    nk=n;
+    D=cloud.D||{routines:[],days:{},pts:0,reviews:{}};
+    fks=cloud.fks||[];if(f&&fks.indexOf(f)<0)fks.push(f);
+    nkEn=cloud.nkEn||ne||n;
+    L=cloud.L||L;
+    fixD();
+    try{localStorage.setItem("73r",JSON.stringify({nk:nk,nkEn:nkEn,fks:fks,L:L,D:D,ts:cloud.ts||Date.now()}));}catch(e){}
+    finish();toast(L==="en"?"☁️ Welcome back, "+myName()+"!":"☁️ "+myName()+" 님 데이터 불러왔어요!");
+  }
+  if(!fb){asNew();return;}
+  try{
+    fb.ref("fulldata/"+n).once("value").then(function(snap){
+      var cloud=snap.val();
+      var hasRealData=cloud&&cloud.D&&cloud.D.routines&&cloud.D.routines.length>0;
+      if(hasRealData){fromCloud(cloud);}else{asNew();}
+    }).catch(function(){toast(L==="en"?"⚠️ Network error, starting fresh":"⚠️ 네트워크 오류, 새로 시작");asNew();});
+  }catch(e){asNew();}
+}
 function tgL(){L=L==="en"?"ko":"en";save();updSetup();render();}
 function tgSt(){$("h-set").classList.toggle("hd");}
 function openFrModal(){var m=$("fr-modal");$("fr-modal-title").textContent=L==="en"?"Friend's nickname":"친구 닉네임";$("fr-input").placeholder=L==="en"?"Enter nickname..":"닉네임 입력..";$("fr-cancel-btn").textContent=L==="en"?"Cancel":"취소";$("fr-confirm-btn").textContent=L==="en"?"Connect":"연결";$("fr-input").value="";m.style.display="flex";setTimeout(function(){$("fr-input").focus();},100);}
@@ -1700,15 +1748,18 @@ function render(){
     if(subT==="todo"){
       h+='<div class="card"><div style="display:flex;gap:6px;margin-bottom:8px"><input class="inp" id="td-inp" placeholder="'+t("taskPH")+'" onkeydown="if(event.key===\'Enter\'){this.blur();addTd();}"><button class="btn" onclick="addTd()">'+t("add")+'</button></div>';
       if(!sdy.todos||!sdy.todos.length)h+='<p style="text-align:center;color:var(--t3);font-size:10px;padding:8px">'+t("noT")+'</p>';
-      (sdy.todos||[]).forEach(function(x,xi){
+      var _allTd=sdy.todos||[];
+      var _pendTd=[],_doneTd=[];
+      _allTd.forEach(function(x,xi){if(x.done)_doneTd.push({x:x,xi:xi});else _pendTd.push({x:x,xi:xi});});
+      var _rndTd=function(x,xi,isDone){
         var sp=subProgress(x),hasSubs=x.subs&&x.subs.length>0,isOpen=openSubs[x.id];
-        h+='<div style="border-radius:10px;margin-bottom:3px;overflow:hidden;background:'+(x.done?"rgba(168,85,247,0.08)":"rgba(255,255,255,0.02)")+';border:1px solid rgba(255,255,255,0.04)">';
-        // Main row
+        h+='<div style="border-radius:10px;margin-bottom:3px;overflow:hidden;background:'+(x.done?"rgba(168,85,247,0.08)":"rgba(255,255,255,0.02)")+';border:1px solid rgba(255,255,255,0.04)'+(isDone?";opacity:0.55":"")+'">';
         h+='<div style="display:flex;align-items:center;gap:6px;padding:8px 10px">';
-        // Move buttons
         h+='<div style="display:flex;flex-direction:column;gap:1px">';
-        if(xi>0)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',-1)" style="background:none;border:none;color:var(--acc3);font-size:10px;padding:0;line-height:1">▲</button>';
-        if(xi<(sdy.todos||[]).length-1)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',1)" style="background:none;border:none;color:var(--acc3);font-size:10px;padding:0;line-height:1">▼</button>';
+        if(!isDone){
+          if(xi>0)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',-1)" style="background:none;border:none;color:var(--acc3);font-size:10px;padding:0;line-height:1">▲</button>';
+          if(xi<_allTd.length-1)h+='<button onclick="moveTd(\''+sk2+'\','+xi+',1)" style="background:none;border:none;color:var(--acc3);font-size:10px;padding:0;line-height:1">▼</button>';
+        }
         h+='</div>';
         h+='<button onclick="togTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;padding:0;display:flex;align-items:center;flex-shrink:0">';
         h+='<span style="width:18px;height:18px;border-radius:5px;flex-shrink:0;'+(x.done?"background:linear-gradient(135deg,var(--acc),var(--pink));":"border:2px solid rgba(255,255,255,0.2);")+'display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">'+(x.done?"✓":"")+'</span></button>';
@@ -1717,9 +1768,7 @@ function render(){
         h+='<button onclick="toggleSubArea(\''+x.id+'\')" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:10px;padding:2px;transition:transform .2s;'+(isOpen?"transform:rotate(180deg)":"")+'">▼</button>';
         if(!x.done)h+='<button onclick="moveTdTmrw(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:10px;padding:2px" title="'+t("tmrw")+'">→</button>';
         h+='<button onclick="rmTd(\''+sk2+'\',\''+x.id+'\')" style="background:none;border:none;color:var(--t3);font-size:10px;padding:2px">×</button></div>';
-        // Progress bar
         if(sp)h+='<div class="sub-progress"><div class="sub-progress-bar" style="width:'+sp.pct+'%"></div></div>';
-        // Sub-todo area
         h+='<div class="sub-area'+(isOpen?" open":"")+'">';
         if(hasSubs){
           h+='<div style="padding:4px 10px 4px 36px">';
@@ -1735,7 +1784,16 @@ function render(){
         h+='<input class="inp" id="sub-inp-'+x.id+'" placeholder="'+(L==="en"?"Add sub-item...":"하위 항목 추가...")+'" style="font-size:10px;padding:5px 8px;border-radius:6px" onkeydown="if(event.key===\'Enter\'){this.blur();addSubTd(\''+sk2+'\',\''+x.id+'\');}">';
         h+='<button class="btn" onclick="addSubTd(\''+sk2+'\',\''+x.id+'\')" style="padding:5px 10px;border-radius:6px;font-size:10px">+</button></div>';
         h+='</div>';
-        h+='</div>';});
+        h+='</div>';
+      };
+      _pendTd.forEach(function(o){_rndTd(o.x,o.xi,false);});
+      if(_doneTd.length){
+        h+='<div style="margin-top:14px;padding-top:12px;border-top:1px dashed rgba(255,255,255,0.12)">';
+        h+='<p style="font-size:10px;font-weight:700;color:var(--t3);margin-bottom:8px;letter-spacing:.5px">'+(L==="en"?"DONE":"완료")+' ('+_doneTd.length+')</p>';
+        _doneTd.forEach(function(o){_rndTd(o.x,o.xi,true);});
+        h+='<div style="font-size:11px;color:#7fce8a;margin-top:10px;text-align:center;padding:8px;background:rgba(127,206,138,0.08);border-radius:6px">'+(L==="en"?"Completed "+_doneTd.length+" today. Good job Good job Good job":"오늘 "+_doneTd.length+"개 완료. Good job Good job Good job")+'</div>';
+        h+='</div>';
+      }
       h+='</div>';}
     h+='</div>';
   }
