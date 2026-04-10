@@ -2165,6 +2165,8 @@ function render(){
     h+='</div>';
   }
   ct.innerHTML=h;
+  // Force browser repaint (fixes rendering bug on some devices)
+  void ct.offsetHeight;
 }
 
 // ===== Satellite flyby =====
